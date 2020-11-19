@@ -1,13 +1,78 @@
 import 'package:flutter/material.dart';
 
+List<BoxShadow> ShadowList = [
+  BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
+];
+
 class HorizontalList extends StatelessWidget {
+  var Categories = [
+    {
+      "caption": "shirt",
+      "pic": 'images/cats/tshirt.png',
+    },
+    {
+      "caption": "Accessories",
+      "pic": 'images/cats/accessories.png',
+    },
+    {
+      "caption": "Dress",
+      "pic": 'images/cats/dress.png',
+    },
+    {
+      "caption": "Formal",
+      "pic": 'images/cats/formal.png',
+    },
+    {
+      "caption": "Informal",
+      "pic": 'images/cats/informal.png',
+    },
+    {
+      "caption": "Jeans",
+      "pic": 'images/cats/jeans.png',
+    },
+    {
+      "caption": "Shoes",
+      "pic": 'images/cats/shoe.png',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110.0,
-      child: ListView(
+      height: 100.0,
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        children: [
+        itemCount: Categories.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            child: InkWell(
+              onTap: () {},
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: ShadowList,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Image.asset(
+                      Categories[index]['pic'],
+                      height: 60,
+                      width: 60,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    Categories[index]['caption'],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        /*children: [
           Category(
             image_location: 'images/cats/tshirt.png',
             image_caption: 'Shirt',
@@ -36,7 +101,7 @@ class HorizontalList extends StatelessWidget {
             image_location: 'images/cats/shoe.png',
             image_caption: 'Shoes',
           ),
-        ],
+        ],*/
       ),
     );
   }

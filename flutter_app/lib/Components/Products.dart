@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+List<BoxShadow> ShadowList = [
+  BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
+];
+
 class Products extends StatefulWidget {
   Products({Key key}) : super(key: key);
 
@@ -21,6 +25,66 @@ class _ProductsState extends State<Products> {
       "old_price": 100,
       "price": 50,
     },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Blazzer",
+      "picture": "images/products/blazer1.jpeg",
+      "old_price": 120,
+      "price": 85,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
+    {
+      "name": "Red dress",
+      "picture": "images/products/dress1.jpeg",
+      "old_price": 100,
+      "price": 50,
+    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,6 +99,26 @@ class _ProductsState extends State<Products> {
             prod_old_price: product_list[index]['old_price'],
             prod_price: product_list[index]['price'],
           );
+          /*return Container(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(left: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: ShadowList,
+                  ),
+                  child: Image.asset(
+                    product_list[index]['picture'],
+                    height: 80,
+                    width: 80,
+                    //color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          );*/
         });
   }
 }
