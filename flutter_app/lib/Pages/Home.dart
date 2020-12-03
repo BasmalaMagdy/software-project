@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_app/Components/Horizontal_listview.dart';
-import 'package:flutter_app/Components/Products.dart';
 import 'package:flutter_app/Components/Search.dart';
 import 'package:flutter_app/Pages/test.dart';
+import 'package:flutter_app/Pages/profile.dart';
 
 List<BoxShadow> ShadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
@@ -84,10 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new ListView(
           children: <Widget>[
             //            header
-            new UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               accountName: Text('Ahmed'),
               accountEmail: Text('ahmed@gmail.com'),
               currentAccountPicture: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Profile()));
+                },
                 child: new CircleAvatar(
                   backgroundColor: Colors.black,
                   child: Icon(
@@ -97,9 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               decoration: new BoxDecoration(
-                color: Colors.blue,
+                color: Colors.grey,
               ),
             ),
+
 //              Body
             InkWell(
               onTap: () {},
@@ -110,7 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
+              },
               child: ListTile(
                 title: Text('My Account'),
                 leading: Icon(Icons.person),
@@ -213,6 +219,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {},
+              child: ListTile(
+                title: Text('Sign out'),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -235,7 +251,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     showSearch(context: context, delegate: DataSearch());
                   },
                 ),
-                Text("Search Products"),
+                GestureDetector(
+                    onTap: () {
+                      showSearch(context: context, delegate: DataSearch());
+                    },
+                    child: Container(
+                      child: Text("Search Products"),
+                    )),
                 Icon(Icons.filter_list),
               ],
             ),
