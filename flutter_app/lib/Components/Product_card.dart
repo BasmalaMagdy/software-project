@@ -12,10 +12,7 @@ class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, '/product_view',
-            arguments: widget.product);
-      },
+      onTap: () {},
       child: Container(
         height: 240.0,
         child: Row(
