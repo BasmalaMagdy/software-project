@@ -1,13 +1,131 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class Profile extends StatefulWidget {
-  Profile({Key key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class EditProfile extends StatefulWidget {
+  EditProfile({Key key, this.person}) : super(key: key);
+  final Map person;
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _EditProfileState extends State<EditProfile> {
+  //Map person = {};
+  bool _showPassword = false;
+  PickedFile _imageFile;
+  TextEditingController _name = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+
+  Widget imageProfile() {
+    return Center(
+      child: Stack(children: <Widget>[
+        CircleAvatar(
+          radius: 80.0,
+          backgroundImage: _imageFile == null
+              ? AssetImage("images/${widget.person['photo']}")
+              : FileImage(File(_imageFile.path)),
+        ),
+        Positioned(
+          bottom: 20.0,
+          right: 0.0,
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: ((builder) => bottomSheet()),
+              );
+            },
+            child: Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+              size: 28.0,
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose Profile photo",
+            style: TextStyle(
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            FlatButton.icon(
+              icon: Icon(Icons.camera),
+              onPressed: () {
+                takePhoto(ImageSource.camera);
+              },
+              label: Text("Camera"),
+            ),
+            FlatButton.icon(
+              icon: Icon(Icons.image),
+              onPressed: () {
+                takePhoto(ImageSource.gallery);
+              },
+              label: Text("Gallery"),
+            ),
+          ])
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
+
+  Widget nameTextField() {
+    return TextFormField(
+      controller: _name,
+      validator: (value) {
+        if (value.isEmpty) return "Name can't be empty";
+
+        return null;
+      },
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.teal,
+        )),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+          color: Colors.orange,
+          width: 2,
+        )),
+        prefixIcon: Icon(
+          Icons.person,
+          color: Colors.green,
+        ),
+        labelText: "Name",
+        helperText: "Name can't be empty",
+        hintText: "Dev Stack",
+      ),
+    );
+  }
+
   Widget textfield({@required String hintText}) {
     return Material(
       elevation: 4,
@@ -17,13 +135,57 @@ class _ProfileState extends State<Profile> {
       ),
       child: TextField(
         decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.teal,
+          )),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.orange,
+            width: 2,
+          )),
+          labelText: hintText,
+          hintText: hintText,
+          labelStyle: TextStyle(
+              letterSpacing: 2,
+              color: Colors.grey,
+              fontWeight: FontWeight.bold),
+          fillColor: Colors.white30,
+          filled: false,
+          /*           border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide.none,
+            )*/
+        ),
+      ),
+    );
+  }
+
+  Widget passfield({@required String hintText}) {
+    return Material(
+      elevation: 4,
+      shadowColor: Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+            labelText: hintText,
+            labelStyle: TextStyle(
                 letterSpacing: 2,
                 color: Colors.black54,
                 fontWeight: FontWeight.bold),
             fillColor: Colors.white30,
             filled: false,
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _showPassword = !_showPassword;
+                });
+              },
+              child:
+                  Icon(_showPassword ? Icons.visibility : Icons.visibility_off),
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide.none,
@@ -34,71 +196,58 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    //person = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.grey[850],
+      ),
       body: ListView(
         children: [
           Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.topLeft,
             children: [
-              CustomPaint(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                ),
-                painter: HeaderCurvedContainer(),
-              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      "Profile",
-                      style: TextStyle(
-                          fontSize: 35,
-                          letterSpacing: 1.5,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
+                  imageProfile(),
+                  /*Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: Center(
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage('images/${person['photo']}'),
+                        radius: 90.0,
+                      ),
                     ),
+                  ),*/
+                  SizedBox(
+                    height: 15,
                   ),
                   Container(
-                    padding: EdgeInsets.all(10.0),
-                    width: 170, //MediaQuery.of(context).size.width / 2,
-                    height: 170, //MediaQuery.of(context).size.height / 4,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 5),
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('images/profile.JPG'),
-                        )),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 350)),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 270)),
-                  Container(
-                    height: 400,
+                    height: 470,
                     width: double.infinity,
                     margin: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        //nameTextField(),
                         textfield(
-                          hintText: 'Username',
+                          hintText: 'personname',
                         ),
                         textfield(
                           hintText: 'Email',
                         ),
                         textfield(
+                          hintText: 'Phone',
+                        ),
+                        passfield(
                           hintText: 'Password',
                         ),
-                        textfield(
+                        passfield(
                           hintText: 'ConfirmPassword',
                         ),
                         Container(
@@ -121,169 +270,30 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 350, left: 150),
+              /*Padding(
+                padding: EdgeInsets.only(top: 25, left: 100),
                 child: CircleAvatar(
-                  backgroundColor: Colors.black54,
+                  backgroundColor: Colors.white,
                   child: IconButton(
                     icon: Icon(
                       Icons.edit,
-                      color: Colors.white,
+                      color: Colors.black54,
                     ),
                     onPressed: () {},
                   ),
                 ),
-              )
+              ),*/
+              /*Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 200)),
+                  
+                ],
+              ),*/
             ],
           ),
         ],
       ),
     );
   }
-}
-/*
-class Profile extends StatelessWidget {
-  const Profile({Key key}) : super(key: key);
-
-  Widget textfield({@required String hintText}) {
-    return Material(
-      elevation: 4,
-      shadowColor: Colors.grey,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextField(
-        decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(
-                letterSpacing: 2,
-                color: Colors.black54,
-                fontWeight: FontWeight.bold),
-            fillColor: Colors.white30,
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide.none,
-            )),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 400,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    textfield(
-                      hintText: 'Username',
-                    ),
-                    textfield(
-                      hintText: 'Email',
-                    ),
-                    textfield(
-                      hintText: 'Password',
-                    ),
-                    textfield(
-                      hintText: 'ConfirmPassword',
-                    ),
-                    Container(
-                      height: 55,
-                      width: double.infinity,
-                      child: RaisedButton(
-                        onPressed: () {},
-                        color: Colors.black54,
-                        child: Center(
-                          child: Text(
-                            "Update",
-                            style: TextStyle(fontSize: 23, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          CustomPaint(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-            painter: HeaderCurvedContainer(),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  "Profile",
-                  style: TextStyle(
-                      fontSize: 35,
-                      letterSpacing: 1.5,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 2,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 5),
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('images/profile.JPG'),
-                    )),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 270, left: 184),
-            child: CircleAvatar(
-              backgroundColor: Colors.black54,
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}*/
-
-class HeaderCurvedContainer extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Color(0xff555555);
-    Path path = Path()
-      ..relativeLineTo(0, 150)
-      ..quadraticBezierTo(size.width / 2, 255, size.width, 150)
-      ..relativeLineTo(0, -150)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
