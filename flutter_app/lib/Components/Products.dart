@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_app/Pages/test.dart';
-import '../Pages/test.dart';
 
 List<BoxShadow> ShadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
@@ -137,19 +135,10 @@ class Single_Product extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Hero(
-         tag: new Text("hero 1"),
-          //tag: prod_name,
+          tag: prod_name,
           child: Material(
             child: InkWell(
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                //here we are passing the values of the products to product page 
-                builder: (context) => new Product(
-                  Product_detail_name: prod_name,
-                  Product_detail_new_price: prod_price,
-                  Product_detail_old_price: prod_old_price,
-                  Product_detail_picture: prod_pic,
-                )
-                )),
+              onTap: () {},
               child: GridTile(
                   footer: Container(
                     color: Colors.white70,

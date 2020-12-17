@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Components/Products.dart';
 
 //press stl to appear this class
 /* class Product extends StatelessWidget {
@@ -13,18 +12,8 @@ import 'package:flutter_app/Components/Products.dart';
 } */
 //stf
 class Product extends StatefulWidget {
-  final Product_detail_name;
-  final Product_detail_new_price;
-  final Product_detail_old_price;
-  final Product_detail_picture;
-
-  //constractor
-  Product({
-    this.Product_detail_name,
-    this.Product_detail_new_price,
-    this.Product_detail_old_price,
-    this.Product_detail_picture,
-  });
+  Product({Key key, this.product}) : super(key: key);
+  final Map product;
 
   @override
   _ProductState createState() => _ProductState();
@@ -33,6 +22,7 @@ class Product extends StatefulWidget {
 class _ProductState extends State<Product> {
   @override
   Widget build(BuildContext context) {
+    //product = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1, //el shadow lel list
@@ -70,13 +60,13 @@ class _ProductState extends State<Product> {
             child: GridTile(
                 child: Container(
                   color: Colors.white,
-                  child: Image.asset(widget.Product_detail_picture),
+                  child: Image.asset('images/cats/${widget.product['photo']}'),
                 ),
                 footer: new Container(
                   color: Colors.white70,
                   child: ListTile(
                     leading: new Text(
-                      widget.Product_detail_name,
+                      '${widget.product['name']}',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -86,7 +76,7 @@ class _ProductState extends State<Product> {
                             child:
                                 //\$ to appear $
                                 new Text(
-                          "\$${widget.Product_detail_old_price}",
+                          '\$${widget.product['oldprice']} 52',
                           style: TextStyle(
                               color: Colors.grey,
                               decoration: TextDecoration
@@ -94,7 +84,7 @@ class _ProductState extends State<Product> {
                         )),
                         Expanded(
                             child: new Text(
-                          "\$${widget.Product_detail_new_price}",
+                          "\$${widget.product['price']}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.red,
@@ -177,7 +167,7 @@ class _ProductState extends State<Product> {
                 ),
               ),
 
-              //=========the size button------
+              //=========the Quantity button------
               Expanded(
                 child: MaterialButton(
                   onPressed: () {
@@ -238,49 +228,62 @@ class _ProductState extends State<Product> {
                   onPressed: () {}),
             ],
           ),
-           Divider(),
+          Divider(),
           new ListTile(
             title: new Text("Product details"),
             subtitle: new Text(
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
           ),
-           Divider(),
-           new Row(
-             children: <Widget>[
-               Padding(padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: new Text("Product name", style: TextStyle(color: Colors.grey),),
-               ),
-                Padding(padding: EdgeInsets.all(5.0),
-               child: new Text(widget.Product_detail_name),
-               )
-             ],
-           ),
+          Divider(),
+          new Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                child: new Text(
+                  "Product name",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text('${widget.product['name']}'),
+              )
+            ],
+          ),
 
-                new Row(
-             children: <Widget>[
-               Padding(padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: new Text("Product brand", style: TextStyle(color: Colors.grey),),
-               ),
-                //   remember ading product brand
-                Padding(padding: EdgeInsets.all(5.0),
-               child: new Text("Brand x"),
-               )
-             ],
-           ),
+          new Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                child: new Text(
+                  "Product brand",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              //   remember ading product brand
+              Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("Brand x"),
+              )
+            ],
+          ),
 
 //  add the prod condition
-               new Row(
-             children: <Widget>[
-               Padding(padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: new Text("Product condition", style: TextStyle(color: Colors.grey),),
-               ),
-
-                 Padding(padding: EdgeInsets.all(5.0),
-               child: new Text("New"),
-               )
-             ],
-           )
-
+          new Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+                child: new Text(
+                  "Product condition",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(5.0),
+                child: new Text("New"),
+              )
+            ],
+          )
         ],
       ),
     ); //has many properties which are handy such as appbar
