@@ -1,4 +1,9 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/comment.dart';
+//import './comments.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 //press stl to appear this class
 /* class Product extends StatelessWidget {
@@ -20,6 +25,14 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  double rating = 0.0; // var to print rating
+
+  //=========== lists of comments ===========
+  List comments = [
+    {'name': "nemo", "content": "hfgfdjcgfegvcdhfvf"},
+    {'name': "mard", "content": "hfgfdjcgfegvcdhfvf"},
+    {'name': "dori", "content": "hfgfdjcgfegvcdhfvf"},
+  ];
   @override
   Widget build(BuildContext context) {
     //product = ModalRoute.of(context).settings.arguments;
@@ -76,7 +89,7 @@ class _ProductState extends State<Product> {
                             child:
                                 //\$ to appear $
                                 new Text(
-                          '\$${widget.product['oldprice']} 52',
+                          '\$${widget.product['oldprice']}',
                           style: TextStyle(
                               color: Colors.grey,
                               decoration: TextDecoration
@@ -86,9 +99,10 @@ class _ProductState extends State<Product> {
                             child: new Text(
                           "\$${widget.product['price']}",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                              decoration: TextDecoration.lineThrough),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                            /*decoration: TextDecoration.lineThrough*/
+                          ),
                         )),
                       ],
                     ),
@@ -228,6 +242,8 @@ class _ProductState extends State<Product> {
                   onPressed: () {}),
             ],
           ),
+
+          //===================================
           Divider(),
           new ListTile(
             title: new Text("Product details"),
@@ -250,7 +266,7 @@ class _ProductState extends State<Product> {
               )
             ],
           ),
-
+//=============================================
           new Row(
             children: <Widget>[
               Padding(
@@ -260,7 +276,7 @@ class _ProductState extends State<Product> {
                   style: TextStyle(color: Colors.grey),
                 ),
               ),
-              //   remember ading product brand
+              //   remember adding product brand
               Padding(
                 padding: EdgeInsets.all(5.0),
                 child: new Text("Brand x"),
@@ -283,7 +299,175 @@ class _ProductState extends State<Product> {
                 child: new Text("New"),
               )
             ],
-          )
+          ),
+//====================rating==============================
+          Divider(),
+          new Row(
+            children: <Widget>[
+              SmoothStarRating(
+                starCount: 5,
+                isReadOnly: false, // can changr rating or not
+                spacing: 2,
+                rating: 4,
+                size: 30,
+                color: Colors.yellow[700],
+                borderColor: Colors.yellow[800],
+                //=====print product rating in terminal====
+                onRated: (value) {
+                  setState(() {
+                    rating = value;
+                    print("Rating is : $rating");
+                  });
+                },
+                //============
+              ),
+            ],
+          ),
+
+          //====================comments=========
+          Divider(),
+          new ListTile(
+            title: new Text("Reviews"),
+          ),
+          //  ============ write your revirw=============
+          Card(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  title: TextFormField(
+                    maxLength: 255,
+                    maxLines: 10,
+                    minLines: 1,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: "write your review",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ),
+                //========== button =========
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(
+                            color: Colors.blueGrey.withOpacity(0.2),
+                          ))),
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .center, // make button in center
+                            children: <Widget>[
+                              Text(
+                                "Add",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.grey[600], fontSize: 17),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 10),
+                              ),
+                              Icon(
+                                Icons.add_box,
+                                color: Colors.grey,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+
+          Card(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  title: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Text("Name"),
+                  ),
+                  //trailing: Icon(Icon.filter_list),
+                  isThreeLine: true,
+                  subtitle: Text("vhdgfnhvhgffgddfdfj hjhgfhdfd"),
+                ),
+                Divider(
+                  color: Colors.grey.withOpacity(0.5),
+                ),
+                //=================like and comment======================
+                new Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.thumb_up,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "Like",
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.only(top: 5, bottom: 5),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.comment,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              "comment",
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        padding: EdgeInsets.only(top: 5, bottom: 5),
+                      ),
+                    ),
+                  ],
+                ),
+                //============================================
+              ],
+            ),
+          ),
+          // for loop for comments
+          /*for(int i = 0; i <comments.length; i++)
+           {
+             name : comments[i]['name'],
+             content : comments[i]['content'],
+           }*/
+          //======================
         ],
       ),
     ); //has many properties which are handy such as appbar

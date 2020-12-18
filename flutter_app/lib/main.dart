@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app/Pages/Home.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 void main() {
   runApp(MyApp());
