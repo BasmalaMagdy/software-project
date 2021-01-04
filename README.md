@@ -39,9 +39,9 @@ It consists of two interface
 => Add product
 
 ## Android Screenshots
-|  Start page                 |  
-| :-------------------------: |
-|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/13.jpg)![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/14.jpg)![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/15.jpg)|
+|  Start page                 |  Start page                 |  Start page                 |
+| :-------------------------: | :-------------------------: | :-------------------------: |
+|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/13.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/14.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/15.jpg)|
 
 |      Sign Up                |      Customer sign up       |      Seller sign up         |
 | :-------------------------: | :-------------------------: | :-------------------------: |
