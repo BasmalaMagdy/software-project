@@ -39,6 +39,18 @@ It consists of two interface
 => Add product
 
 ## Android Screenshots
+Start page
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/13.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/14.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/15.jpg)
+
+|      Sign Up                |      Customer sign up       |      Seller sign up         |
+| :-------------------------: | :-------------------------: | :-------------------------: |
+| ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/16.jpg) | ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/17.jpg) | ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/18.jpg) |
+
+|         Sign In             |   Forget Password         |
+| :-------------------------: | :-------------------------:
+| ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/19.jpg) | ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/20.jpg) |
+
 
   HomePage                 |   Category        |  Product Detail Page
 :-------------------------:|:-------------------------:|:-------------------------:
