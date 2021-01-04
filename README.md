@@ -39,7 +39,7 @@ It consists of two interface
 => Add product
 
 ## Android Screenshots
-|                             Start page|
+|                             Start page                    |sd|sd|
 |:-------------------------:|:-------------------------:|:-------------------------:|
 ![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/13.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/14.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/15.jpg)
 
