@@ -42,7 +42,7 @@ It consists of two interface
 
   HomePage                 |   Category        |  Product Detail Page
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/preview/1.jpg)|![](/preview/2.jpg)|![](/preview/3.jpg)
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/1.jpg)|![](/preview/2.jpg)|![](/preview/3.jpg)
 
   Review & comments        |   Cart                    |  Side menue
 :-------------------------:|:-------------------------:|:-------------------------:
