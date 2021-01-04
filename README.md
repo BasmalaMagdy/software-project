@@ -42,19 +42,19 @@ It consists of two interface
 
   HomePage                 |   Category        |  Product Detail Page
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/1.jpg)|![](/preview/2.jpg)|![](/preview/3.jpg)
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/1.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/2.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/3.jpg)
 
   Review & comments        |   Cart                    |  Side menue
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/preview/4.jpg)|![](/preview/5.jpg)|![](/preview/6.jpg)
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/4.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/5.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/6.jpg)
 
   Profile                |   Edit Profile        |  About
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/preview/7.jpg)|![](/preview/8.jpg)|![](/preview/9.jpg)
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/7.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/8.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/9.jpg)
 
   Seller Home page         |   Add product        |  Add product
 :-------------------------:|:-------------------------:|:-------------------------:
-![](/preview/10.jpg)|![](/preview/11.jpg)|![](/preview/12.jpg)
+![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/10.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/11.jpg)|![](https://github.com/BasmalaMagdy/software-project/blob/master/flutter_app/preview/12.jpg)
 
 
 ## Directory Structure
