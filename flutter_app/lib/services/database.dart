@@ -9,7 +9,7 @@ class DatabaseService {
   final CollectionReference productsCollection =
       FirebaseFirestore.instance.collection('products');
 
-  Future<void> updateProductData(
+  Future<void> updateProductData (
       String pid, String name, String category,String description, String photo,String sid, double price, double quantity) async {
     return await productsCollection.doc(pid).set({
       'name': name,
@@ -21,7 +21,7 @@ class DatabaseService {
       'photo': photo,
     });
   }
-  Future<void> CreateProductData(
+  Future<void> CreateProductData (
        String name, String category,String description, String photo,String sid, double price, double quantity) async {
     return await productsCollection.add({
       'name': name,
@@ -34,11 +34,25 @@ class DatabaseService {
     });
   }
 
-  // user data from snapshots
+  // product data from snapshots
   ProductData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return ProductData(
-        pid: snapshot.id);
 
+      pid: snapshot.id,
+      name: snapshot.data()['name'],
+      category: snapshot.data()['category'],
+      description: snapshot.data()['description'],
+      photo: snapshot.data()['photo'],
+      sid: snapshot.data()['sid'],
+      price: snapshot.data()['price'],
+      quantity: snapshot.data()['quantity'],
+    );
+  }
+
+  Future<List<ProductData>> get Products{
+    return productsCollection.doc().snapshots().map((snapshot){
+      return _userDataFromSnapshot(snapshot);
+    }).toList();
   }
 
 
