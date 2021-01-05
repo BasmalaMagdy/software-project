@@ -41,7 +41,7 @@ class _ProductState extends State<Product> {
         backgroundColor: Colors.white12,
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
-        title: Text('Drop'), //app name
+        title: Text('Fetch'), //app name
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -63,9 +63,9 @@ class _ProductState extends State<Product> {
       /* drawer: new Drawer(
        child: new ListView( //child has many widget of children
          children: <Widget>[
-           
+
          ],
-       ), 
+       ),
       ),
   */
       //listview to scroll

@@ -30,17 +30,21 @@ dependencies:
   firebase_core: ^0.5.3
   provider: ^4.3.2+3
   carousel_slider: ^2.3.1
+  carousel_pro: ^1.0.0
   flutter_svg: ^0.17.4 # helps us to use SVG in our app
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
+
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 
-  carousel_pro: ^1.0.0
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
