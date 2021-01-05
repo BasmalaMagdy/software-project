@@ -16,7 +16,7 @@ class About extends StatelessWidget {
         padding: EdgeInsets.all(20),
 
         children: [
-         Center(child: Text("Drop Application",  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15))),
+         Center(child: Text("Fetch Application",  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15))),
           SizedBox(
             height: 20.0,
           ),
@@ -31,7 +31,7 @@ class About extends StatelessWidget {
               SizedBox(
                 width: 10.0,
               ),
-            Text("Drop@gmail.com"),
+            Text("Fetch@gmail.com"),
           ]),
           Row(children: [
             Icon(Icons.phone, color: Colors.black),

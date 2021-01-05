@@ -106,7 +106,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Drop",
+              "Fetch",
               style: TextStyle(color: Colors.black),
             ),
             Icon(Icons.location_on),
