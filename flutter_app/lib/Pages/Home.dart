@@ -5,8 +5,9 @@ import 'package:flutter_app/Components/Horizontal_listview.dart';
 import 'package:flutter_app/Components/Product_card.dart';
 import 'package:flutter_app/Components/Search.dart';
 import 'package:flutter_app/Components/Sidemene.dart';
+import 'package:flutter_app/Components/carousel.dart';
 import 'package:flutter_app/Pages/cart.dart';
-
+import 'package:flutter_app/Components/carousel.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -142,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           SearchField(),
           //image carousel begin here
-          ImageCarousel,
+          //ImageCarousel,
+          CarouselImg(),
           // padding widget
           new Padding(
             padding: const EdgeInsets.all(6.0),

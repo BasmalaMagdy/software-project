@@ -1,7 +1,5 @@
 //import 'dart:js';
 
-import 'dart:js';
-
 import 'package:flutter_app/Pages/Home.dart';
 import 'package:flutter_app/Pages/Seller.dart';
 import 'package:flutter_app/Pages/about.dart';

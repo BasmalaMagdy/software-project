@@ -69,7 +69,9 @@ class _BodyState extends State<Body> {
                     itemBuilder: (context, index) => SplashContent(
                           image: splashData[index]["image"],
                           text: splashData[index]["text"],
-                        ))),
+                        )
+                )
+            ),
             //Slider Dots row
             Expanded(
                 flex: 2,

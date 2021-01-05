@@ -61,16 +61,6 @@ class _SideListState extends State<SideList> {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, SplashScreen.routeName);
-            },
-            child: ListTile(
-              title: Text('Test Sign Interface'),
-              leading: Icon(Icons.person),
-            ),
-          ),
-
-          InkWell(
-            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SellerInterface()));
             },

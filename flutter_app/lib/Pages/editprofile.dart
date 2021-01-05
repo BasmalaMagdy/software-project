@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/size_config.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/components/form_error.dart';
+
 
 
 
@@ -16,8 +20,16 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  String name;
+  String email;
+  String password;
+  String confirmpassword;
+  String phone;
+  final _formKey = GlobalKey<FormState>();
+  final List<String> errors = [];
 
   bool _showPassword = false;
+  bool _showConfirmPassword = false;
   PickedFile _imageFile;
   TextEditingController _name = TextEditingController();
   final ImagePicker _picker = ImagePicker();
@@ -110,73 +122,50 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  Widget nameTextField() {
-    return TextFormField(
-      controller: _name,
-      validator: (value) {
-        if (value.isEmpty) return "Name can't be empty";
-
-        return null;
-      },
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.teal,
-            )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.orange,
-              width: 2,
-            )),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.green,
-        ),
-        labelText: "Name",
-        helperText: "Name can't be empty",
-        hintText: "Dev Stack",
-      ),
-    );
-  }
-
   Widget textfield({@required String hintText}) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Material(
         elevation: 4,
-        shadowColor: Colors.grey,
+        shadowColor: Colors.blue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left:8.0),
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderSide: BorderSide.none
-               /* color: Colors.blue,*/
-              ),
-              /*focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                    width: 2,
-                  )),*/
-              labelText: hintText,
-              //hintText: hintText,
-              labelStyle: TextStyle(
-                letterSpacing: 2,
-                color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-              ),
-              hintStyle: TextStyle(
-                letterSpacing: 2,
-                color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-              ),
-              fillColor: Colors.white30,
-              filled: false,
+        child: TextFormField(
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            border: OutlineInputBorder(
+                borderSide: BorderSide.none
             ),
+            labelText: hintText,
+            //hintText: hintText,
+            labelStyle: TextStyle(
+              letterSpacing: 2,
+              color: Colors.black54,
+                fontWeight: FontWeight.bold,
+            ),
+            hintStyle: TextStyle(
+              letterSpacing: 2,
+              color: Colors.black54,
+                fontWeight: FontWeight.bold,
+            ),
+            fillColor: Colors.white30,
+            filled: false,
           ),
+          style: TextStyle(fontSize: 13),
+          cursorColor: Colors.black,
+          keyboardType: TextInputType.name,
+          onSaved: (newValue) => name = newValue,
+          onChanged: (value) {},
+          validator: (value) {
+            if (value.isEmpty) {
+              addError(error: kNameNullError);
+              return "";
+            } else if (value.isNotEmpty) {
+              removeError(error: kNameNullError);
+            }
+            return null;
+          },
         ),
       ),
     );
@@ -218,20 +207,206 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
+  void addError({String error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  void removeError({String error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
+
+  TextFormField buildPhoneFormField(){
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "Phone number",
+        hintText: "Enter a valid phone number.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: getProportionateScreenWidth(30)),
+      cursorColor: Colors.black,
+      keyboardType: TextInputType.number,
+      onSaved: (newValue) => name = newValue,
+      onChanged: (value) {},
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPhoneNullError);
+          return "";
+        } else if (value.isNotEmpty) {
+          removeError(error: kPhoneNullError);
+          if (value.length < 11 || value.length > 11) {
+            addError(error: kPhoneInvalidError);
+            return "";
+          } else if (value.length == 11) {
+            removeError(error: kPhoneInvalidError);
+          }
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildNameFormField(){
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "User Name",
+        hintText: "Enter your User Name.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: getProportionateScreenWidth(30)),
+      cursorColor: Colors.black,
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => name = newValue,
+      onChanged: (value) {},
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kNameNullError);
+          return "";
+        } else if (value.isNotEmpty) {
+          removeError(error: kNameNullError);
+        }
+        return null;
+      },
+    );
+  }
+
+  TextFormField buildConfirmPasswordFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.visiblePassword,
+      maxLength: 20,
+      cursorColor: Colors.black,
+      obscureText: _showConfirmPassword,
+      onSaved: (newValue) => confirmpassword = newValue,
+      onChanged: (value) {
+        // if (password == confirmpassword) {
+        //   removeError(error: kMatchPassError);
+        // }
+        // return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return "";
+        } else if (value.isNotEmpty) {
+          if (value == password) {
+            removeError(error: kMatchPassError);
+          } else if (value != password) {
+            addError(error: kMatchPassError);
+          }
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _showConfirmPassword = !_showConfirmPassword;
+            });
+          },
+          child:
+          Icon(_showConfirmPassword ? Icons.visibility_off : Icons.visibility),
+        ),
+        labelText: "Confirm password",
+        hintText: "Re-enter password.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: getProportionateScreenWidth(30)),
+    );
+  }
+
+  TextFormField buildPasswordFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.visiblePassword,
+      maxLength: 20,
+      cursorColor: Colors.black,
+      obscureText: _showPassword,
+      onSaved: (newValue) => password = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPasswordNullError);
+        } else if (value.length >= 8) {
+          removeError(error: kPasswordShortError);
+        }
+        password = value;
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPasswordNullError);
+          return "";
+        } else if (value.length < 8) {
+          addError(error: kPasswordShortError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _showPassword = !_showPassword;
+            });
+          },
+          child:
+          Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+        ),
+        labelText: "Password",
+        hintText: "Enter your password.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: getProportionateScreenWidth(30)),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+          if (emailValidatorRegExp.hasMatch(value)) {
+            removeError(error: kInvalidEmailError);
+          }
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Email",
+        hintText: "Enter your email.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: getProportionateScreenWidth(30)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[400],
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
-        //backgroundColor: const Color(0xFF167F67),
         title: Text(
           'Edit Profile', style: TextStyle(
           color: Colors.black
         ),
-
         ),
       ),
 
@@ -243,38 +418,51 @@ class _EditProfileState extends State<EditProfile> {
           SizedBox(
             height: 40,
           ),
-          textfield(
-            hintText: 'person name',
-          ),
-          textfield(
-            hintText: 'Email',
-          ),
-          textfield(
-            hintText: 'Phone',
-          ),
-          passfield(
-            hintText: 'Password',
-          ),
-          passfield(
-            hintText: 'ConfirmPassword',
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 65,right: 65, top: 10),
-            height: 55,
-            //width: double.infinity,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              onPressed: () {},
-              color: Colors.white,
-              child: Center(
-                child: Text(
-                  "Update",
-                  style: TextStyle(
-                      fontSize: 23, color: Colors.black),
-                ),
-              ),
-            ),
+          Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  //USERNAME TEXT FIELD
+                  buildNameFormField(),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  /*  Email field  */
+                  buildEmailFormField(),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  /*  password field  */
+                  buildPasswordFormField(),
+                  /*  confirm field  */
+                  buildConfirmPasswordFormField(),
+                  /*   Phone   */
+                  buildPhoneFormField(),
+                  SizedBox(height: SizeConfig.screenHeight * 0.05),
+                  FormError(errors: errors),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  Container(
+
+                    margin: EdgeInsets.only(left: 65,right: 65, bottom: 10),
+                    height: 55,
+                    //width: double.infinity,
+                    child: RaisedButton(
+
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+                        }
+                      },
+                      color: Colors.black,
+                      child: Center(
+                        child: Text(
+                          "Update",
+                          style: TextStyle(
+                              fontSize: 23, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
           ),
         ],
       ),
