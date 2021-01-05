@@ -4,14 +4,16 @@ import 'package:flutter_app/models/comment.dart';
 
 class DatabaseService {
   final String uid;
+
   DatabaseService({this.uid});
 
   // collection reference
   final CollectionReference productsCollection =
-      FirebaseFirestore.instance.collection('products');
+  FirebaseFirestore.instance.collection('products');
 
-  Future<void> updateProductData (
-      String pid, String name, String category,String description, String photo,String sid, double price, double quantity) async {
+  Future<void> updateProductData(String pid, String name, String category,
+      String description, String photo, String sid, double price,
+      double quantity) async {
     return await productsCollection.doc(pid).set({
       'name': name,
       'category': category,
@@ -23,8 +25,9 @@ class DatabaseService {
     });
   }
 
-  Future<void> CreateProductData(
-       String name, String category,String description, String photo,String sid, double price, double quantity) async {
+  Future<void> CreateProductData(String name, String category,
+      String description, String photo, String sid, double price,
+      double quantity) async {
     return await productsCollection.add({
       'name': name,
       'category': category,
@@ -35,8 +38,8 @@ class DatabaseService {
       'photo': photo,
     });
   }
-      Future<void> CreateProductComment(
-      String cid, String pid, String uid) async {
+
+  Future<void> CreateProductComment(String cid, String pid, String uid) async {
     return await productsCollection.doc(pid).collection("comments").add({
       'comment': cid,
       'product': pid,
@@ -48,7 +51,6 @@ class DatabaseService {
   // product data from snapshots
   ProductData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return ProductData(
-
       pid: snapshot.id,
       name: snapshot.data()['name'],
       category: snapshot.data()['category'],
@@ -60,28 +62,25 @@ class DatabaseService {
     );
   }
 
-  Future<List<ProductData>> get Products{
-    return productsCollection.doc().snapshots().map((snapshot){
-      return _userDataFromSnapshot(snapshot);
-    }).toList();
-
-  // Product data from snapshots
-
-
-    CommentData _userCommentFromSnapshot(DocumentSnapshot snapshot) {
+  CommentData _userCommentFromSnapshot(DocumentSnapshot snapshot) {
     return CommentData(
         cid: snapshot.id);
   }
 
-    Future<List<CommentData>> comments(pid) {
-    return productsCollection.doc(pid).collection("comments").doc().snapshots().map((snapshot) {
-     return  _userCommentFromSnapshot(snapshot);
-    }
-    ).toList();
-
+  Future<List<ProductData>> get Products {
+    return productsCollection.doc().snapshots().map((snapshot) {
+      return _userDataFromSnapshot(snapshot);
+    }).toList();
   }
 
-
+  Future<List<CommentData>> comments(pid) {
+    return productsCollection.doc(pid).collection("comments").doc()
+        .snapshots()
+        .map((snapshot) {
+      return _userCommentFromSnapshot(snapshot);
+    }
+    ).toList();
+  }
 }
 
 
