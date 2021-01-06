@@ -1,5 +1,4 @@
-import 'package:flutter_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:flutter_app/screens/sign_up/sign_up_screen.dart';
+import '../screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../common/size_config.dart';

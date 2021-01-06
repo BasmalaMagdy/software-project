@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_app/common/constants.dart';
+import '../common/constants.dart';
 
 class CarouselImg extends StatefulWidget {
   @override
@@ -9,7 +9,12 @@ class CarouselImg extends StatefulWidget {
 
 class _CarouselImgState extends State<CarouselImg> {
   int currentPos = 0;
-  List<String> imglist = ['images/s0.jpg', 'images/s1.jpg', 'images/s2.jpg', 'images/s3.jpg'];
+  List<String> imglist = [
+    'images/s0.jpg',
+    'images/s1.jpg',
+    'images/s2.jpg',
+    'images/s3.jpg'
+  ];
   AnimatedContainer buildDot({int index}) {
     return AnimatedContainer(
       duration: AnimationDuration,
@@ -29,25 +34,24 @@ class _CarouselImgState extends State<CarouselImg> {
     return Column(
       children: [
         CarouselSlider.builder(
-          itemCount: imglist.length,
+            itemCount: imglist.length,
             options: CarouselOptions(
-              height: 180.0,
-              enlargeCenterPage: true,
-              autoPlay: true,
-              aspectRatio: 16 / 9,
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enableInfiniteScroll: true,
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              viewportFraction: 0.8,
-              pauseAutoPlayOnTouch: true,
+                height: 180.0,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                aspectRatio: 16 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                viewportFraction: 0.8,
+                pauseAutoPlayOnTouch: true,
                 onPageChanged: (index, reason) {
                   setState(() {
                     currentPos = index;
                   });
-                }
-            ),
-          itemBuilder:  (BuildContext context, int itemIndex) {
-            return Container(
+                }),
+            itemBuilder: (BuildContext context, int itemIndex) {
+              return Container(
                 margin: EdgeInsets.all(5.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
@@ -81,19 +85,16 @@ class _CarouselImgState extends State<CarouselImg> {
                     ),
                   ],
                 ),
-            );
-          }
-        ),
+              );
+            }),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
             imglist.length,
-                (index) => buildDot(index: index),
+            (index) => buildDot(index: index),
           ),
         ),
       ],
     );
   }
 }
-
-

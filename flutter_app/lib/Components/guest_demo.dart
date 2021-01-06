@@ -1,8 +1,6 @@
-import 'package:flutter_app/Pages/Home.dart';
-import 'package:flutter_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:flutter_app/screens/guest_demo_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../Pages/Home.dart';
 import '../common/size_config.dart';
 
 class GuestDemo extends StatelessWidget {

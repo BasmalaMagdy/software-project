@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/category.dart';
+
+import '../models/product.dart';
+import '../Pages/category.dart';
 
 List<BoxShadow> ShadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
@@ -8,7 +10,7 @@ List<BoxShadow> ShadowList = [
 // ignore: must_be_immutable
 class HorizontalList extends StatefulWidget {
   const HorizontalList({Key key, this.products}) : super(key: key);
-  final List<Map> products;
+  final List<ProductData> products;
   // ignore: non_constant_identifier_names
   @override
   _HorizontalListState createState() => _HorizontalListState();
@@ -72,7 +74,6 @@ class _HorizontalListState extends State<HorizontalList> {
                               category: Categories[index]['category'],
                             )));
               },
-
               child: Container(
                 width: 120,
                 padding: EdgeInsets.all(10),

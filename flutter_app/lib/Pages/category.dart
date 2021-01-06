@@ -1,12 +1,13 @@
+import '../models/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Components/Product_card.dart';
-import 'package:flutter_app/Components/Search.dart';
-import 'package:flutter_app/Pages/test.dart';
+import '../Components/Product_card.dart';
+import '../Components/Search.dart';
+import '../Pages/test.dart';
 
 class CategoryView extends StatefulWidget {
   static String routeName = "/category";
   CategoryView({Key key, this.products, this.category}) : super(key: key);
-  final List<Map> products;
+  final List<ProductData> products;
   final String category;
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -16,8 +17,8 @@ class _CategoryViewState extends State<CategoryView> {
   Icon cusIcon = Icon(Icons.search, color: Colors.white);
   @override
   Widget build(BuildContext context) {
-    print(widget.products[0]['category']);
-    print(widget.category);
+    //print(widget.products[0]['category']);
+    //print(widget.category);
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -46,7 +47,7 @@ class _CategoryViewState extends State<CategoryView> {
         children: [
           SearchField(),
           for (var product in widget.products)
-            product['category'] == widget.category
+            product.category == widget.category
                 ? CardProduct(product: product)
                 : Container(),
         ],

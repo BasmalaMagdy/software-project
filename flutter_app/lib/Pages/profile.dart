@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/editprofile.dart';
+import '../Pages/editprofile.dart';
 
 class Profile extends StatefulWidget {
   static String routeName = "/profile";
@@ -17,9 +17,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: Colors.grey[400],
         iconTheme: new IconThemeData(color: Colors.black),
-        title: Text('Profile',  style: TextStyle(
-            color: Colors.black
-        )),
+        title: Text('Profile', style: TextStyle(color: Colors.black)),
         centerTitle: true,
       ),
       body: ListView(
@@ -116,7 +114,7 @@ class _ProfileState extends State<Profile> {
           ),
           Container(
             //width: 70,
-            margin: EdgeInsets.only(left: 70,right: 70, top: 10),
+            margin: EdgeInsets.only(left: 70, right: 70, top: 10),
             height: 45,
             //width: double.infinity,
             child: RaisedButton(

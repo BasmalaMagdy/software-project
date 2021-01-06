@@ -2,7 +2,7 @@
 //the body is the choosen items displayed in cards the user can change the quantity of each item
 // this is linked to product_view.dart and home.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/cart_items.dart';
+import '../components/cart_items.dart';
 
 class Cart extends StatefulWidget {
   static String routeName = "/cart";

@@ -69,6 +69,7 @@ class Single_cart_item extends StatelessWidget {
       this.prod_qty});
   @override
   Widget build(BuildContext context) {
+    var prod_price2 = prod_price;
     return Card(
       child: ListTile(
         leading: new Image.asset(
@@ -108,7 +109,7 @@ class Single_cart_item extends StatelessWidget {
             new Container(
               alignment: Alignment.topLeft,
               child: new Text(
-                "\$${prod_price}",
+                "\$${prod_price2}",
                 style: TextStyle(
                     fontSize: 17.0,
                     fontWeight: FontWeight.bold,

@@ -2,14 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/size_config.dart';
+import '../common/size_config.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_app/common/constants.dart';
-import 'package:flutter_app/components/form_error.dart';
-
-
-
-
+import '../common/constants.dart';
+import '../components/form_error.dart';
 
 class EditProfile extends StatefulWidget {
   static String routeName = "/editprofile";
@@ -134,20 +130,18 @@ class _EditProfileState extends State<EditProfile> {
         child: TextFormField(
           decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(
-                borderSide: BorderSide.none
-            ),
+            border: OutlineInputBorder(borderSide: BorderSide.none),
             labelText: hintText,
             //hintText: hintText,
             labelStyle: TextStyle(
               letterSpacing: 2,
               color: Colors.black54,
-                fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
             hintStyle: TextStyle(
               letterSpacing: 2,
               color: Colors.black54,
-                fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
             fillColor: Colors.white30,
             filled: false,
@@ -195,8 +189,8 @@ class _EditProfileState extends State<EditProfile> {
                     _showPassword = !_showPassword;
                   });
                 },
-                child:
-                Icon(_showPassword ? Icons.visibility : Icons.visibility_off),
+                child: Icon(
+                    _showPassword ? Icons.visibility : Icons.visibility_off),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -221,7 +215,7 @@ class _EditProfileState extends State<EditProfile> {
       });
   }
 
-  TextFormField buildPhoneFormField(){
+  TextFormField buildPhoneFormField() {
     return TextFormField(
       decoration: InputDecoration(
         labelText: "Phone number",
@@ -251,7 +245,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  TextFormField buildNameFormField(){
+  TextFormField buildNameFormField() {
     return TextFormField(
       decoration: InputDecoration(
         labelText: "User Name",
@@ -308,8 +302,8 @@ class _EditProfileState extends State<EditProfile> {
               _showConfirmPassword = !_showConfirmPassword;
             });
           },
-          child:
-          Icon(_showConfirmPassword ? Icons.visibility_off : Icons.visibility),
+          child: Icon(
+              _showConfirmPassword ? Icons.visibility_off : Icons.visibility),
         ),
         labelText: "Confirm password",
         hintText: "Re-enter password.",
@@ -352,8 +346,7 @@ class _EditProfileState extends State<EditProfile> {
               _showPassword = !_showPassword;
             });
           },
-          child:
-          Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
+          child: Icon(_showPassword ? Icons.visibility_off : Icons.visibility),
         ),
         labelText: "Password",
         hintText: "Enter your password.",
@@ -404,12 +397,10 @@ class _EditProfileState extends State<EditProfile> {
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
         title: Text(
-          'Edit Profile', style: TextStyle(
-          color: Colors.black
-        ),
+          'Edit Profile',
+          style: TextStyle(color: Colors.black),
         ),
       ),
-
       body: ListView(
         padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
         //padding: EdgeInsets.only(top: 15, bottom: 15),
@@ -438,12 +429,10 @@ class _EditProfileState extends State<EditProfile> {
                   FormError(errors: errors),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Container(
-
-                    margin: EdgeInsets.only(left: 65,right: 65, bottom: 10),
+                    margin: EdgeInsets.only(left: 65, right: 65, bottom: 10),
                     height: 55,
                     //width: double.infinity,
                     child: RaisedButton(
-
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
@@ -455,18 +444,15 @@ class _EditProfileState extends State<EditProfile> {
                       child: Center(
                         child: Text(
                           "Update",
-                          style: TextStyle(
-                              fontSize: 23, color: Colors.white),
+                          style: TextStyle(fontSize: 23, color: Colors.white),
                         ),
                       ),
                     ),
                   ),
                 ],
-              )
-          ),
+              )),
         ],
       ),
     );
   }
 }
-

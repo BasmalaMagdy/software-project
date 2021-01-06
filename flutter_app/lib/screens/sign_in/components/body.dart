@@ -1,14 +1,8 @@
-import 'dart:ffi';
-
-import 'package:flutter_app/components/default_button.dart';
-import 'package:flutter_app/components/form_error.dart';
-import 'package:flutter_app/components/guest_demo.dart';
-import 'package:flutter_app/components/no_account_text.dart';
-import 'package:flutter_app/common/constants.dart';
-import 'package:flutter_app/screens/forgot_password/forgot_password_screen.dart';
-import 'package:flutter_app/screens/sign_in/components/sign_form.dart';
 import 'package:flutter/material.dart';
 
+import '../../../components/guest_demo.dart';
+import '../../../components/no_account_text.dart';
+import '../../../screens/sign_in/components/sign_form.dart';
 import '../../../common/size_config.dart';
 
 class Body extends StatelessWidget {

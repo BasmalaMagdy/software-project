@@ -1,4 +1,4 @@
-import 'package:flutter_app/common/size_config.dart';
+import '../../common/size_config.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';

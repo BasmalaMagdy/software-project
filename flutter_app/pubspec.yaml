@@ -27,6 +27,7 @@ dependencies:
   smooth_star_rating: ^1.1.1
   firebase_auth: ^0.18.4+1
   cloud_firestore: ^0.14.4
+  firebase_storage: ^5.2.0
   firebase_core: ^0.5.3
   provider: ^4.3.2+3
   carousel_slider: ^2.3.1
