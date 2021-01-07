@@ -1,82 +1,35 @@
 // this is the card for each choosen item by the user
 // this is linked to cart.dart
-// need alot of changes
+// add comments
 import 'package:flutter/material.dart';
+import 'package:flutter_app/bloc/cart_items_bloc.dart';
 
-class Cart_items extends StatefulWidget {
-  @override
-  _Cart_itemsState createState() => _Cart_itemsState();
-}
-
-class _Cart_itemsState extends State<Cart_items> {
-  var items_on_the_cart = [
-    {
-      "name": "Blazer",
-      "price": 200,
-      "photo": 'images/products/blazer1.jpeg',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      "name": "Blazer",
-      "price": 200,
-      "photo": 'images/products/blazer1.jpeg',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      "name": "Blazer",
-      "price": 200,
-      "photo": 'images/products/blazer1.jpeg',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-  ];
-  @override
+//check if the cart is empty or not
+class ShopItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
-    return new ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return new Single_cart_item(
-            prod_name: items_on_the_cart[index]["name"],
-            prod_color: items_on_the_cart[index]["color"],
-            prod_qty: items_on_the_cart[index]["quantity"],
-            prod_size: items_on_the_cart[index]["size"],
-            prod_price: items_on_the_cart[index]["price"],
-            prod_picture: items_on_the_cart[index]["photo"],
-          );
-        });
+    return StreamBuilder(
+      initialData: bloc.allItems,
+      stream: bloc.getStream,
+      builder: (context, snapshot) {
+        return snapshot.data["cart items"].length > 0
+            ? shopItemsListBuilder(snapshot) : Center(child: Text("You haven't taken any item yet"));
+      },
+    );
   }
 }
 
-class Single_cart_item extends StatelessWidget {
-  final prod_name;
-  final prod_picture;
-  final prod_price;
-  final prod_size;
-  final prod_color;
-  final prod_qty;
-
-  Single_cart_item(
-      {this.prod_name,
-      this.prod_picture,
-      this.prod_price,
-      this.prod_size,
-      this.prod_color,
-      this.prod_qty});
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: new Image.asset(
-          prod_picture,
+Widget shopItemsListBuilder(snapshot) {
+  return ListView.builder(
+    itemCount: snapshot.data["cart items"].length,
+    itemBuilder: (BuildContext context, i) {
+      final cartList = snapshot.data["cart items"];
+      return Card(
+        child: ListTile(
+        leading: new Image.asset('images/cats/${cartList[i]['photo']}', //================================photo====================================================
           width: 80.0,
           height: 80.0,
         ),
-        title: new Text(prod_name),
+        title: new Text(cartList[i]['name']), //==========================================name====================================================
         subtitle: new Column(
           children: <Widget>[
             new Row(
@@ -88,7 +41,7 @@ class Single_cart_item extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: new Text(
-                    prod_size,
+                    cartList[i]['size'], //================================================size=====================================================
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
@@ -99,7 +52,7 @@ class Single_cart_item extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: new Text(
-                    prod_color,
+                    cartList[i]['color'], //========================================================color=============================================
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
@@ -108,7 +61,7 @@ class Single_cart_item extends StatelessWidget {
             new Container(
               alignment: Alignment.topLeft,
               child: new Text(
-                "\$${prod_price}",
+                "\$${cartList[i]['price']}", //======================================================price====================================================
                 style: TextStyle(
                     fontSize: 17.0,
                     fontWeight: FontWeight.bold,
@@ -117,7 +70,70 @@ class Single_cart_item extends StatelessWidget {
             ),
           ],
         ),
+
       ),
-    );
-  }
+      );
+    },
+  );
 }
+// class item_card extends StatefulWidget {
+//   @override
+//   _item_cardState createState() => _item_cardState();
+// }
+//
+// class _item_cardState extends State<item_card> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: ListTile(
+//         leading: new Image.asset('images/cats/${widget.item['photo']}',
+//           width: 80.0,
+//           height: 80.0,
+//         ),
+//         title: new Text('${widget.item['name']}'), //==========================================name====================================================
+//         subtitle: new Column(
+//           children: <Widget>[
+//             new Row(
+//               children: <Widget>[
+//                 Padding(
+//                   padding: const EdgeInsets.all(0.0),
+//                   child: new Text("Size:"),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.all(4.0),
+//                   child: new Text(
+//                     '${widget.item['size']}', //================================================size=====================================================
+//                     style: TextStyle(color: Colors.red),
+//                   ),
+//                 ),
+//                 new Padding(
+//                   padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
+//                   child: new Text("Color:"),
+//                 ),
+//                 Padding(
+//                   padding: const EdgeInsets.all(4.0),
+//                   child: new Text(
+//                     '${widget.item['color']}', //========================================================color=============================================
+//                     style: TextStyle(color: Colors.red),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             new Container(
+//               alignment: Alignment.topLeft,
+//               child: new Text(
+//                 "\$${widget.item['price']}",
+//                 style: TextStyle(
+//                     fontSize: 17.0,
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.red),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+

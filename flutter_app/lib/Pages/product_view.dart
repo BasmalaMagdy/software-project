@@ -1,7 +1,8 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/cart.dart';
+import 'package:flutter_app/bloc/cart_items_bloc.dart';
+import 'package:flutter_app/Components/tabs.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 //press stl to appear this class
@@ -52,10 +53,10 @@ class _ProductState extends State<Product> {
           new IconButton(
               icon: Icon(
                 Icons.shopping_cart,
-                color: Colors.white,
+                color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Cart()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>tabAppBar()));
               })
         ],
       ),
@@ -237,12 +238,13 @@ class _ProductState extends State<Product> {
                     Icons.add_shopping_cart,
                     color: Colors.red,
                   ),
-                  onPressed: () {}),
+                  onPressed: () => bloc.addToCart(widget.product) //product data stream
+              ),
 
               new IconButton(
                   icon: Icon(Icons.favorite_border),
                   color: Colors.red,
-                  onPressed: () {}),
+                  onPressed: () => bloc.addToFav(widget.product)),
             ],
           ),
 

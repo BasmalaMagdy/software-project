@@ -1,11 +1,12 @@
 //import 'dart:js';
 
-import 'dart:js';
+//import 'package:js/js.dart';
 
 import 'package:flutter_app/Pages/Home.dart';
 import 'package:flutter_app/Pages/Seller.dart';
 import 'package:flutter_app/Pages/about.dart';
 import 'package:flutter_app/Pages/cart.dart';
+import 'package:flutter_app/Pages/wishlist.dart';
 import 'package:flutter_app/Pages/category.dart';
 import 'package:flutter_app/Pages/createproduct.dart';
 import 'package:flutter_app/Pages/product_view.dart';
@@ -35,6 +36,7 @@ final Map<String, WidgetBuilder> routes = {
   Profile.routeName:(context) => Profile(),
   EditProfile.routeName:(context) => EditProfile(),
   Cart.routeName:(context) => Cart(),
+  Fav.routeName:(context) => Fav(),
   CategoryView.routeName:(context) => CategoryView(),
   Product.routeName:(context) => Product(),
   SellerInterface.routeName:(context) => SellerInterface(),
