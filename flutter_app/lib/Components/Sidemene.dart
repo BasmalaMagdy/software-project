@@ -1,11 +1,11 @@
+import '../models/product.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/Seller.dart';
-import 'package:flutter_app/Pages/about.dart';
-import 'package:flutter_app/Pages/category.dart';
-import 'package:flutter_app/Pages/profile.dart';
-import 'package:flutter_app/Pages/test.dart';
-import 'package:flutter_app/screens/splash/splash_screen.dart';
+import '../Pages/Seller.dart';
+import '../Pages/about.dart';
+import '../Pages/category.dart';
+import '../Pages/profile.dart';
+import '../Pages/test.dart';
 
 // ignore: must_be_immutable
 class SideList extends StatefulWidget {
@@ -16,7 +16,7 @@ class SideList extends StatefulWidget {
     /* this.auth*/
   }) : super(key: key);
   final Map user;
-  final List<Map> products;
+  final List<ProductData> products;
   @override
   _SideListState createState() => _SideListState();
 }
@@ -59,16 +59,6 @@ class _SideListState extends State<SideList> {
             thickness: 5,
             color: Colors.black,
           ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, SplashScreen.routeName);
-            },
-            child: ListTile(
-              title: Text('Test Sign Interface'),
-              leading: Icon(Icons.person),
-            ),
-          ),
-
           InkWell(
             onTap: () {
               Navigator.push(context,

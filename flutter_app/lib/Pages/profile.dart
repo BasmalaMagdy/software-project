@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/editprofile.dart';
+import '../Pages/editprofile.dart';
 
 class Profile extends StatefulWidget {
   static String routeName = "/profile";
@@ -13,15 +13,12 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
-
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Profile',  style: TextStyle(
-            color: Colors.black
-        )),
-        centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[400],
         iconTheme: new IconThemeData(color: Colors.black),
+        title: Text('Profile', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 10.0),
@@ -117,7 +114,7 @@ class _ProfileState extends State<Profile> {
           ),
           Container(
             //width: 70,
-            margin: EdgeInsets.only(left: 70,right: 70, top: 10),
+            margin: EdgeInsets.only(left: 70, right: 70, top: 10),
             height: 45,
             //width: double.infinity,
             child: RaisedButton(
@@ -130,11 +127,11 @@ class _ProfileState extends State<Profile> {
                         builder: (context) =>
                             EditProfile(person: widget.person)));
               },
-              color: Colors.white,
+              color: Colors.black,
               child: Center(
                 child: Text(
                   "Edit",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),

@@ -1,9 +1,8 @@
-import 'package:flutter_app/components/default_button.dart';
-import 'package:flutter_app/common/constants.dart';
-import 'package:flutter_app/screens/sign_in/sign_in_screen.dart';
-import 'package:flutter_app/common/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import '../../../common/constants.dart';
+import '../../../screens/sign_in/sign_in_screen.dart';
+import '../../../common/size_config.dart';
 
 //this is the best practice
 import '../components/splash_content.dart';
@@ -106,8 +105,7 @@ class _BodyState extends State<Body> {
                       Spacer(),
                     ],
                   ),
-                )
-            )
+                ))
           ],
         ),
       ),

@@ -1,0 +1,109 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
+import '../models/product.dart';
+import '../models/comment.dart';
+
+class DatabaseService {
+  final String uid;
+  String get UID {
+    return uid;
+  }
+
+  DatabaseService({this.uid});
+
+  // collection reference
+  final CollectionReference productsCollection =
+      FirebaseFirestore.instance.collection('products');
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  Future<void> updateProductData(
+      String pid,
+      String name,
+      String category,
+      String description,
+      String photo,
+      String sid,
+      String price,
+      String quantity) async {
+    return await productsCollection.doc(pid).set({
+      'name': name,
+      'category': category,
+      'description': description,
+      'sid': sid,
+      'price': price,
+      'quantity': quantity,
+      'photo': photo,
+    });
+  }
+
+  Future<void> CreateProductData(
+      String name,
+      String category,
+      String description,
+      String photo,
+      String sid,
+      String price,
+      String quantity) async {
+    return await productsCollection.add({
+      'name': name,
+      'category': category,
+      'description': description,
+      'sid': sid,
+      'price': price,
+      'quantity': quantity,
+      'photo': photo,
+    });
+  }
+
+  Future<void> CreateProductComment(String cid, String pid, String uid) async {
+    return await productsCollection.doc(pid).collection("comments").add({
+      'comment': cid,
+      'product': pid,
+      'user': uid,
+    });
+  }
+
+  // product data from snapshots
+  List<ProductData> _productDataFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return ProductData(
+        pid: snapshot.id ?? '',
+        name: snapshot.data()['name'] ?? '',
+        category: snapshot.data()['category'] ?? '',
+        description: snapshot.data()['description'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        price: snapshot.data()['price'] ?? '',
+        quantity: snapshot.data()['quantity'] ?? '',
+      );
+    }).toList();
+  }
+
+  List<CommentData> _userCommentFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return CommentData(
+        cid: snapshot.id,
+        pid: snapshot.data()['pid'] ?? '',
+        uid: snapshot.data()['uid'] ?? '',
+      );
+    }).toList();
+    //return CommentData(cid: snapshot.id);
+  }
+
+  Stream<List<ProductData>> get Products {
+    return productsCollection.snapshots().map(_productDataFromSnapshot);
+  }
+
+  Stream<List<CommentData>> comments({String pid}) {
+    if (productsCollection.doc(pid).collection("comments") != null) {
+      return productsCollection
+          .doc(pid)
+          .collection("comments")
+          .snapshots()
+          .map(_userCommentFromSnapshot);
+    } else
+      return null;
+  }
+}

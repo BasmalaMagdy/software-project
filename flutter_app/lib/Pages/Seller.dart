@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_app/Components/Horizontal_listview.dart';
-import 'package:flutter_app/Components/Product_card.dart';
-import 'package:flutter_app/Components/Search.dart';
-import 'package:flutter_app/Components/Sidemene.dart';
-import 'package:flutter_app/Pages/cart.dart';
-import 'package:flutter_app/Pages/createproduct.dart';
-import 'package:flutter_app/Pages/profile.dart';
+import '../Components/Horizontal_listview.dart';
+import '../Components/Product_card.dart';
+import '../Components/Search.dart';
+import '../Pages/createproduct.dart';
+import '../Pages/profile.dart';
 
 class SellerInterface extends StatefulWidget {
   static String routeName = "/seller";
@@ -24,7 +24,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
     'phone': '+201141111111',
     'photo': 'profile.JPG',
   };
-  List<Map> products = [
+  List<Map> pproducts = [
     {
       'name': 'product0',
       'discription': 'this is a discription for the product 0',
@@ -77,6 +77,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
 
   @override
   Widget build(BuildContext context) {
+    final List<ProductData> products = context.watch<List<ProductData>>();
     // ignore: non_constant_identifier_names
     Widget ImageCarousel = new Container(
       height: 200.0,
@@ -106,7 +107,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Drop",
+              "Fetch",
               style: TextStyle(color: Colors.black),
             ),
             Icon(Icons.location_on),

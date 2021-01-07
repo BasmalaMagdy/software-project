@@ -1,5 +1,6 @@
+import '../models/product.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_app/Components/Horizontal_listview.dart';
 import 'package:flutter_app/Components/Product_card.dart';
@@ -8,10 +9,18 @@ import 'package:flutter_app/Components/Sidemene.dart';
 import 'package:flutter_app/Components/tabs.dart';
 
 
+import '../Components/Horizontal_listview.dart';
+import '../Components/Product_card.dart';
+import '../Components/Search.dart';
+import '../Components/Sidemene.dart';
+import '../Components/carousel.dart';
+import '../Pages/cart.dart';
 
 class MyHomePage extends StatefulWidget {
   static String routeName = "/homepage";
-  MyHomePage({Key key,}) : super(key: key);
+  MyHomePage({
+    Key key,
+  }) : super(key: key);
   //final AuthService auth;
 
   //final String title;
@@ -98,6 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final List<ProductData> pproducts = context.watch<List<ProductData>>();
+
     // ignore: non_constant_identifier_names
     Widget ImageCarousel = new Container(
       height: 200.0,
@@ -152,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: SideList(
         user: person,
-        products: products,
+        products: pproducts,
       ),
       /************************* */
       body: ListView(
@@ -160,34 +171,38 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           SearchField(),
           //image carousel begin here
-          ImageCarousel,
+          //ImageCarousel,
+          CarouselImg(),
           // padding widget
           new Padding(
             padding: const EdgeInsets.all(6.0),
             // title for the categoties part
-            child: new Text('Categories' , style: TextStyle(
-                color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w600
-            ),
+            child: new Text(
+              'Categories',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
             ),
           ),
           //   horizontal list of the categories
           HorizontalList(
-            products: products,
+            products: pproducts,
           ),
 
           // Grid View of Products
           new Padding(
             padding: const EdgeInsets.all(12.0),
             // title for the categoties part
-            child: new Text('Recent products', style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600
-            ),),
+            child: new Text(
+              'Recent products',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-          for (var product in products) CardProduct(product: product),
+          for (var product in pproducts) CardProduct(product: product),
         ],
       ),
     );

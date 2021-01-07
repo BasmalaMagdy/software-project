@@ -1,8 +1,8 @@
-import 'package:flutter_app/components/default_button.dart';
-import 'package:flutter_app/components/form_error.dart';
+import '../../../components/default_button.dart';
+import '../../../components/form_error.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/common/constants.dart';
+import '../../../common/constants.dart';
 import '../../../common/size_config.dart';
 
 class Body extends StatelessWidget {

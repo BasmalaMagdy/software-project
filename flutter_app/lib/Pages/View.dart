@@ -1,50 +1,32 @@
-import '../Pages/View.dart';
-import '../models/product.dart';
-import '../services/database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/cart_items_bloc.dart';
-import 'package:flutter_app/Components/tabs.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-//press stl to appear this class
-/* class Product extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: Text('pooooo',style: TextStyle(color: Colors.white),),
-    );
-  }
-} */
-//stf
-class Product extends StatefulWidget {
-  static String routeName = "/productview";
-  Product({Key key, this.product}) : super(key: key);
+import '../Pages/comment.dart';
+import '../models/comment.dart';
+import '../models/product.dart';
+import '../Pages/cart.dart';
+
+class ViewBody extends StatefulWidget {
+  ViewBody({Key key, this.product}) : super(key: key);
   final ProductData product;
 
   @override
-  _ProductState createState() => _ProductState();
+  _ViewBodyState createState() => _ViewBodyState();
 }
 
-class _ProductState extends State<Product> {
-  double rating = 0.0; // var to print rating
+class _ViewBodyState extends State<ViewBody> {
+  double rating = 0.0;
 
-  //=========== lists of comments ===========
-  List comments = [
-    {'name': "nemo", "content": "hfgfdjcgfegvcdhfvf"},
-    {'name': "mard", "content": "hfgfdjcgfegvcdhfvf"},
-    {'name': "dori", "content": "hfgfdjcgfegvcdhfvf"},
-  ];
   @override
   Widget build(BuildContext context) {
-    //product = ModalRoute.of(context).settings.arguments;
+    final List<CommentData> comments = context.watch<List<CommentData>>();
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.white12,
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
-        title: Text('Drop'), //app name
+        title: Text('Fetch'), //app name
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -55,21 +37,22 @@ class _ProductState extends State<Product> {
           new IconButton(
               icon: Icon(
                 Icons.shopping_cart,
-                color: Colors.black,
+                color: Colors.white,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>tabAppBar()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
               })
         ],
       ),
       //dropdown list
       /* drawer: new Drawer(
-       child: new ListView( //child has many widget of children
-         children: <Widget>[
-           
-         ],
-       ), 
-      ),
+         child: new ListView( //child has many widget of children
+           children: <Widget>[
+
+           ],
+         ),
+        ),
   */
       //listview to scroll
       body: new ListView(
@@ -79,13 +62,13 @@ class _ProductState extends State<Product> {
             child: GridTile(
                 child: Container(
                   color: Colors.white,
-                  child: Image.asset('images/cats/${widget.product['photo']}'),
+                  child: Image.asset('images/cats/${widget.product.photo}'),
                 ),
                 footer: new Container(
                   color: Colors.white70,
                   child: ListTile(
                     leading: new Text(
-                      '${widget.product['name']}',
+                      '${widget.product.name}',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
@@ -95,7 +78,7 @@ class _ProductState extends State<Product> {
                             child:
                                 //\$ to appear $
                                 new Text(
-                          '\$${widget.product['oldprice']}',
+                          '\$${widget.product.price}',
                           style: TextStyle(
                               color: Colors.grey,
                               decoration: TextDecoration
@@ -103,7 +86,7 @@ class _ProductState extends State<Product> {
                         )),
                         Expanded(
                             child: new Text(
-                          "\$${widget.product['price']}",
+                          "\$${widget.product.price}",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
@@ -240,13 +223,12 @@ class _ProductState extends State<Product> {
                     Icons.add_shopping_cart,
                     color: Colors.red,
                   ),
-                  onPressed: () => bloc.addToCart(widget.product) //product data stream
-              ),
+                  onPressed: () {}),
 
               new IconButton(
                   icon: Icon(Icons.favorite_border),
                   color: Colors.red,
-                  onPressed: () => bloc.addToFav(widget.product)),
+                  onPressed: () {}),
             ],
           ),
 
@@ -269,7 +251,7 @@ class _ProductState extends State<Product> {
               ),
               Padding(
                 padding: EdgeInsets.all(5.0),
-                child: new Text('${widget.product['name']}'),
+                child: new Text('${widget.product.name}'),
               )
             ],
           ),
@@ -398,89 +380,18 @@ class _ProductState extends State<Product> {
               ],
             ),
           ),
+          if (comments != null)
+            for (var comment in comments) CommentCard(comment: comment),
 
-          Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-                  title: Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Text("Name"),
-                  ),
-                  //trailing: Icon(Icon.filter_list),
-                  isThreeLine: true,
-                  subtitle: Text("vhdgfnhvhgffgddfdfj hjhgfhdfd"),
-                ),
-                Divider(
-                  color: Colors.grey.withOpacity(0.5),
-                ),
-                //=================like and comment======================
-                new Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.thumb_up,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              "Like",
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.comment,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              "comment",
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                      ),
-                    ),
-                  ],
-                ),
-                //============================================
-              ],
-            ),
-          ),
           // for loop for comments
           /*for(int i = 0; i <comments.length; i++)
-           {
-             name : comments[i]['name'],
-             content : comments[i]['content'],
-           }*/
+             {
+               name : comments[i]['name'],
+               content : comments[i]['content'],
+             }*/
           //======================
         ],
       ),
-    return StreamProvider(
-      create: (context) =>
-          context.read<DatabaseService>().comments(pid: widget.product.pid),
-      child: ViewBody(product: widget.product),
-    ); //has many properties which are handy such as appbar
+    );
   }
 }
