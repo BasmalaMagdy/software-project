@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">388846891853-k1ev5fch25q65e6amnmqrjj7sfufquqi.apps.googleusercontent.com</string>
-    <string name="firebase_database_url" translatable="false">https://e-commerce-bf30c.firebaseio.com</string>
-    <string name="gcm_defaultSenderId" translatable="false">388846891853</string>
-    <string name="google_api_key" translatable="false">AIzaSyCRy2AVSPOjMoATf3Xxyh2xlOu35OZWN_A</string>
-    <string name="google_app_id" translatable="false">1:388846891853:android:599d5a2b8f1c5ba3757d04</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCRy2AVSPOjMoATf3Xxyh2xlOu35OZWN_A</string>
-    <string name="google_storage_bucket" translatable="false">e-commerce-bf30c.appspot.com</string>
-    <string name="project_id" translatable="false">e-commerce-bf30c</string>
+    <string name="default_web_client_id" translatable="false">866915148257-d83eqhd0vtg4h4dah9bluh860hq7pjq8.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://e-commerce-78c0f.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">866915148257</string>
+    <string name="google_api_key" translatable="false">AIzaSyAt6X1A8jcMYlQ4cYHQlJnRoB8jLgiT30M</string>
+    <string name="google_app_id" translatable="false">1:866915148257:android:607d3faab0046b32ec72a0</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAt6X1A8jcMYlQ4cYHQlJnRoB8jLgiT30M</string>
+    <string name="google_storage_bucket" translatable="false">e-commerce-78c0f.appspot.com</string>
+    <string name="project_id" translatable="false">e-commerce-78c0f</string>
 </resources>

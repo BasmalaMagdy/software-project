@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
 import '../Pages/test.dart';
+import 'package:provider/provider.dart';
 
 class CategoryView extends StatefulWidget {
   static String routeName = "/category";
-  CategoryView({Key key, this.products, this.category}) : super(key: key);
-  final List<ProductData> products;
+  CategoryView({Key key, this.category}) : super(key: key);
   final String category;
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -17,6 +17,8 @@ class _CategoryViewState extends State<CategoryView> {
   Icon cusIcon = Icon(Icons.search, color: Colors.white);
   @override
   Widget build(BuildContext context) {
+    final List<ProductData> products = context.watch<List<ProductData>>();
+
     //print(widget.products[0]['category']);
     //print(widget.category);
     return Scaffold(
@@ -38,36 +40,15 @@ class _CategoryViewState extends State<CategoryView> {
               }),
         ],
       ),
-
-      /******************** */
-      // drawer: SideList(),
-
-      /******************** */
       body: ListView(
         children: [
           SearchField(),
-          for (var product in widget.products)
+          for (var product in products)
             product.category == widget.category
                 ? CardProduct(product: product)
                 : Container(),
         ],
       ),
-      /* ListView.builder(
-        itemCount: widget.products.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (widget.products[index]['category'] == widget.category) {
-            return CardProduct(product: widget.products[index]);
-          } else {
-            return CardProduct(product: widget.products[index]);
-          }
-        },*/
-      /*children: <Widget>[
-          for (var product in widget.products) product['category'] == widget.category?CardProduct(product: product):,
-           // if (product['category'] == widget.category)
-           //   CardProduct(product: product),
-           
-
-        ],*/
     );
   }
 }

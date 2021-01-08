@@ -2,12 +2,11 @@ import '../models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_app/Components/Horizontal_listview.dart';
-import 'package:flutter_app/Components/Product_card.dart';
-import 'package:flutter_app/Components/Search.dart';
-import 'package:flutter_app/Components/Sidemene.dart';
-import 'package:flutter_app/Components/tabs.dart';
-
+import '../Components/Horizontal_listview.dart';
+import '../Components/Product_card.dart';
+import '../Components/Search.dart';
+import '../Components/Sidemene.dart';
+import '../Components/tabs.dart';
 
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
@@ -21,9 +20,6 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({
     Key key,
   }) : super(key: key);
-  //final AuthService auth;
-
-  //final String title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -109,26 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final List<ProductData> pproducts = context.watch<List<ProductData>>();
 
-    // ignore: non_constant_identifier_names
-    Widget ImageCarousel = new Container(
-      height: 200.0,
-      child: Carousel(
-        boxFit: BoxFit.contain,
-        images: [
-          AssetImage('images/s0.jpg'),
-          AssetImage('images/s1.jpg'),
-          AssetImage('images/s2.jpg'),
-          AssetImage('images/s3.jpg'),
-        ],
-        autoplay: true,
-        animationCurve: Curves.fastOutSlowIn,
-        animationDuration: Duration(milliseconds: 1000),
-        dotSize: 4.0,
-        indicatorBgPadding: 2.0,
-        dotBgColor: Colors.transparent,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -152,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => tabAppBar()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => tabAppBar()));
                 /*Navigator.pushNamed(
                   context,
                   '/test',
@@ -186,9 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           //   horizontal list of the categories
-          HorizontalList(
-            products: pproducts,
-          ),
+          HorizontalList(),
 
           // Grid View of Products
           new Padding(

@@ -1,7 +1,8 @@
+import '../common/commonwidget.dart';
+import '../services/storage.dart';
 import '../models/product.dart';
 import 'package:flutter/material.dart';
-import '../Pages/product_view.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import '../Pages/productview/product_view.dart';
 
 class CardProduct extends StatefulWidget {
   CardProduct({Key key, this.product}) : super(key: key);
@@ -15,14 +16,16 @@ class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _getImage(context, widget.product.photo),
+        future: getImage(
+            context, 'Products/${widget.product.name}/${widget.product.photo}'),
         builder: (context, snapshot) {
           return InkWell(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Product(product: widget.product)));
+                      builder: (context) => Product(
+                          product: widget.product, snapshot: snapshot)));
             },
             child: Container(
               height: 120.0,
@@ -38,12 +41,13 @@ class _CardProductState extends State<CardProduct> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: ShadowList,
                       ),
+                      child: snapshot.data,
                       //margin: EdgeInsets.only(left: 10),
-                      child: Image.asset(
+                      /*child: Image.asset(
                         'images/cats/${widget.product.photo}',
                         height: 80,
                         width: 80,
-                      ),
+                      ),*/
                     ),
                   ),
                   Expanded(
@@ -77,7 +81,7 @@ class _CardProductState extends State<CardProduct> {
                             child: Row(
                               children: [
                                 Container(
-                                  width: 200,
+                                  width: 150,
                                   child: Text(
                                     //'''discription for this project which is very very very very very very useful''',
                                     '''${widget.product.description}''',
@@ -99,28 +103,5 @@ class _CardProductState extends State<CardProduct> {
             ),
           );
         });
-  }
-}
-
-// ignore: non_constant_identifier_names
-List<BoxShadow> ShadowList = [
-  BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
-];
-
-Future<Widget> _getImage(BuildContext context, String image) async {
-  Image m;
-  await FireStorageService.loadImage(context, image).then((downloadUrl) {
-    m = Image.network(
-      downloadUrl.toString(),
-      fit: BoxFit.scaleDown,
-    );
-  });
-  return m;
-}
-
-class FireStorageService extends ChangeNotifier {
-  FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String image) async {
-    return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 }

@@ -10,16 +10,21 @@ class ProductData {
   final String description;
   final String photo;
   final String sid;
-  final String price;
-  final String quantity;
+  final int price;
+  final int quantity;
+  final String size;
+  final String color;
 
-  ProductData(
-      {this.pid,
-      this.name,
-      this.category,
-      this.description,
-      this.price,
-      this.quantity,
-      this.photo,
-      this.sid});
+  ProductData({
+    this.pid,
+    this.name,
+    this.category,
+    this.description,
+    this.price,
+    this.quantity,
+    this.photo,
+    this.sid,
+    this.color,
+    this.size,
+  });
 }

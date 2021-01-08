@@ -15,18 +15,18 @@ class DatabaseService {
   // collection reference
   final CollectionReference productsCollection =
       FirebaseFirestore.instance.collection('products');
-  final firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
 
   Future<void> updateProductData(
-      String pid,
+      {String pid,
       String name,
       String category,
       String description,
       String photo,
       String sid,
-      String price,
-      String quantity) async {
+      int price,
+      int quantity,
+      String size,
+      String color}) async {
     return await productsCollection.doc(pid).set({
       'name': name,
       'category': category,
@@ -35,17 +35,21 @@ class DatabaseService {
       'price': price,
       'quantity': quantity,
       'photo': photo,
+      'size': size,
+      'color': color
     });
   }
 
   Future<void> CreateProductData(
-      String name,
+      {String name,
       String category,
       String description,
       String photo,
       String sid,
-      String price,
-      String quantity) async {
+      int price,
+      int quantity,
+      String color,
+      String size}) async {
     return await productsCollection.add({
       'name': name,
       'category': category,
@@ -54,6 +58,8 @@ class DatabaseService {
       'price': price,
       'quantity': quantity,
       'photo': photo,
+      'size': size,
+      'color': color
     });
   }
 
@@ -75,8 +81,10 @@ class DatabaseService {
         description: snapshot.data()['description'] ?? '',
         photo: snapshot.data()['photo'] ?? '',
         sid: snapshot.data()['sid'] ?? '',
-        price: snapshot.data()['price'] ?? '',
-        quantity: snapshot.data()['quantity'] ?? '',
+        price: snapshot.data()['price'] ?? 0,
+        quantity: snapshot.data()['quantity'] ?? 0,
+        color: snapshot.data()['color'] ?? '',
+        size: snapshot.data()['size'] ?? '',
       );
     }).toList();
   }

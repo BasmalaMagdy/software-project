@@ -1,4 +1,4 @@
-com.example.flutter_app
+com.team.flutter_app
 attr alpha
 attr buttonSize
 attr circleCrop

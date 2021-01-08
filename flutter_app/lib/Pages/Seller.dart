@@ -24,79 +24,11 @@ class _SellerInterfaceState extends State<SellerInterface> {
     'phone': '+201141111111',
     'photo': 'profile.JPG',
   };
-  List<Map> pproducts = [
-    {
-      'name': 'product0',
-      'discription': 'this is a discription for the product 0',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'accessories.png',
-      'category': 'accessories',
-    },
-    {
-      'name': 'product1',
-      'discription': 'this is a discription for the product 1',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'dress.png',
-      'category': 'dress',
-    },
-    {
-      'name': 'product2',
-      'discription': 'this is a discription for the product 2',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'formal.png',
-      'category': 'formal',
-    },
-    {
-      'name': 'product0',
-      'discription': 'this is a discription for the product 0',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'accessories.png',
-      'category': 'accessories',
-    },
-    {
-      'name': 'product1',
-      'discription': 'this is a discription for the product 1',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'dress.png',
-      'category': 'dress',
-    },
-    {
-      'name': 'product2',
-      'discription': 'this is a discription for the product 2',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'formal.png',
-      'category': 'formal',
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
-    // ignore: non_constant_identifier_names
-    Widget ImageCarousel = new Container(
-      height: 200.0,
-      child: Carousel(
-        boxFit: BoxFit.contain,
-        images: [
-          AssetImage('images/s0.jpg'),
-          AssetImage('images/s1.jpg'),
-          AssetImage('images/s2.jpg'),
-          AssetImage('images/s3.jpg'),
-        ],
-        autoplay: true,
-        animationCurve: Curves.fastOutSlowIn,
-        animationDuration: Duration(milliseconds: 1000),
-        dotSize: 4.0,
-        indicatorBgPadding: 2.0,
-        dotBgColor: Colors.transparent,
-      ),
-    );
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -148,9 +80,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
             ),
           ),
           //   horizontal list of the categories
-          HorizontalList(
-            products: products,
-          ),
+          HorizontalList(),
 
           // Grid View of Products
           new Padding(

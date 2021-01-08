@@ -9,8 +9,7 @@ List<BoxShadow> ShadowList = [
 
 // ignore: must_be_immutable
 class HorizontalList extends StatefulWidget {
-  const HorizontalList({Key key, this.products}) : super(key: key);
-  final List<ProductData> products;
+  const HorizontalList({Key key}) : super(key: key);
   // ignore: non_constant_identifier_names
   @override
   _HorizontalListState createState() => _HorizontalListState();
@@ -70,7 +69,6 @@ class _HorizontalListState extends State<HorizontalList> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CategoryView(
-                              products: widget.products,
                               category: Categories[index]['category'],
                             )));
               },

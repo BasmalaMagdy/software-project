@@ -9,24 +9,23 @@ class ItemsBloc {
   /// The [getStream] getter would be used to expose our stream to other classes
   Stream get getStream => cartStreamController.stream;
 
-  final Map allItems = {
-    'cart items': [],
-    'fav items': []
-  };
-  double sum(){
+  final Map allItems = {'cart items': [], 'fav items': []};
+  double sum() {
     double sum = 0;
     int i;
-    for (i = 0; i < allItems['cart items'].length; i++){
-      sum = sum + allItems['cart items'][i]['price'];
+    for (i = 0; i < allItems['cart items'].length; i++) {
+      sum = sum + allItems['cart items'][i].price;
     }
-      return sum;
+    return sum;
   }
+
   int num() => allItems['cart items'].length;
 
   void addToCart(item) {
     allItems['cart items'].add(item);
     cartStreamController.sink.add(allItems);
   }
+
   void addToFav(item) {
     allItems['fav items'].add(item);
     cartStreamController.sink.add(allItems);
@@ -36,6 +35,7 @@ class ItemsBloc {
     allItems['cart items'].remove(item);
     cartStreamController.sink.add(allItems);
   }
+
   void removeFromFav(item) {
     allItems['fav items'].remove(item);
     cartStreamController.sink.add(allItems);

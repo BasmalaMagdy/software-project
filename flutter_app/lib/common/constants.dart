@@ -24,3 +24,10 @@ const String kPhoneInvalidError = "Phone number is invalid.";
 const String kPhoneNullError = "No phone number was entered.";
 const String kBrandNameNullError = "No brand name was entered.";
 
+const String kProductNameNullError = "No Product Name was Entered.";
+const String kProductPriceNullError = "No Product price was Entered.";
+const String kProductBrandNullError = "No Product Brand was Entered.";
+const String kProductColorNullError = "No Product Color was Entered.";
+const String kProductQuantityNullError = "No Product quantity was Entered.";
+const String kProductSizeNullError = "No Product sizes was Entered.";
+const String kProductCategoryNullError = "No Product Category was Entered.";

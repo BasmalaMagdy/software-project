@@ -2,7 +2,7 @@
 // this is linked to cart.dart
 // add comments
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/cart_items_bloc.dart';
+import '../bloc/cart_items_bloc.dart';
 
 //check if the cart is empty or not
 class ShopItemsWidget extends StatelessWidget {
@@ -12,7 +12,8 @@ class ShopItemsWidget extends StatelessWidget {
       stream: bloc.getStream,
       builder: (context, snapshot) {
         return snapshot.data["fav items"].length > 0
-            ? shopItemsListBuilder(snapshot) : Center(child: Text("You haven't added any item yet"));
+            ? shopItemsListBuilder(snapshot)
+            : Center(child: Text("You haven't added any item yet"));
       },
     );
   }
@@ -25,11 +26,13 @@ Widget shopItemsListBuilder(snapshot) {
       final favList = snapshot.data["fav items"];
       return Card(
         child: ListTile(
-          leading: new Image.asset('images/cats/${favList[i]['photo']}', //================================photo====================================================
+          leading: new Image.asset(
+            'images/cats/${favList[i].photo}', //================================photo====================================================
             width: 80.0,
             height: 80.0,
           ),
-          title: new Text(favList[i]['name']), //==========================================name====================================================
+          title: new Text(favList[i]
+              .name), //==========================================name====================================================
           subtitle: new Column(
             children: <Widget>[
               new Row(
@@ -41,7 +44,8 @@ Widget shopItemsListBuilder(snapshot) {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: new Text(
-                      favList[i]['size'], //================================================size=====================================================
+                      favList[i]
+                          .size, //================================================size=====================================================
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
@@ -52,7 +56,8 @@ Widget shopItemsListBuilder(snapshot) {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: new Text(
-                      favList[i]['color'], //========================================================color=============================================
+                      favList[i]
+                          .color, //========================================================color=============================================
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
@@ -61,7 +66,7 @@ Widget shopItemsListBuilder(snapshot) {
               new Container(
                 alignment: Alignment.topLeft,
                 child: new Text(
-                  "\$${favList[i]['price']}", //======================================================price====================================================
+                  "\$${favList[i].price.toString()}", //======================================================price====================================================
                   style: TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.bold,
@@ -70,7 +75,6 @@ Widget shopItemsListBuilder(snapshot) {
               ),
             ],
           ),
-
         ),
       );
     },
@@ -136,4 +140,3 @@ Widget shopItemsListBuilder(snapshot) {
 //     );
 //   }
 // }
-

@@ -1,5 +1,5 @@
 name: flutter_app
-description: A new Flutter application.
+description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -33,20 +33,14 @@ dependencies:
   carousel_slider: ^2.3.1
   carousel_pro: ^1.0.0
   flutter_svg: ^0.17.4 # helps us to use SVG in our app
-  js: ^0.6.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
-
 dev_dependencies:
-
   flutter_test:
     sdk: flutter
-
-
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,6 +63,7 @@ flutter:
     - images/
     - images/cats/
     - images/products/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

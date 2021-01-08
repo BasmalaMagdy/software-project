@@ -2,7 +2,7 @@
 //the body is the choosen items displayed in cards the user can change the quantity of each item
 // this is linked to product_view.dart and home.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Components/wishlist_items.dart';
+import '../Components/wishlist_items.dart';
 
 class Fav extends StatefulWidget {
   static String routeName = "/wishlist";

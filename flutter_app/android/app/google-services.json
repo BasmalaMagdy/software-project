@@ -8,38 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:866915148257:android:1ab3a9cdf72cbde4ec72a0",
+        "mobilesdk_app_id": "1:866915148257:android:607d3faab0046b32ec72a0",
         "android_client_info": {
-          "package_name": "com.drop.flutter_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "866915148257-d83eqhd0vtg4h4dah9bluh860hq7pjq8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAt6X1A8jcMYlQ4cYHQlJnRoB8jLgiT30M"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "866915148257-d83eqhd0vtg4h4dah9bluh860hq7pjq8.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:866915148257:android:5c7b7c612e6f7df8ec72a0",
-        "android_client_info": {
-          "package_name": "com.example.Fetch"
+          "package_name": "com.team.flutter_app"
         }
       },
       "oauth_client": [

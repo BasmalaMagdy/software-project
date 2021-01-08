@@ -1,9 +1,11 @@
 # This is a generated file; do not edit or check into version control.
-cloud_firestore=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.4\\
-cloud_firestore_web=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.1+2\\
-firebase_auth=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.18.4+1\\
-firebase_auth_web=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-0.3.2+3\\
-firebase_core=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.3\\
-firebase_core_web=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.1+1\\
-flutter_plugin_android_lifecycle=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-1.0.11\\
-image_picker=C:\\src\\flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.6.7+17\\
+cloud_firestore=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.4\\
+cloud_firestore_web=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.1+2\\
+firebase_auth=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.18.4+1\\
+firebase_auth_web=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-0.3.2+3\\
+firebase_core=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.3\\
+firebase_core_web=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.1+1\\
+firebase_storage=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage-5.2.0\\
+firebase_storage_web=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage_web-0.1.1+1\\
+flutter_plugin_android_lifecycle=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-1.0.11\\
+image_picker=C:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.6.7+20\\

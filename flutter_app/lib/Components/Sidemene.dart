@@ -126,7 +126,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'Shirt',
                           )));
             },
@@ -141,7 +140,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'accessories',
                           )));
             },
@@ -156,7 +154,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'dress',
                           )));
             },
@@ -171,7 +168,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'formal',
                           )));
             },
@@ -186,7 +182,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'informal',
                           )));
             },
@@ -201,7 +196,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'jeans',
                           )));
             },
@@ -216,7 +210,6 @@ class _SideListState extends State<SideList> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CategoryView(
-                            products: widget.products,
                             category: 'shoes',
                           )));
             },
