@@ -1,19 +1,13 @@
-import '../models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/size_config.dart';
 import 'package:provider/provider.dart';
-import 'package:carousel_pro/carousel_pro.dart';
+import '../models/product.dart';
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
 import '../Components/Sidemene.dart';
 import '../Components/tabs.dart';
-
-import '../Components/Horizontal_listview.dart';
-import '../Components/Product_card.dart';
-import '../Components/Search.dart';
-import '../Components/Sidemene.dart';
 import '../Components/carousel.dart';
-import '../Pages/cart.dart';
 
 class MyHomePage extends StatefulWidget {
   static String routeName = "/homepage";
@@ -33,74 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'phone': '+201141111111',
     'photo': 'profile.JPG',
   };
-  List<Map> products = [
-    {
-      'name': 'product0',
-      'discription': 'this is a discription for the product 0',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'hills1.jpeg',
-      'category': 'shoes',
-      //cart
-      "size": "M",
-      "color": "Red",
-    },
-    {
-      'name': 'product1',
-      'discription': 'this is a discription for the product 1',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'dress1.jpeg',
-      'category': 'dress',
-      //cart
-      "size": "S",
-      "color": "Blue",
-    },
-    {
-      'name': 'product2',
-      'discription': 'this is a discription for the product 2',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'blazer1.jpeg',
-      'category': 'formal',
-      //cart
-      "size": "M",
-      "color": "Red",
-    },
-    {
-      'name': 'product3',
-      'discription': 'this is a discription for the product 3',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'blazer2.jpeg',
-      'category': 'formal',
-      //cart
-      "size": "M",
-      "color": "Red",
-    },
-    {
-      'name': 'product4',
-      'discription': 'this is a discription for the product 4',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'dress2.jpeg',
-      'category': 'dress',
-      //cart
-      "size": "M",
-      "color": "Red",
-    },
-    {
-      'name': 'product5',
-      'discription': 'this is a discription for the product 5',
-      'price': 200,
-      'oldprice': '150',
-      'photo': 'hills2.jpeg',
-      'category': 'shoes',
-      //cart
-      "size": "M",
-      "color": "Red",
-    },
-  ];
+
   @override
   Widget build(BuildContext context) {
     final List<ProductData> pproducts = context.watch<List<ProductData>>();
@@ -116,9 +43,18 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text(
               title,
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeConfig.screenWidth * 0.07,
+              ),
             ),
-            Icon(Icons.location_on),
+            /*Image.asset(
+              'assets/icons/logo.png',
+              height: 40,
+              width: 40,
+            ),
+            Icon(Icons.location_on),*/
           ],
         ),
         actions: <Widget>[
@@ -139,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: SideList(
         user: person,
-        products: pproducts,
       ),
       /************************* */
       body: ListView(
@@ -157,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Categories',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: SizeConfig.screenHeight * 0.04,
                   fontWeight: FontWeight.w600),
             ),
           ),
@@ -172,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Recent products',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: SizeConfig.screenHeight * 0.04,
                   fontWeight: FontWeight.w600),
             ),
           ),

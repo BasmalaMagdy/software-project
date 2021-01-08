@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/size_config.dart';
 
 import '../models/product.dart';
 import '../Pages/category.dart';
@@ -57,41 +58,43 @@ class _HorizontalListState extends State<HorizontalList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110.0,
+      height: SizeConfig.screenHeight * 0.2,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: Categories.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CategoryView(
-                              category: Categories[index]['category'],
-                            )));
-              },
-              child: Container(
-                width: 120,
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.only(left: 5, right: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: ShadowList,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      Categories[index]['pic'],
-                      height: 70,
-                      width: 80,
-                      color: Colors.black,
-                    ),
-                    Text(Categories[index]['caption']),
-                  ],
-                ),
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CategoryView(
+                            category: Categories[index]['category'],
+                          )));
+            },
+            child: Container(
+              width: SizeConfig.screenWidth * 0.3,
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5, right: 5),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: ShadowList,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Image.asset(
+                    Categories[index]['pic'],
+                    height: SizeConfig.screenHeight * 0.13,
+                    width: SizeConfig.screenWidth * 0.2,
+                    color: Colors.black,
+                  ),
+                  Text(Categories[index]['caption'],
+                      style: TextStyle(
+                        fontSize: SizeConfig.screenWidth * 0.036,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
               ),
             ),
           );

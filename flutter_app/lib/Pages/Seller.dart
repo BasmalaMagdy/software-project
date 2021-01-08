@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/product.dart';
-import 'package:carousel_pro/carousel_pro.dart';
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
-import '../Pages/createproduct.dart';
+import '../Pages/createproduct/createproduct.dart';
 import '../Pages/profile.dart';
 
 class SellerInterface extends StatefulWidget {

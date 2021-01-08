@@ -1,3 +1,5 @@
+import 'package:flutter_app/common/size_config.dart';
+
 import '../models/product.dart';
 import 'package:flutter/material.dart';
 import '../Pages/productview/product_view.dart';
@@ -9,12 +11,15 @@ class FireStorageService extends ChangeNotifier {
   static Future<dynamic> loadImage(BuildContext context, String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
-  static Future<dynamic> uploadImage(BuildContext context, File image,String product, String name) async {
-    return await FirebaseStorage.instance.ref().child('Products/$product/$name').putFile(image);
+
+  static Future<dynamic> uploadImage(
+      BuildContext context, File image, String product, String name) async {
+    return await FirebaseStorage.instance
+        .ref()
+        .child('Products/$product/$name')
+        .putFile(image);
   }
-
 }
-
 
 Future<Widget> getImage(BuildContext context, String image) async {
   Image m;
@@ -22,8 +27,8 @@ Future<Widget> getImage(BuildContext context, String image) async {
     m = Image.network(
       downloadUrl.toString(),
       fit: BoxFit.scaleDown,
+      height: SizeConfig.screenHeight * 0.14,
     );
   });
   return m;
 }
-

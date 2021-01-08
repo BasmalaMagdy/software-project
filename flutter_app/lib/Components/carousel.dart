@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_app/common/size_config.dart';
 import '../common/constants.dart';
 
 class CarouselImg extends StatefulWidget {
@@ -36,13 +37,13 @@ class _CarouselImgState extends State<CarouselImg> {
         CarouselSlider.builder(
             itemCount: imglist.length,
             options: CarouselOptions(
-                height: 180.0,
+                height: SizeConfig.screenHeight * 0.3,
                 enlargeCenterPage: true,
                 autoPlay: true,
                 aspectRatio: 16 / 9,
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enableInfiniteScroll: true,
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayAnimationDuration: Duration(milliseconds: 500),
                 viewportFraction: 0.8,
                 pauseAutoPlayOnTouch: true,
                 onPageChanged: (index, reason) {

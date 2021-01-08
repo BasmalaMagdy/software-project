@@ -12,8 +12,8 @@ class Item {
 }
 
 class GetDataForm extends StatefulWidget {
-  GetDataForm({this.Pimglist, this.imgnames});
-  final List<File> Pimglist;
+  GetDataForm({this.pimglist, this.imgnames});
+  final List<File> pimglist;
   final List<String> imgnames;
 
   @override
@@ -100,9 +100,9 @@ class _GetDataFormState extends State<GetDataForm> {
                     color: color,
                     size: sizes);
 
-                for (int i = 0; i < widget.Pimglist.length; i++) {
+                for (int i = 0; i < widget.pimglist.length; i++) {
                   await FireStorageService.uploadImage(
-                      context, widget.Pimglist[i], name, widget.imgnames[i]);
+                      context, widget.pimglist[i], name, widget.imgnames[i]);
                 }
                 setState(() {
                   DoneUpload(context);

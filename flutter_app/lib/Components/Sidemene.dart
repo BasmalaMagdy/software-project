@@ -11,12 +11,11 @@ import '../Pages/test.dart';
 class SideList extends StatefulWidget {
   const SideList({
     Key key,
-    this.products,
     this.user,
     /* this.auth*/
   }) : super(key: key);
   final Map user;
-  final List<ProductData> products;
+
   @override
   _SideListState createState() => _SideListState();
 }

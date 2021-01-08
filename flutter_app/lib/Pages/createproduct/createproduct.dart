@@ -34,8 +34,6 @@ class _CreateProductState extends State<CreateProduct> {
   List<File> Pimglist = List<File>();
   int imgocunter = 0;
   List<String> imgnames = List<String>();
-  bool _uploaded = false;
-  final _formKey = GlobalKey<FormState>();
   String name;
   String price;
   String color;
@@ -105,9 +103,8 @@ class _CreateProductState extends State<CreateProduct> {
                   child: OutlineButton(
                       borderSide: BorderSide(color: Colors.grey, width: 2.5),
                       onPressed: () {
-                        _selectImage(
-                            ImagePicker().getImage(source: ImageSource.gallery),
-                            1);
+                        _selectImage(ImagePicker()
+                            .getImage(source: ImageSource.gallery));
                       },
                       child: _displayChild0()),
                 ),
@@ -123,10 +120,11 @@ class _CreateProductState extends State<CreateProduct> {
                           borderSide:
                               BorderSide(color: Colors.grey, width: 2.5),
                           onPressed: () {
-                            _selectImage(
-                                ImagePicker()
-                                    .getImage(source: ImageSource.gallery),
-                                1);
+                            // TO DO: Remove image
+                            /*
+                            _selectImage(ImagePicker()
+                                .getImage(source: ImageSource.gallery));
+                            */
                           },
                           child: _displayChild1(img)),
                     ),
@@ -137,7 +135,7 @@ class _CreateProductState extends State<CreateProduct> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: GetDataForm(
-            Pimglist: Pimglist,
+            pimglist: Pimglist,
             imgnames: imgnames,
           ),
         ),
@@ -145,39 +143,7 @@ class _CreateProductState extends State<CreateProduct> {
     );
   }
 
-  TextFormField buildEmailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      onSaved: (newValue) => name = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kEmailNullError);
-          if (emailValidatorRegExp.hasMatch(value)) {
-            removeError(error: kInvalidEmailError);
-          }
-        }
-        return null;
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email.",
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-      ),
-      style: TextStyle(fontSize: 12),
-    );
-  }
-
-  void _selectImage(pickImage, int imageNumber) async {
+  void _selectImage(pickImage) async {
     PickedFile pick = await pickImage;
     File tempImg = File(pick.path);
     print('******length***');
@@ -188,17 +154,6 @@ class _CreateProductState extends State<CreateProduct> {
     setState(() => Pimglist.add(tempImg));
     print('******length*****');
     print(Pimglist.length);
-    /*switch (imageNumber) {
-      case 1:
-        setState(() => _image1 = tempImg);
-        break;
-      case 2:
-        setState(() => _image2 = tempImg);
-        break;
-      case 3:
-        setState(() => _image3 = tempImg);
-        break;
-    }*/
   }
 
   Widget _displayChild0() {
@@ -223,42 +178,6 @@ class _CreateProductState extends State<CreateProduct> {
     } else {
       return Image.file(
         image1,
-        fit: BoxFit.fill,
-        width: double.infinity,
-      );
-    }
-  }
-
-  Widget _displayChild2() {
-    if (_image2 == null) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(14, 30, 14, 30),
-        child: new Icon(
-          Icons.add,
-          color: Colors.grey,
-        ),
-      );
-    } else {
-      return Image.file(
-        _image2,
-        fit: BoxFit.fill,
-        width: double.infinity,
-      );
-    }
-  }
-
-  Widget _displayChild3() {
-    if (_image3 == null) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(14, 30, 14, 30),
-        child: new Icon(
-          Icons.add,
-          color: Colors.grey,
-        ),
-      );
-    } else {
-      return Image.file(
-        _image3,
         fit: BoxFit.fill,
         width: double.infinity,
       );

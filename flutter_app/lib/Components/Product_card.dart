@@ -1,3 +1,5 @@
+import 'package:flutter_app/common/size_config.dart';
+
 import '../common/commonwidget.dart';
 import '../services/storage.dart';
 import '../models/product.dart';
@@ -15,6 +17,8 @@ class CardProduct extends StatefulWidget {
 class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
+    var hieght = SizeConfig.screenHeight * 0.17;
+    var rad = SizeConfig.screenHeight * 0.02;
     return FutureBuilder(
         future: getImage(
             context, 'Products/${widget.product.name}/${widget.product.photo}'),
@@ -28,39 +32,38 @@ class _CardProductState extends State<CardProduct> {
                           product: widget.product, snapshot: snapshot)));
             },
             child: Container(
-              height: 120.0,
+              height: hieght,
               margin: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               child: Row(
                 children: [
                   Expanded(
                     child: Container(
-                      //height: 120,
-                      padding: EdgeInsets.all(20),
+                      height: hieght,
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.only(
+                          //topRight: Radius.circular(rad),
+                          topLeft: Radius.circular(rad),
+                          bottomLeft: Radius.circular(rad),
+                        ),
                         boxShadow: ShadowList,
                       ),
                       child: snapshot.data,
-                      //margin: EdgeInsets.only(left: 10),
-                      /*child: Image.asset(
-                        'images/cats/${widget.product.photo}',
-                        height: 80,
-                        width: 80,
-                      ),*/
                     ),
                   ),
                   Expanded(
                     flex: 2,
                     child: Container(
-                      height: 90,
-                      margin: EdgeInsets.only(top: 8, bottom: 2),
+                      height: hieght,
+                      /* margin:
+                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.002),*/
                       decoration: BoxDecoration(
                           color: Colors.white,
                           boxShadow: ShadowList,
                           borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
+                              topRight: Radius.circular(rad),
+                              bottomRight: Radius.circular(rad))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,25 +74,36 @@ class _CardProductState extends State<CardProduct> {
                               widget.product.name,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 12,
+                                fontSize: SizeConfig.screenHeight * 0.027,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                              child: Text(
+                                //'''discription for this project which is very very very very very very useful''',
+                                '''${widget.product.description}''',
+                                style: TextStyle(
+                                  fontSize: SizeConfig.screenHeight * 0.023,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 5.0, right: 10.0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                  width: 150,
-                                  child: Text(
-                                    //'''discription for this project which is very very very very very very useful''',
-                                    '''${widget.product.description}''',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                )
+                                Text(
+                                  'Price :\$${widget.product.price.toString()}',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: SizeConfig.screenWidth * 0.03),
+                                ),
                               ],
                             ),
                           ),

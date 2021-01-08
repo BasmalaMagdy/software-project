@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/size_config.dart';
 import '../Pages/cart.dart';
 import '../Pages/wishlist.dart';
 
@@ -20,6 +21,7 @@ class _tabAppBarState extends State<tabAppBar> {
         length: tabs.length,
         child: Scaffold(
           appBar: new AppBar(
+            toolbarHeight: SizeConfig.screenHeight * 0.2,
             elevation: 0.1,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.red,
