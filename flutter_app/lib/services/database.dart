@@ -63,11 +63,12 @@ class DatabaseService {
     });
   }
 
-  Future<void> CreateProductComment(String cid, String pid, String uid) async {
+  Future<void> CreateProductComment(
+      {String pid, String uid, String comment}) async {
     return await productsCollection.doc(pid).collection("comments").add({
-      'comment': cid,
       'product': pid,
       'user': uid,
+      'comment': comment,
     });
   }
 
@@ -95,6 +96,7 @@ class DatabaseService {
         cid: snapshot.id,
         pid: snapshot.data()['pid'] ?? '',
         uid: snapshot.data()['uid'] ?? '',
+        comment: snapshot.data()['comment'] ?? '',
       );
     }).toList();
     //return CommentData(cid: snapshot.id);

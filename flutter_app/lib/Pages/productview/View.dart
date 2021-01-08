@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Components/form_error.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_app/bloc/cart_items_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_app/Components/tabs.dart';
 import '../comment.dart';
 import '../../models/comment.dart';
 import '../../models/product.dart';
+import '../../services/database.dart';
 
 class ViewBody extends StatefulWidget {
   ViewBody({Key key, this.product, this.snapshot}) : super(key: key);
@@ -19,7 +21,25 @@ class ViewBody extends StatefulWidget {
 
 class _ViewBodyState extends State<ViewBody> {
   double rating = 0.0;
+  final _key = GlobalKey<FormState>();
+  final List<String> errors = [];
 
+  void addError({String error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  void removeError({String error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
+
+  String CommentErrorNull = 'Error: Comment is empty';
+  String comment;
   @override
   Widget build(BuildContext context) {
     final List<CommentData> comments = context.watch<List<CommentData>>();
@@ -331,57 +351,78 @@ class _ViewBodyState extends State<ViewBody> {
                   leading: CircleAvatar(
                     child: Icon(Icons.person),
                   ),
-                  title: TextFormField(
-                    maxLength: 255,
-                    maxLines: 10,
-                    minLines: 1,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10),
-                      hintText: "write your review",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                  title: Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          onSaved: (newValue) => comment = newValue,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              addError(error: CommentErrorNull);
+                              return "";
+                            }
+                            if (value.isNotEmpty) {
+                              removeError(error: CommentErrorNull);
+                            }
+                            return null;
+                          },
+                          maxLength: 255,
+                          maxLines: 10,
+                          minLines: 1,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10),
+                            hintText: "write your review",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        FormError(errors: errors),
+                        InkWell(
+                          onTap: () {
+                            if (_key.currentState.validate()) {
+                              _key.currentState.save();
+                              DatabaseService().CreateProductComment(
+                                  pid: widget.product.pid,
+                                  uid: 'uid',
+                                  comment: comment);
+                            }
+                          },
+                          // ============= button  ===============
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    top: BorderSide(
+                              color: Colors.blueGrey.withOpacity(0.2),
+                            ))),
+                            padding: EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // make button in center
+                              children: <Widget>[
+                                Text(
+                                  "Add",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.grey[600], fontSize: 17),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                ),
+                                Icon(
+                                  Icons.add_box,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                //========== button =========
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                            color: Colors.blueGrey.withOpacity(0.2),
-                          ))),
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .center, // make button in center
-                            children: <Widget>[
-                              Text(
-                                "Add",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey[600], fontSize: 17),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 10),
-                              ),
-                              Icon(
-                                Icons.add_box,
-                                color: Colors.grey,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )
               ],
             ),
           ),
