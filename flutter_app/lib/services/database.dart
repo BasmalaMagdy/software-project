@@ -24,33 +24,30 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference productsCollection =
-      FirebaseFirestore.instance.collection('products');
+  FirebaseFirestore.instance.collection('products');
   final CollectionReference categoryCollection =
-      FirebaseFirestore.instance.collection('categories');
+  FirebaseFirestore.instance.collection('categories');
   final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('users');
+  FirebaseFirestore.instance.collection('users');
 
-/**                                       User DATABASE PART                                                **/
+  /**                                       User DATABASE PART                                                **/
 
-  /* Future<void> updateUserData(
-      String name, String photo, String phone, String email) async {
-    return await usersCollection.doc(uid).set({
+  Future<void> updateUserData(
+      {String id,
+        String name,
+        String photo,
+        String phone,
+        String email,
+        UserData customer}) async {
+    return await userCollection.doc(id).set({
       'name': name,
       'phone': phone,
       'photo': photo,
       'email': email,
+      'points': customer.points,
+      'type': customer.type
     });
   }
-
-  // user data from snapshots
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
-        uid: uid,
-        name: snapshot.data()['name'] ?? '',
-        phone: snapshot.data()['phone'] ?? '',
-        photo: snapshot.data()['photo'] ?? '',
-        email: snapshot.data()['email'] ?? '');
-  }*/
 
   // category data from snapshots
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
@@ -72,7 +69,7 @@ class DatabaseService {
       return null;
   }
 
-/**                                       CATEGORY DATABASE PART                                                **/
+  /**                                       CATEGORY DATABASE PART                                                **/
 
   // category data from snapshots
   List<CategoryData> _categoryDataFromSnapshot(QuerySnapshot snapshots) {
@@ -93,18 +90,18 @@ class DatabaseService {
       return null;
   }
 
-/**                                       PRODUCT DATABASE PART                                                **/
+  /**                                       PRODUCT DATABASE PART                                                **/
   Future<void> updateProductData(
       {String pid,
-      String name,
-      String category,
-      String description,
-      String photo,
-      String sid,
-      int price,
-      int quantity,
-      String size,
-      String color}) async {
+        String name,
+        String category,
+        String description,
+        String photo,
+        String sid,
+        int price,
+        int quantity,
+        String size,
+        String color}) async {
     return await productsCollection.doc(pid).set({
       'name': name,
       'category': category,
@@ -120,16 +117,16 @@ class DatabaseService {
 
   Future<String> CreateProductData(
       {String name,
-      String category,
-      String description,
-      String photo,
-      String sid,
-      int price,
-      int quantity,
-      String color,
-      String size,
-      List<File> pimglist,
-      final List<String> imgnames}) async {
+        String category,
+        String description,
+        String photo,
+        String sid,
+        int price,
+        int quantity,
+        String color,
+        String size,
+        List<File> pimglist,
+        final List<String> imgnames}) async {
     await productsCollection.add({
       'name': name,
       'category': category,
@@ -142,8 +139,6 @@ class DatabaseService {
       'color': color
     }).then((value) async {
       currentid = value.id;
-      print("****************Data base current id*****************");
-      print(currentid);
       for (int i = 0; i < pimglist.length; i++) {
         await FireStorageService.uploadImage(
             pimglist[i], currentid, imgnames[i]);
@@ -186,7 +181,7 @@ class DatabaseService {
       return null;
   }
 
-/**                                       COMMENT DATABASE PART                                                **/
+  /**                                       COMMENT DATABASE PART                                                **/
 
   Future<void> CreateProductComment(
       {String pid, String uid, String comment}) async {

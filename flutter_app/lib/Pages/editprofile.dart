@@ -8,6 +8,7 @@ import '../common/constants.dart';
 import '../components/form_error.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
+import '../services/database.dart';
 
 class EditProfile extends StatefulWidget {
   static String routeName = "/editprofile";
@@ -227,7 +228,7 @@ class _EditProfileState extends State<EditProfile> {
       style: TextStyle(fontSize: getProportionateScreenWidth(30)),
       cursorColor: Colors.black,
       keyboardType: TextInputType.number,
-      onSaved: (newValue) => name = newValue,
+      onSaved: (newValue) => phone = newValue,
       onChanged: (value) {},
       validator: (value) {
         if (value.isEmpty) {
@@ -423,9 +424,9 @@ class _EditProfileState extends State<EditProfile> {
                   buildEmailFormField(),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   /*  password field  */
-                  buildPasswordFormField(),
+                  //buildPasswordFormField(),
                   /*  confirm field  */
-                  buildConfirmPasswordFormField(),
+                  //buildConfirmPasswordFormField(),
                   /*   Phone   */
                   buildPhoneFormField(),
                   SizedBox(height: SizeConfig.screenHeight * 0.05),
@@ -441,6 +442,16 @@ class _EditProfileState extends State<EditProfile> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
+                          DatabaseService().updateUserData(
+                              id: customer.uid,
+                              email: email,
+                              name: name,
+                              phone: phone,
+                              photo: customer.photo,
+                              customer: customer);
+                          setState(() {
+                            DoneEdit(context);
+                          });
                         }
                       },
                       color: Colors.black,
@@ -456,6 +467,35 @@ class _EditProfileState extends State<EditProfile> {
               )),
         ],
       ),
+    );
+  }
+
+  DoneEdit(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Profile Edited'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Press ok'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Approve'),
+              onPressed: () {
+                int count = 0;
+                Navigator.of(context).popUntil((_) => count++ >= 2);
+                //Navigator.of(context).popUntil((route) => );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

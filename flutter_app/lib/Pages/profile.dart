@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../Pages/editprofile.dart';
 import 'package:provider/provider.dart';
+
+import '../Pages/editprofile.dart';
+import '../common/size_config.dart';
 import '../models/user.dart';
 
 class Profile extends StatefulWidget {
@@ -50,7 +52,7 @@ class _ProfileState extends State<Profile> {
             style: TextStyle(
               color: Colors.black,
               letterSpacing: 2.0,
-              fontSize: 20,
+              fontSize: SizeConfig.screenWidth * 0.05,
             ),
           ),
           SizedBox(
@@ -70,14 +72,14 @@ class _ProfileState extends State<Profile> {
             children: [
               Icon(Icons.email, color: Colors.black),
               SizedBox(
-                width: 10.0,
+                width: SizeConfig.screenWidth * 0.02,
               ),
               Text(
                 '${customer.email}',
                 style: TextStyle(
                   color: Colors.black,
                   letterSpacing: 2.0,
-                  fontSize: 20,
+                  fontSize: SizeConfig.screenWidth * 0.05,
                 ),
               ),
             ],
@@ -90,6 +92,7 @@ class _ProfileState extends State<Profile> {
             style: TextStyle(
               color: Colors.red,
               letterSpacing: 2.0,
+              fontSize: SizeConfig.screenWidth * 0.05,
             ),
           ),
           SizedBox(
