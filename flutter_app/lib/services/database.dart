@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../models/product.dart';
 import '../models/comment.dart';
+import '../models/category.dart';
 
 class DatabaseService {
   final String uid;
@@ -15,7 +16,31 @@ class DatabaseService {
   // collection reference
   final CollectionReference productsCollection =
       FirebaseFirestore.instance.collection('products');
+  final CollectionReference categoryCollection =
+      FirebaseFirestore.instance.collection('categories');
 
+/**                                       CATEGORY DATABASE PART                                                **/
+
+  // category data from snapshots
+  List<CategoryData> _categoryDataFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return CategoryData(
+        catid: snapshot.id,
+        caption: snapshot.data()['caption'] ?? '',
+        category: snapshot.data()['category'] ?? '',
+        pic: snapshot.data()['pic'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<CategoryData>> get Categories {
+    if (categoryCollection != null)
+      return categoryCollection.snapshots().map(_categoryDataFromSnapshot);
+    else
+      return null;
+  }
+
+/**                                       PRODUCT DATABASE PART                                                **/
   Future<void> updateProductData(
       {String pid,
       String name,
@@ -63,15 +88,6 @@ class DatabaseService {
     });
   }
 
-  Future<void> CreateProductComment(
-      {String pid, String uid, String comment}) async {
-    return await productsCollection.doc(pid).collection("comments").add({
-      'product': pid,
-      'user': uid,
-      'comment': comment,
-    });
-  }
-
   // product data from snapshots
   List<ProductData> _productDataFromSnapshot(QuerySnapshot snapshots) {
     return snapshots.docs.map((snapshot) {
@@ -90,6 +106,24 @@ class DatabaseService {
     }).toList();
   }
 
+  Stream<List<ProductData>> get Products {
+    if (productsCollection != null)
+      return productsCollection.snapshots().map(_productDataFromSnapshot);
+    else
+      return null;
+  }
+
+/**                                       COMMENT DATABASE PART                                                **/
+
+  Future<void> CreateProductComment(
+      {String pid, String uid, String comment}) async {
+    return await productsCollection.doc(pid).collection("comments").add({
+      'product': pid,
+      'user': uid,
+      'comment': comment,
+    });
+  }
+
   List<CommentData> _userCommentFromSnapshot(QuerySnapshot snapshots) {
     return snapshots.docs.map((snapshot) {
       return CommentData(
@@ -100,13 +134,6 @@ class DatabaseService {
       );
     }).toList();
     //return CommentData(cid: snapshot.id);
-  }
-
-  Stream<List<ProductData>> get Products {
-    if (productsCollection != null)
-      return productsCollection.snapshots().map(_productDataFromSnapshot);
-    else
-      return null;
   }
 
   Stream<List<CommentData>> comments({String pid}) {

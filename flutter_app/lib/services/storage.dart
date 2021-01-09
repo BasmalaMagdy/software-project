@@ -4,6 +4,7 @@ import '../models/product.dart';
 import 'package:flutter/material.dart';
 import '../Pages/productview/product_view.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 class FireStorageService extends ChangeNotifier {
@@ -30,5 +31,23 @@ Future<Widget> getImage(BuildContext context, String image) async {
       height: SizeConfig.screenHeight * 0.14,
     );
   });
+  print("********LOADING IMAGE *******");
+  print(m);
   return m;
+}
+
+class Loading extends StatelessWidget {
+  const Loading({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: SpinKitChasingDots(
+          color: Colors.blue,
+          size: 20,
+        ),
+      ),
+    );
+  }
 }

@@ -44,6 +44,9 @@ class _MyAppState extends State<MyApp> {
           StreamProvider(
             create: (context) => context.read<DatabaseService>().Products,
           ),
+          StreamProvider(
+            create: (context) => context.read<DatabaseService>().Categories,
+          ),
           /*StreamProvider(
             create: (context) => context
                 .read<DatabaseService>()
