@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(
                   color: Colors.black,
                   letterSpacing: 2.0,
-                  fontSize: 20,
+                  fontSize: SizeConfig.screenWidth * 0.05,
                 ),
               ),
             ],
