@@ -1,4 +1,6 @@
+import 'package:flutter_app/Pages/editproduct/editproduct.dart';
 import 'package:flutter_app/common/size_config.dart';
+import 'package:flutter_app/services/database.dart';
 
 import '../common/commonwidget.dart';
 import '../services/storage.dart';
@@ -7,8 +9,9 @@ import 'package:flutter/material.dart';
 import '../Pages/productview/product_view.dart';
 
 class CardProduct extends StatefulWidget {
-  CardProduct({Key key, this.product}) : super(key: key);
+  CardProduct({Key key, this.product, this.user}) : super(key: key);
   final ProductData product;
+  final Map user;
 
   @override
   _CardProductState createState() => _CardProductState();
@@ -17,11 +20,11 @@ class CardProduct extends StatefulWidget {
 class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
-    var hieght = SizeConfig.screenHeight * 0.17;
+    var hieght = SizeConfig.screenHeight * 0.18;
     var rad = SizeConfig.screenHeight * 0.02;
     return FutureBuilder(
         future: getImage(
-            context, 'Products/${widget.product.name}/${widget.product.photo}'),
+            context, 'Products/${widget.product.pid}/${widget.product.photo}'),
         builder: (context, snapshot) {
           return Container(
             height: hieght,
@@ -51,7 +54,8 @@ class _CardProductState extends State<CardProduct> {
                           ),
                           boxShadow: ShadowList,
                         ),
-                        child: snapshot.data,
+                        child:
+                            snapshot.data != null ? snapshot.data : Container(),
                       ),
                       Container(
                         height: hieght,
@@ -109,18 +113,50 @@ class _CardProductState extends State<CardProduct> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.favorite_border),
-                          onPressed: () {
-                            // TO DO : if in the favourite change the favourite icon
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.add_shopping_cart),
-                          onPressed: () {
-                            // TO DO : if in the cart change the cart icon
-                          },
-                        ),
+                        if (widget.user['type'] == 'buyer')
+                          IconButton(
+                            icon: Icon(Icons.favorite_border),
+                            onPressed: () {
+                              // TO DO : if in the favourite change the favourite icon
+                            },
+                          ),
+                        if (widget.user['type'] == 'buyer')
+                          IconButton(
+                            icon: Icon(Icons.add_shopping_cart),
+                            onPressed: () {
+                              // TO DO : if in the cart change the cart icon
+                            },
+                          ),
+                        if (widget.user['type'] == 'seller')
+                          IconButton(
+                            icon: Icon(
+                              Icons.remove,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              // TO DO : if in the cart change the cart icon
+                              setState(() {
+                                DatabaseService()
+                                    .DeleteProductData(product: widget.product);
+                              });
+                            },
+                          ),
+                        if (widget.user['type'] == 'seller')
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              // TO DO : if in the cart change the cart icon
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProduct(
+                                            product: widget.product,
+                                          )));
+                            },
+                          ),
                       ],
                     ),
                   ),

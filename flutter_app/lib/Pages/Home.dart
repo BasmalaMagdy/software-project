@@ -113,8 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          if (products != null)
-            for (var product in products) CardProduct(product: product),
+          if (products != null && products.isNotEmpty)
+            for (var product in products)
+              CardProduct(
+                product: product,
+                user: ahmed,
+              ),
         ],
       ),
     );

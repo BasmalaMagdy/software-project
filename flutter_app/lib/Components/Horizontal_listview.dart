@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/size_config.dart';
-import 'package:flutter_app/models/category.dart';
-
-import '../models/product.dart';
+import '../common/commonwidget.dart';
+import '../common/size_config.dart';
+import '../models/category.dart';
 import 'package:provider/provider.dart';
 import '../Pages/category.dart';
 import '../services/storage.dart';
-
-List<BoxShadow> ShadowList = [
-  BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
-];
 
 // ignore: must_be_immutable
 class HorizontalList extends StatefulWidget {
@@ -25,7 +20,7 @@ class _HorizontalListState extends State<HorizontalList> {
     List<CategoryData> Categories = context.watch<List<CategoryData>>();
 
     return Container(
-        height: SizeConfig.screenHeight * 0.2,
+        height: SizeConfig.screenHeight * 0.22,
         child: Categories != null
             ? ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -44,6 +39,7 @@ class _HorizontalListState extends State<HorizontalList> {
                                       )));
                         },
                         child: Container(
+                          height: SizeConfig.screenHeight * 0.2,
                           width: SizeConfig.screenWidth * 0.3,
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(left: 5, right: 5),

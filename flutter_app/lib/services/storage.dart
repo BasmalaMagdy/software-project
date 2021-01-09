@@ -9,31 +9,42 @@ import 'dart:io';
 
 class FireStorageService extends ChangeNotifier {
   FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String image) async {
+  static Future<dynamic> loadImage(String image) async {
     return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 
   static Future<dynamic> uploadImage(
-      BuildContext context, File image, String product, String name) async {
+      File image, String product, String name) async {
     return await FirebaseStorage.instance
         .ref()
         .child('Products/$product/$name')
         .putFile(image);
   }
+
+  static Future<dynamic> removeImage(
+      File image, String product, String name) async {
+    return await FirebaseStorage.instance
+        .ref()
+        .child('Products/$product/')
+        .delete();
+  }
 }
 
 Future<Widget> getImage(BuildContext context, String image) async {
   Image m;
-  await FireStorageService.loadImage(context, image).then((downloadUrl) {
-    m = Image.network(
-      downloadUrl.toString(),
-      fit: BoxFit.scaleDown,
-      height: SizeConfig.screenHeight * 0.14,
-    );
-  });
-  print("********LOADING IMAGE *******");
-  print(m);
-  return m;
+  print(image);
+  print(FireStorageService.loadImage(image));
+  if (FireStorageService.loadImage(image) != null) {
+    await FireStorageService.loadImage(image).then((downloadUrl) {
+      m = Image.network(
+        downloadUrl.toString(),
+        fit: BoxFit.scaleDown,
+        height: SizeConfig.screenHeight * 0.14,
+      );
+    });
+    return m;
+  } else
+    return Container();
 }
 
 class Loading extends StatelessWidget {

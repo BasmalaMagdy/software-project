@@ -22,7 +22,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
     'name': 'basmala',
     'phone': '+201141111111',
     'photo': 'girl_profile.jpg',
-    'type': 'buyer',
+    'type': 'seller',
     'sid': 'sid'
   };
 
@@ -92,7 +92,11 @@ class _SellerInterfaceState extends State<SellerInterface> {
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
-          for (var product in products) CardProduct(product: product),
+          for (var product in products)
+            CardProduct(
+              product: product,
+              user: basmala,
+            ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

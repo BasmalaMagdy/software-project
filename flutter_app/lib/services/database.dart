@@ -1,15 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_app/services/storage.dart';
 
 import '../models/product.dart';
 import '../models/comment.dart';
 import '../models/category.dart';
+import 'dart:io';
+
+import '../services/storage.dart';
 
 class DatabaseService {
   final String uid;
   String get UID {
     return uid;
   }
+
+  String currentid;
 
   DatabaseService({this.uid});
 
@@ -65,7 +71,7 @@ class DatabaseService {
     });
   }
 
-  Future<void> CreateProductData(
+  Future<String> CreateProductData(
       {String name,
       String category,
       String description,
@@ -74,8 +80,10 @@ class DatabaseService {
       int price,
       int quantity,
       String color,
-      String size}) async {
-    return await productsCollection.add({
+      String size,
+      List<File> pimglist,
+      final List<String> imgnames}) async {
+    await productsCollection.add({
       'name': name,
       'category': category,
       'description': description,
@@ -85,6 +93,23 @@ class DatabaseService {
       'photo': photo,
       'size': size,
       'color': color
+    }).then((value) async {
+      currentid = value.id;
+      print("****************Data base current id*****************");
+      print(currentid);
+      for (int i = 0; i < pimglist.length; i++) {
+        await FireStorageService.uploadImage(
+            pimglist[i], currentid, imgnames[i]);
+      }
+      return value.id;
+    });
+  }
+
+  Future<void> DeleteProductData({ProductData product}) {
+    productsCollection.doc(product.pid).delete().then((value) {
+      print("Document successfully deleted!");
+    }).catchError((error) {
+      print("Error removing document: $error");
     });
   }
 
