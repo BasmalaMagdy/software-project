@@ -132,9 +132,9 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\ah
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.1.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\cc05cbb20248c793dee14f7d6605fdfb\core-1.1.0\AndroidManifest.xml:24:18-86
 	android:label
-		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:10:9-36
+		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:10:9-30
 	android:icon
-		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:11:9-43
+		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:11:9-45
 	android:name
 		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:9:9-57
 activity#com.example.flutter_app.MainActivity

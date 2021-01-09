@@ -17,11 +17,13 @@ class SellerInterface extends StatefulWidget {
 }
 
 class _SellerInterfaceState extends State<SellerInterface> {
-  Map seller = {
-    'account': 'ahmed@gmail.com',
-    'name': 'ahmed',
+  Map basmala = {
+    'account': 'basmala@gmail.com',
+    'name': 'basmala',
     'phone': '+201141111111',
-    'photo': 'profile.JPG',
+    'photo': 'girl_profile.jpg',
+    'type': 'buyer',
+    'sid': 'sid'
   };
 
   @override
@@ -55,7 +57,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => Profile(
-                              person: seller,
+                              person: basmala,
                             )));
               }),
         ],

@@ -103,7 +103,10 @@ class DatabaseService {
   }
 
   Stream<List<ProductData>> get Products {
-    return productsCollection.snapshots().map(_productDataFromSnapshot);
+    if (productsCollection != null)
+      return productsCollection.snapshots().map(_productDataFromSnapshot);
+    else
+      return null;
   }
 
   Stream<List<CommentData>> comments({String pid}) {

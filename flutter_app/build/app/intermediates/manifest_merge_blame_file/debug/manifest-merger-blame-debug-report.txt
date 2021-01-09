@@ -43,10 +43,10 @@
 29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 29-->[androidx.core:core:1.1.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\cc05cbb20248c793dee14f7d6605fdfb\core-1.1.0\AndroidManifest.xml:24:18-86
 30        android:debuggable="true"
-31        android:icon="@mipmap/ic_launcher"
-31-->F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:11:9-43
-32        android:label="flutter_app" >
-32-->F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:10:9-36
+31        android:icon="@mipmap/launcher_icon"
+31-->F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:11:9-45
+32        android:label="Fetch" >
+32-->F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:10:9-30
 33        <activity
 33-->F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\main\AndroidManifest.xml:12:9-40:20
 34            android:name="com.example.flutter_app.MainActivity"

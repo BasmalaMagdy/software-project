@@ -53,6 +53,7 @@ class _CategoryViewState extends State<CategoryView> {
   }
 }
 
+/*
 // fixed search bar
 class SearchFieldd extends StatelessWidget {
   const SearchFieldd({Key key}) : super(key: key);
@@ -80,3 +81,4 @@ class SearchFieldd extends StatelessWidget {
     ); //Container
   }
 }
+*/

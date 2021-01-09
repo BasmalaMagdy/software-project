@@ -21,16 +21,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String title = "Fetch";
-  Map person = {
+  Map ahmed = {
     'account': 'ahmed@gmail.com',
     'name': 'ahmed',
     'phone': '+201141111111',
-    'photo': 'profile.JPG',
+    'photo': 'boy_profile.jpg',
+    'type': 'buyer',
+    'sid': 'sid'
   };
 
   @override
   Widget build(BuildContext context) {
-    final List<ProductData> pproducts = context.watch<List<ProductData>>();
+    final List<ProductData> products = context.watch<List<ProductData>>();
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       drawer: SideList(
-        user: person,
+        user: ahmed,
       ),
       /************************* */
       body: ListView(
@@ -111,7 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          for (var product in pproducts) CardProduct(product: product),
+          if (products != null)
+            for (var product in products) CardProduct(product: product),
         ],
       ),
     );

@@ -48,6 +48,10 @@
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-hdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
+        "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcher_icon.png"
+    },
+    {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_full_open_on_phone.png.flat",
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-hdpi-v4\\common_full_open_on_phone.png"
     },
@@ -106,6 +110,10 @@
     {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_googleg_disabled_color_18.png.flat",
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-xhdpi-v4\\googleg_disabled_color_18.png"
+    },
+    {
+        "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\android\\app\\src\\main\\res\\mipmap-xhdpi\\launcher_icon.png"
     },
     {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
@@ -208,6 +216,10 @@
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-xhdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
     },
     {
+        "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\launcher_icon.png"
+    },
+    {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-mdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
     },
@@ -280,6 +292,10 @@
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\cc05cbb20248c793dee14f7d6605fdfb\\core-1.1.0\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
+        "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_launcher_icon.png.flat",
+        "source": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\android\\app\\src\\main\\res\\mipmap-mdpi\\launcher_icon.png"
+    },
+    {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_googleg_standard_color_18.png.flat",
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\drawable-xhdpi-v4\\googleg_standard_color_18.png"
     },
@@ -302,6 +318,10 @@
     {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\color_common_google_signin_btn_text_dark.xml.flat",
         "source": "C:\\Users\\ah132\\.gradle\\caches\\transforms-2\\files-2.1\\05bba5a22f1fb20b730fb8c473e5665f\\play-services-base-17.1.0\\res\\color\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_launcher_icon.png.flat",
+        "source": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\android\\app\\src\\main\\res\\mipmap-hdpi\\launcher_icon.png"
     },
     {
         "merged": "F:\\study\\3rd computer\\SoftWare\\Last chance\\software-project\\flutter_app\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_googleg_disabled_color_18.png.flat",

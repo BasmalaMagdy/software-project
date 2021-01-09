@@ -18,7 +18,7 @@ InputDecorationTheme inputDecorationTheme() {
   );
   return InputDecorationTheme(
     //floatingLabelBehavior: FloatingLabelBehavior.never,
-    contentPadding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     enabledBorder: outlineInputBorder,
     focusedBorder: outlineInputBorder,
     border: outlineInputBorder,
