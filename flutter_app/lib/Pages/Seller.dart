@@ -53,12 +53,8 @@ class _SellerInterfaceState extends State<SellerInterface> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Profile(
-                              person: basmala,
-                            )));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
               }),
         ],
       ),
@@ -95,7 +91,6 @@ class _SellerInterfaceState extends State<SellerInterface> {
           for (var product in products)
             CardProduct(
               product: product,
-              user: basmala,
             ),
         ],
       ),

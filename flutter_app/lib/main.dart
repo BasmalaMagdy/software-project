@@ -39,13 +39,16 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
         providers: [
           Provider<DatabaseService>(
-            create: (_) => DatabaseService(uid: 'useruid'),
+            create: (_) => DatabaseService(uid: 'paAxQm9OScVWUpdENVV76ZE2gDM2'),
           ),
           StreamProvider(
             create: (context) => context.read<DatabaseService>().Products,
           ),
           StreamProvider(
             create: (context) => context.read<DatabaseService>().Categories,
+          ),
+          StreamProvider(
+            create: (context) => context.read<DatabaseService>().Users,
           ),
           /*StreamProvider(
             create: (context) => context

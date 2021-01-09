@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/size_config.dart';
 import 'package:provider/provider.dart';
+import '../models/user.dart';
 import '../models/product.dart';
+
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
@@ -21,7 +23,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String title = "Fetch";
-  Map ahmed = {
+  Map ahmedd = {
     'account': 'ahmed@gmail.com',
     'name': 'ahmed',
     'phone': '+201141111111',
@@ -33,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
+    UserData customer = context.watch<UserData>();
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -75,9 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
         ],
       ),
-      drawer: SideList(
-        user: ahmed,
-      ),
+      drawer: SideList(),
       /************************* */
       body: ListView(
         padding: EdgeInsets.only(bottom: 10),
@@ -117,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
             for (var product in products)
               CardProduct(
                 product: product,
-                user: ahmed,
               ),
         ],
       ),

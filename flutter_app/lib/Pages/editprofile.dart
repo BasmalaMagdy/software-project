@@ -6,11 +6,13 @@ import '../common/size_config.dart';
 import 'package:image_picker/image_picker.dart';
 import '../common/constants.dart';
 import '../components/form_error.dart';
+import 'package:provider/provider.dart';
+import '../models/user.dart';
 
 class EditProfile extends StatefulWidget {
   static String routeName = "/editprofile";
-  EditProfile({Key key, this.person}) : super(key: key);
-  final Map person;
+  EditProfile({Key key}) : super(key: key);
+
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -30,13 +32,13 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _name = TextEditingController();
   final ImagePicker _picker = ImagePicker();
 
-  Widget imageProfile() {
+  Widget imageProfile(String photo) {
     return Center(
       child: Stack(children: <Widget>[
         CircleAvatar(
           radius: 80.0,
           backgroundImage: _imageFile == null
-              ? AssetImage("images/${widget.person['photo']}")
+              ? AssetImage("images/${photo}")
               : FileImage(File(_imageFile.path)),
         ),
         Positioned(
@@ -390,6 +392,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    UserData customer = context.watch<UserData>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -405,7 +408,7 @@ class _EditProfileState extends State<EditProfile> {
         padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
         //padding: EdgeInsets.only(top: 15, bottom: 15),
         children: [
-          imageProfile(),
+          imageProfile(customer.photo),
           SizedBox(
             height: 40,
           ),

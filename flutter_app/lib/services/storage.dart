@@ -21,8 +21,7 @@ class FireStorageService extends ChangeNotifier {
         .putFile(image);
   }
 
-  static Future<dynamic> removeImage(
-      File image, String product, String name) async {
+  static Future<dynamic> removeImage(String product) async {
     return await FirebaseStorage.instance
         .ref()
         .child('Products/$product/')

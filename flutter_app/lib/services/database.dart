@@ -5,12 +5,15 @@ import 'package:flutter_app/services/storage.dart';
 import '../models/product.dart';
 import '../models/comment.dart';
 import '../models/category.dart';
+import '../models/user.dart';
+
 import 'dart:io';
 
 import '../services/storage.dart';
 
 class DatabaseService {
   final String uid;
+
   String get UID {
     return uid;
   }
@@ -24,6 +27,50 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('products');
   final CollectionReference categoryCollection =
       FirebaseFirestore.instance.collection('categories');
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('users');
+
+/**                                       User DATABASE PART                                                **/
+
+  /* Future<void> updateUserData(
+      String name, String photo, String phone, String email) async {
+    return await usersCollection.doc(uid).set({
+      'name': name,
+      'phone': phone,
+      'photo': photo,
+      'email': email,
+    });
+  }
+
+  // user data from snapshots
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        name: snapshot.data()['name'] ?? '',
+        phone: snapshot.data()['phone'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        email: snapshot.data()['email'] ?? '');
+  }*/
+
+  // category data from snapshots
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: snapshot.id,
+      email: snapshot.data()['email'] ?? '',
+      name: snapshot.data()['name'] ?? '',
+      phone: snapshot.data()['phone'] ?? '',
+      photo: snapshot.data()['photo'] ?? '',
+      points: snapshot.data()['points'] ?? 0,
+      type: snapshot.data()['type'] ?? '',
+    );
+  }
+
+  Stream<UserData> get Users {
+    if (userCollection.doc(uid) != null)
+      return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+    else
+      return null;
+  }
 
 /**                                       CATEGORY DATABASE PART                                                **/
 
@@ -107,6 +154,7 @@ class DatabaseService {
 
   Future<void> DeleteProductData({ProductData product}) {
     productsCollection.doc(product.pid).delete().then((value) {
+      FireStorageService.removeImage(product.pid);
       print("Document successfully deleted!");
     }).catchError((error) {
       print("Error removing document: $error");

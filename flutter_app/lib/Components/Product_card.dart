@@ -7,11 +7,12 @@ import '../services/storage.dart';
 import '../models/product.dart';
 import 'package:flutter/material.dart';
 import '../Pages/productview/product_view.dart';
+import 'package:provider/provider.dart';
+import '../models/user.dart';
 
 class CardProduct extends StatefulWidget {
-  CardProduct({Key key, this.product, this.user}) : super(key: key);
+  CardProduct({Key key, this.product}) : super(key: key);
   final ProductData product;
-  final Map user;
 
   @override
   _CardProductState createState() => _CardProductState();
@@ -20,6 +21,7 @@ class CardProduct extends StatefulWidget {
 class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
+    UserData customer = context.watch<UserData>();
     var hieght = SizeConfig.screenHeight * 0.18;
     var rad = SizeConfig.screenHeight * 0.02;
     return FutureBuilder(
@@ -113,21 +115,21 @@ class _CardProductState extends State<CardProduct> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if (widget.user['type'] == 'buyer')
+                        if (customer.type == 'buyer')
                           IconButton(
                             icon: Icon(Icons.favorite_border),
                             onPressed: () {
                               // TO DO : if in the favourite change the favourite icon
                             },
                           ),
-                        if (widget.user['type'] == 'buyer')
+                        if (customer.type == 'buyer')
                           IconButton(
                             icon: Icon(Icons.add_shopping_cart),
                             onPressed: () {
                               // TO DO : if in the cart change the cart icon
                             },
                           ),
-                        if (widget.user['type'] == 'seller')
+                        if (customer.type == 'seller')
                           IconButton(
                             icon: Icon(
                               Icons.remove,
@@ -141,7 +143,7 @@ class _CardProductState extends State<CardProduct> {
                               });
                             },
                           ),
-                        if (widget.user['type'] == 'seller')
+                        if (customer.type == 'seller')
                           IconButton(
                             icon: Icon(
                               Icons.edit,

@@ -6,15 +6,14 @@ import '../Pages/about.dart';
 import '../Pages/category.dart';
 import '../Pages/profile.dart';
 import '../Pages/test.dart';
+import 'package:provider/provider.dart';
+import '../models/user.dart';
 
 // ignore: must_be_immutable
 class SideList extends StatefulWidget {
   const SideList({
     Key key,
-    this.user,
-    /* this.auth*/
   }) : super(key: key);
-  final Map user;
 
   @override
   _SideListState createState() => _SideListState();
@@ -23,24 +22,22 @@ class SideList extends StatefulWidget {
 class _SideListState extends State<SideList> {
   @override
   Widget build(BuildContext context) {
+    UserData customer = context.watch<UserData>();
+
     return Drawer(
       child: new ListView(
         children: <Widget>[
           //            header
           UserAccountsDrawerHeader(
-            accountName: Text('${widget.user['name']}'),
-            accountEmail: Text('${widget.user['account']}'),
+            accountName: Text('${customer.name}'),
+            accountEmail: Text('${customer.email}'),
             currentAccountPicture: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Profile(
-                              person: widget.user,
-                            )));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
               },
               child: new CircleAvatar(
-                backgroundImage: AssetImage('images/${widget.user['photo']}'),
+                backgroundImage: AssetImage('images/${customer.photo}'),
                 /*backgroundColor: Colors.black,
                 child: Icon(
                   Icons.person,
@@ -78,11 +75,7 @@ class _SideListState extends State<SideList> {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Profile(
-                            person: widget.user,
-                          )));
+                  context, MaterialPageRoute(builder: (context) => Profile()));
             },
             child: ListTile(
               title: Text('My Account'),
