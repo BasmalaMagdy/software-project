@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import '../Components/cart_items.dart';
 import '../bloc/cart_items_bloc.dart';
+import 'package:flutter_app/Pages/address.dart';
 
 class Cart extends StatefulWidget {
   static String routeName = "/cart";
@@ -15,12 +16,12 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* appBar: new AppBar(
-        //elevation: 0.1,
+      appBar: new AppBar(
+        elevation: 0.1,
         backgroundColor: Colors.red,
         centerTitle: true,
-        // title: Text('cart'),
-      ),*/
+        title: Text('Cart'),
+      ),
       body: new ShopItemsWidget(),
       bottomNavigationBar: new Container(
         color: Colors.white,
@@ -29,8 +30,8 @@ class _CartState extends State<Cart> {
             Expanded(
               child: new MaterialButton(
                 onPressed: () {
-                  /* Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => new Checkout()));*/
+                   Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => address()));
                 }, // a page need to be added
                 child: new Text(
                   "BUY ${bloc.num()} ITEMS FOR EGP ${bloc.sum()}",
