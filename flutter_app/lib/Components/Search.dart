@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/productview/product_view.dart';
-import 'package:flutter_app/common/commonwidget.dart';
 import 'package:flutter_app/models/product.dart';
+import 'package:flutter_app/models/user.dart';
 import 'package:provider/provider.dart';
+
+import '../services/database.dart';
 import '../services/storage.dart';
 
 class DataSearch extends SearchDelegate<String> {
   final cities = ['Egypt', 'Argen', 'samy', "ahmed"];
   final recentcities = ['Egypt', 'samy'];
-  DataSearch({this.products});
+
+  DataSearch({this.products, this.history, this.user});
   final List<ProductData> products;
+  final List<SearchProductData> history;
+  final UserData user;
 //********************For Filter (Not working yet)****************** */
   /*
   Item selectedUser;
@@ -71,23 +76,28 @@ class DataSearch extends SearchDelegate<String> {
             product.category.toLowerCase() == selectedUser.name.toLowerCase())
           suggest.add(product);
     */
-    for (var product in products)
-      if (product.name.startsWith(query)) suggest.add(product);
+    if (query.isEmpty) {
+      return ListView(children: [
+        if (history != null)
+          for (var product in history) Suggest(context, product, user),
+      ]);
+    }
+    if (query.isNotEmpty) {
+      for (var product in products)
+        if (product.name.startsWith(query)) suggest.add(product);
 
-    print('***********Search i am here************');
-    print(suggest.length);
-    return ListView(
-      children: [
-        if (suggest != null)
-          for (var product in suggest) Suggest(context, product),
+      return ListView(
+        children: [
+          if (suggest != null)
+            for (var product in suggest) Suggest(context, product, user),
 
-        /*ListView.builder(
+          /*ListView.builder(
               itemCount: suggest.length,
               itemBuilder: (context, index) {
                 return;
               }),*/
-        //********************For Filter (Not working yet)****************** */
-        /*
+          //********************For Filter (Not working yet)****************** */
+          /*
 
         Padding(
           padding: const EdgeInsets.all(10.0),
@@ -147,16 +157,19 @@ class DataSearch extends SearchDelegate<String> {
           ),
         ),
         */
-      ],
-    );
+        ],
+      );
+    }
   }
 
-  Widget Suggest(context, product) {
+  Widget Suggest(context, product, user) {
     return FutureBuilder(
       future: getImage(context, 'Products/${product.name}/${product.photo}'),
       builder: (context, snapshot) {
         return ListTile(
           onTap: () {
+            DatabaseService().addToUserHistory(uid: user.uid, product: product);
+            //history.add(product);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -168,6 +181,7 @@ class DataSearch extends SearchDelegate<String> {
           },
           //leading: Icon(Icons.location_city),
           //title: Text(suggestionList[index]),
+
           title: Text(product.name),
         );
       },
@@ -182,9 +196,16 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
+    final List<SearchProductData> history =
+        context.watch<List<SearchProductData>>();
+    final UserData user = context.watch<UserData>();
+
     return GestureDetector(
       onTap: () {
-        showSearch(context: context, delegate: DataSearch(products: products));
+        showSearch(
+            context: context,
+            delegate:
+                DataSearch(products: products, history: history, user: user));
       },
       child: Container(
         height: 50,

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Components/recommended.dart';
 import 'package:flutter_app/common/size_config.dart';
 import 'package:provider/provider.dart';
-import '../models/user.dart';
-import '../models/product.dart';
 
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
 import '../Components/Sidemene.dart';
-import '../Components/tabs.dart';
 import '../Components/carousel.dart';
+import '../Components/tabs.dart';
+import '../models/product.dart';
+import '../models/user.dart';
 
 class MyHomePage extends StatefulWidget {
   static String routeName = "/homepage";
@@ -36,6 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
     UserData customer = context.watch<UserData>();
+    final List<SearchProductData> history =
+        context.watch<List<SearchProductData>>();
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -101,6 +104,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           //   horizontal list of the categories
           HorizontalList(),
+
+          //        RECOMMENDED WIDGET
+          if (history != null && history.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              // title for the categoties part
+              child: new Text(
+                'Recommended',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: SizeConfig.screenHeight * 0.04,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          if (history != null && history.isNotEmpty) Recommend(),
 
           // Grid View of Products
           new Padding(

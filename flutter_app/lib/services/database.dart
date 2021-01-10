@@ -1,14 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_app/services/storage.dart';
-
-import '../models/product.dart';
-import '../models/comment.dart';
-import '../models/category.dart';
-import '../models/user.dart';
-
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/services/storage.dart';
+
+import '../models/category.dart';
+import '../models/comment.dart';
+import '../models/product.dart';
+import '../models/user.dart';
 import '../services/storage.dart';
 
 class DatabaseService {
@@ -24,28 +22,37 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference productsCollection =
-  FirebaseFirestore.instance.collection('products');
+      FirebaseFirestore.instance.collection('products');
   final CollectionReference categoryCollection =
-  FirebaseFirestore.instance.collection('categories');
+      FirebaseFirestore.instance.collection('categories');
   final CollectionReference userCollection =
-  FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
 
   /**                                       User DATABASE PART                                                **/
 
   Future<void> updateUserData(
       {String id,
-        String name,
-        String photo,
-        String phone,
-        String email,
-        UserData customer}) async {
-    return await userCollection.doc(id).set({
+      String name,
+      String phone,
+      String email,
+      UserData customer}) async {
+    return await userCollection.doc(id).update({
       'name': name,
       'phone': phone,
-      'photo': photo,
       'email': email,
-      'points': customer.points,
-      'type': customer.type
+    });
+  }
+
+  Future<void> upgradeUserToVip({bool vip, UserData customer}) async {
+    return await userCollection.doc(customer.uid).update({
+      'name': customer.name,
+      'phone': customer.phone,
+      'photo': customer.photo,
+      'email': customer.email,
+
+      'type': customer.type,
+      'vip': vip,
+      //'points': customer.points,
     });
   }
 
@@ -59,6 +66,7 @@ class DatabaseService {
       photo: snapshot.data()['photo'] ?? '',
       points: snapshot.data()['points'] ?? 0,
       type: snapshot.data()['type'] ?? '',
+      vip: snapshot.data()['vip'] ?? false,
     );
   }
 
@@ -66,6 +74,57 @@ class DatabaseService {
     if (userCollection.doc(uid) != null)
       return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
     else
+      return null;
+  }
+
+  /**                                       USER SEARCH HISTORY DATABASE PART                                     **/
+  Future<void> addToUserHistory({String uid, ProductData product}) async {
+    //print
+    return await userCollection
+        .doc(uid)
+        .collection("searchHistory")
+        .doc(product.pid)
+        .set({
+      'pid': product.pid,
+      'name': product.name,
+      'category': product.category,
+      'description': product.description,
+      'sid': product.sid,
+      'price': product.price,
+      'quantity': product.quantity,
+      'photo': product.photo,
+      'size': product.size,
+      'color': product.color,
+      //'product': product
+    });
+  }
+
+  List<SearchProductData> _userHistoryFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return SearchProductData(
+        pid: snapshot.id,
+        name: snapshot.data()['name'] ?? '',
+        category: snapshot.data()['category'] ?? '',
+        description: snapshot.data()['description'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        price: snapshot.data()['price'] ?? 0,
+        quantity: snapshot.data()['quantity'] ?? 0,
+        color: snapshot.data()['color'] ?? '',
+        size: snapshot.data()['size'] ?? '',
+      );
+    }).toList();
+    //return CommentData(cid: snapshot.id);
+  }
+
+  Stream<List<SearchProductData>> history({String uid}) {
+    if (userCollection.doc(uid).collection("searchHistory") != null) {
+      return userCollection
+          .doc(uid)
+          .collection("searchHistory")
+          .snapshots()
+          .map(_userHistoryFromSnapshot);
+    } else
       return null;
   }
 
@@ -93,15 +152,15 @@ class DatabaseService {
   /**                                       PRODUCT DATABASE PART                                                **/
   Future<void> updateProductData(
       {String pid,
-        String name,
-        String category,
-        String description,
-        String photo,
-        String sid,
-        int price,
-        int quantity,
-        String size,
-        String color}) async {
+      String name,
+      String category,
+      String description,
+      String photo,
+      String sid,
+      int price,
+      int quantity,
+      String size,
+      String color}) async {
     return await productsCollection.doc(pid).set({
       'name': name,
       'category': category,
@@ -117,16 +176,16 @@ class DatabaseService {
 
   Future<String> CreateProductData(
       {String name,
-        String category,
-        String description,
-        String photo,
-        String sid,
-        int price,
-        int quantity,
-        String color,
-        String size,
-        List<File> pimglist,
-        final List<String> imgnames}) async {
+      String category,
+      String description,
+      String photo,
+      String sid,
+      int price,
+      int quantity,
+      String color,
+      String size,
+      List<File> pimglist,
+      final List<String> imgnames}) async {
     await productsCollection.add({
       'name': name,
       'category': category,

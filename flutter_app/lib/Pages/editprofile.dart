@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../common/size_config.dart';
 import 'package:image_picker/image_picker.dart';
-import '../common/constants.dart';
-import '../components/form_error.dart';
 import 'package:provider/provider.dart';
+
+import '../common/constants.dart';
+import '../common/size_config.dart';
+import '../components/form_error.dart';
 import '../models/user.dart';
 import '../services/database.dart';
 
@@ -443,12 +444,11 @@ class _EditProfileState extends State<EditProfile> {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           DatabaseService().updateUserData(
-                              id: customer.uid,
-                              email: email,
-                              name: name,
-                              phone: phone,
-                              photo: customer.photo,
-                              customer: customer);
+                            id: customer.uid,
+                            email: email,
+                            name: name,
+                            phone: phone,
+                          );
                           setState(() {
                             DoneEdit(context);
                           });
