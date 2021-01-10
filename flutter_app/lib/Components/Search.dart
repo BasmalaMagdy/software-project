@@ -198,6 +198,7 @@ class SearchField extends StatelessWidget {
     final List<ProductData> products = context.watch<List<ProductData>>();
     final List<SearchProductData> history =
         context.watch<List<SearchProductData>>();
+
     final UserData user = context.watch<UserData>();
 
     return GestureDetector(

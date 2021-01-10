@@ -7,6 +7,7 @@ import '../Pages/Seller.dart';
 import '../Pages/about.dart';
 import '../Pages/category.dart';
 import '../Pages/profile.dart';
+import '../Pages/settings.dart';
 import '../Pages/test.dart';
 import '../models/user.dart';
 
@@ -238,7 +239,7 @@ class _SideListState extends State<SideList> {
           ListTile(
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Screen2()));
+                  context, MaterialPageRoute(builder: (context) => Settings()));
             },
             title: Text('Settings'),
             leading: Icon(
