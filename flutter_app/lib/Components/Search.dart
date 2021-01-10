@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/productview/product_view.dart';
-import 'package:flutter_app/common/commonwidget.dart';
 import 'package:flutter_app/models/product.dart';
 import 'package:provider/provider.dart';
+
 import '../services/storage.dart';
 
 class DataSearch extends SearchDelegate<String> {
   final cities = ['Egypt', 'Argen', 'samy', "ahmed"];
   final recentcities = ['Egypt', 'samy'];
+
   DataSearch({this.products});
   final List<ProductData> products;
+  List<ProductData> history = List<ProductData>();
 //********************For Filter (Not working yet)****************** */
   /*
   Item selectedUser;
@@ -74,8 +76,6 @@ class DataSearch extends SearchDelegate<String> {
     for (var product in products)
       if (product.name.startsWith(query)) suggest.add(product);
 
-    print('***********Search i am here************');
-    print(suggest.length);
     return ListView(
       children: [
         if (suggest != null)
@@ -157,6 +157,7 @@ class DataSearch extends SearchDelegate<String> {
       builder: (context, snapshot) {
         return ListTile(
           onTap: () {
+            history.add(product);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

@@ -6,6 +6,7 @@ class UserData {
   final int points;
   final String type;
   final String photo;
+  final bool vip;
   UserData(
       {this.uid,
       this.email,
@@ -13,5 +14,6 @@ class UserData {
       this.phone,
       this.photo,
       this.points,
-      this.type});
+      this.type,
+      this.vip});
 }
