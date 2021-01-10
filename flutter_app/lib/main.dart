@@ -1,11 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'common/routs.dart';
+import 'common/theme.dart';
 import 'models/comment.dart';
 import 'screens/splash/splash_screen.dart';
-import 'common/theme.dart';
 import 'services/database.dart';
 
 void main() async {
@@ -50,6 +50,12 @@ class _MyAppState extends State<MyApp> {
           StreamProvider(
             create: (context) => context.read<DatabaseService>().Users,
           ),
+          StreamProvider(
+            create: (context) => context
+                .read<DatabaseService>()
+                .history(uid: 'paAxQm9OScVWUpdENVV76ZE2gDM2'),
+          ),
+
           /*StreamProvider(
             create: (context) => context
                 .read<DatabaseService>()

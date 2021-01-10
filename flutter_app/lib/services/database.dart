@@ -77,6 +77,57 @@ class DatabaseService {
       return null;
   }
 
+  /**                                       USER SEARCH HISTORY DATABASE PART                                     **/
+  Future<void> addToUserHistory({String uid, ProductData product}) async {
+    //print
+    return await userCollection
+        .doc(uid)
+        .collection("searchHistory")
+        .doc(product.pid)
+        .set({
+      'pid': product.pid,
+      'name': product.name,
+      'category': product.category,
+      'description': product.description,
+      'sid': product.sid,
+      'price': product.price,
+      'quantity': product.quantity,
+      'photo': product.photo,
+      'size': product.size,
+      'color': product.color,
+      //'product': product
+    });
+  }
+
+  List<SearchProductData> _userHistoryFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return SearchProductData(
+        pid: snapshot.id,
+        name: snapshot.data()['name'] ?? '',
+        category: snapshot.data()['category'] ?? '',
+        description: snapshot.data()['description'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        price: snapshot.data()['price'] ?? 0,
+        quantity: snapshot.data()['quantity'] ?? 0,
+        color: snapshot.data()['color'] ?? '',
+        size: snapshot.data()['size'] ?? '',
+      );
+    }).toList();
+    //return CommentData(cid: snapshot.id);
+  }
+
+  Stream<List<SearchProductData>> history({String uid}) {
+    if (userCollection.doc(uid).collection("searchHistory") != null) {
+      return userCollection
+          .doc(uid)
+          .collection("searchHistory")
+          .snapshots()
+          .map(_userHistoryFromSnapshot);
+    } else
+      return null;
+  }
+
   /**                                       CATEGORY DATABASE PART                                                **/
 
   // category data from snapshots
