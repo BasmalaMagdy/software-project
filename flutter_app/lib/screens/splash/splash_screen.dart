@@ -10,8 +10,8 @@ class SplashScreen extends StatelessWidget {
     //final brews = Provider.of<List<ProductData>>(context) ?? [];
     print("****************dsds********************");
     //print(context.watch<List<CommentData>>());
-    //print(context.watch<List<ProductData>>());
-    //print(context.watch<List<ProductData>>()[0].price);
+    print(context.watch<List<ProductData>>());
+    print(context.watch<List<ProductData>>()[0].price);
 
     //print(brews);
     /* for (int i = 0; i < brews.length; i++) {

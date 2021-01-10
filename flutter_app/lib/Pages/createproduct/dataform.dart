@@ -98,16 +98,12 @@ class _GetDataFormState extends State<GetDataForm> {
                     price: price,
                     quantity: quantity,
                     color: color,
-                    size: sizes,
-                    pimglist: widget.pimglist,
-                    imgnames: widget.imgnames);
-                //print("**************Current Id******************");
-                //print(DatabaseService.currentid);
+                    size: sizes);
 
-                /*for (int i = 0; i < widget.pimglist.length; i++) {
+                for (int i = 0; i < widget.pimglist.length; i++) {
                   await FireStorageService.uploadImage(
-                      widget.pimglist[i], name, widget.imgnames[i]);
-                }*/
+                      context, widget.pimglist[i], name, widget.imgnames[i]);
+                }
                 setState(() {
                   DoneUpload(context);
                 });

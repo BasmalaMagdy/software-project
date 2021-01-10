@@ -13,8 +13,7 @@ class ShopItemsWidget extends StatelessWidget {
       stream: bloc.getStream,
       builder: (context, snapshot) {
         return snapshot.data["fav items"].length > 0
-            ? shopItemsListBuilder(snapshot)
-            : Center(child: Text("You haven't added any item yet"));
+            ? shopItemsListBuilder(snapshot) : Center(child: Text("You haven't added any item yet"));
       },
     );
   }
@@ -30,7 +29,12 @@ class ShopItemsWidget extends StatelessWidget {
             builder: (context, snapshott) {
               return Card(
                 child: ListTile(
-                  leading: snapshott.data,
+                  leading: Container(
+                    child: snapshott.data,
+                    width: 80.0,
+                    height: 80.0,
+
+                  ),
                   /*new Image.asset(
                     'images/cats/${favList[i].photo}', //================================photo====================================================
                     width: 80.0,
@@ -79,6 +83,25 @@ class ShopItemsWidget extends StatelessWidget {
                               color: Colors.red),
                         ),
                       ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            new IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () => bloc.removeFromFav(favList[i])//product data stream
+
+                            ),
+
+                            new IconButton(
+                                icon: Icon(Icons.add_shopping_cart),
+                                color: Colors.red,
+                                onPressed: () => bloc.addToCart(favList[i]) //product data stream
+                            ),
+                          ]
+                      ),
                     ],
                   ),
                 ),
@@ -88,63 +111,3 @@ class ShopItemsWidget extends StatelessWidget {
         });
   }
 }
-// class item_card extends StatefulWidget {
-//   @override
-//   _item_cardState createState() => _item_cardState();
-// }
-//
-// class _item_cardState extends State<item_card> {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       child: ListTile(
-//         leading: new Image.asset('images/cats/${widget.item['photo']}',
-//           width: 80.0,
-//           height: 80.0,
-//         ),
-//         title: new Text('${widget.item['name']}'), //==========================================name====================================================
-//         subtitle: new Column(
-//           children: <Widget>[
-//             new Row(
-//               children: <Widget>[
-//                 Padding(
-//                   padding: const EdgeInsets.all(0.0),
-//                   child: new Text("Size:"),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.all(4.0),
-//                   child: new Text(
-//                     '${widget.item['size']}', //================================================size=====================================================
-//                     style: TextStyle(color: Colors.red),
-//                   ),
-//                 ),
-//                 new Padding(
-//                   padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
-//                   child: new Text("Color:"),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.all(4.0),
-//                   child: new Text(
-//                     '${widget.item['color']}', //========================================================color=============================================
-//                     style: TextStyle(color: Colors.red),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             new Container(
-//               alignment: Alignment.topLeft,
-//               child: new Text(
-//                 "\$${widget.item['price']}",
-//                 style: TextStyle(
-//                     fontSize: 17.0,
-//                     fontWeight: FontWeight.bold,
-//                     color: Colors.red),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

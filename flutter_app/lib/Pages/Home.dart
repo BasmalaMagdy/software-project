@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Components/recommended.dart';
 import 'package:flutter_app/common/size_config.dart';
 import 'package:provider/provider.dart';
-
+import '../models/product.dart';
 import '../Components/Horizontal_listview.dart';
 import '../Components/Product_card.dart';
 import '../Components/Search.dart';
 import '../Components/Sidemene.dart';
+import 'package:flutter_app/Pages/cart.dart';
 import '../Components/carousel.dart';
-import '../Components/tabs.dart';
-import '../models/product.dart';
-import '../models/user.dart';
 
 class MyHomePage extends StatefulWidget {
   static String routeName = "/homepage";
@@ -24,21 +21,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String title = "Fetch";
-  Map ahmedd = {
+  Map person = {
     'account': 'ahmed@gmail.com',
     'name': 'ahmed',
     'phone': '+201141111111',
-    'photo': 'boy_profile.jpg',
-    'type': 'buyer',
-    'sid': 'sid'
+    'photo': 'profile.JPG',
   };
 
   @override
   Widget build(BuildContext context) {
-    final List<ProductData> products = context.watch<List<ProductData>>();
-    UserData customer = context.watch<UserData>();
-    final List<SearchProductData> history =
-        context.watch<List<SearchProductData>>();
+    final List<ProductData> pproducts = context.watch<List<ProductData>>();
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -73,53 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => tabAppBar()));
+                    MaterialPageRoute(builder: (context) => Cart()));
                 /*Navigator.pushNamed(
                   context,
                   '/test',
                 );*/
               }),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        height: 10,
-                        width: 45,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'images/coin.png',
-                          width: 30,
-                          height: 30,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          '${customer.points}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
         ],
       ),
-      drawer: SideList(),
+      drawer: SideList(
+        user: person,
+      ),
       /************************* */
       body: ListView(
         padding: EdgeInsets.only(bottom: 10),
@@ -143,21 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
           //   horizontal list of the categories
           HorizontalList(),
 
-          //        RECOMMENDED WIDGET
-          if (history != null && history.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              // title for the categoties part
-              child: new Text(
-                'Recommended',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: SizeConfig.screenHeight * 0.04,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          if (history != null && history.isNotEmpty) Recommend(),
-
           // Grid View of Products
           new Padding(
             padding: const EdgeInsets.all(12.0),
@@ -170,11 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-          if (products != null && products.isNotEmpty)
-            for (var product in products)
-              CardProduct(
-                product: product,
-              ),
+          for (var product in pproducts) CardProduct(product: product),
         ],
       ),
     );

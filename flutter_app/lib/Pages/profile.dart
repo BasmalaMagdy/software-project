@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../Pages/editprofile.dart';
-import '../common/size_config.dart';
-import '../models/user.dart';
 
 class Profile extends StatefulWidget {
   static String routeName = "/profile";
-  Profile({Key key}) : super(key: key);
+  Profile({Key key, this.person}) : super(key: key);
+  final Map person;
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -15,7 +12,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    UserData customer = context.watch<UserData>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,7 +25,7 @@ class _ProfileState extends State<Profile> {
         children: [
           Center(
             child: CircleAvatar(
-              backgroundImage: AssetImage('images/${customer.photo}'),
+              backgroundImage: AssetImage('images/${widget.person['photo']}'),
               radius: 90.0,
             ),
           ),
@@ -48,11 +44,11 @@ class _ProfileState extends State<Profile> {
             height: 10.0,
           ),
           Text(
-            '${customer.name}',
+            '${widget.person['name']}',
             style: TextStyle(
               color: Colors.black,
               letterSpacing: 2.0,
-              fontSize: SizeConfig.screenWidth * 0.05,
+              fontSize: 20,
             ),
           ),
           SizedBox(
@@ -72,14 +68,14 @@ class _ProfileState extends State<Profile> {
             children: [
               Icon(Icons.email, color: Colors.black),
               SizedBox(
-                width: SizeConfig.screenWidth * 0.02,
+                width: 10.0,
               ),
               Text(
-                '${customer.email}',
+                '${widget.person['account']}',
                 style: TextStyle(
                   color: Colors.black,
                   letterSpacing: 2.0,
-                  fontSize: SizeConfig.screenWidth * 0.05,
+                  fontSize: 20,
                 ),
               ),
             ],
@@ -92,7 +88,6 @@ class _ProfileState extends State<Profile> {
             style: TextStyle(
               color: Colors.red,
               letterSpacing: 2.0,
-              fontSize: SizeConfig.screenWidth * 0.05,
             ),
           ),
           SizedBox(
@@ -105,11 +100,11 @@ class _ProfileState extends State<Profile> {
                 width: 10.0,
               ),
               Text(
-                '${customer.phone}',
+                '${widget.person['phone']}',
                 style: TextStyle(
                   color: Colors.black,
                   letterSpacing: 2.0,
-                  fontSize: SizeConfig.screenWidth * 0.05,
+                  fontSize: 20,
                 ),
               ),
             ],
@@ -126,8 +121,11 @@ class _ProfileState extends State<Profile> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProfile()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EditProfile(person: widget.person)));
               },
               color: Colors.black,
               child: Center(

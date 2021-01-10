@@ -14,6 +14,12 @@ class _FavState extends State<Fav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        elevation: 0.1,
+        backgroundColor: Colors.red,
+        centerTitle: true,
+        title: Text('Wishlist'),
+      ),
       body: new ShopItemsWidget(),
     );
   }

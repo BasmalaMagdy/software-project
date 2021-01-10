@@ -1,6 +1,8 @@
 /// The [dart:async] is neccessary for using streams
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 class ItemsBloc {
   /// The [cartStreamController] is an object of the StreamController class
   /// .broadcast enables the stream to be read in multiple screens of our app
@@ -14,7 +16,7 @@ class ItemsBloc {
     double sum = 0;
     int i;
     for (i = 0; i < allItems['cart items'].length; i++) {
-      sum = sum + allItems['cart items'][i].price;
+      sum = sum + allItems['cart items'][i].price * allItems['cart items'][i].quantity;
     }
     return sum;
   }
@@ -22,13 +24,16 @@ class ItemsBloc {
   int num() => allItems['cart items'].length;
 
   void addToCart(item) {
-    allItems['cart items'].add(item);
-    cartStreamController.sink.add(allItems);
+    if (!allItems['cart items'].contains(item)){
+      allItems['cart items'].add(item);
+      cartStreamController.sink.add(allItems);
+    }
   }
-
   void addToFav(item) {
-    allItems['fav items'].add(item);
-    cartStreamController.sink.add(allItems);
+    if (!allItems['cart items'].contains(item)){
+      allItems['fav items'].add(item);
+      cartStreamController.sink.add(allItems);
+    }
   }
 
   void removeFromCart(item) {

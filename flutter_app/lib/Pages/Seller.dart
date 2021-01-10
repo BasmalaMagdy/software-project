@@ -17,13 +17,11 @@ class SellerInterface extends StatefulWidget {
 }
 
 class _SellerInterfaceState extends State<SellerInterface> {
-  Map basmala = {
-    'account': 'basmala@gmail.com',
-    'name': 'basmala',
+  Map seller = {
+    'account': 'ahmed@gmail.com',
+    'name': 'ahmed',
     'phone': '+201141111111',
-    'photo': 'girl_profile.jpg',
-    'type': 'seller',
-    'sid': 'sid'
+    'photo': 'profile.JPG',
   };
 
   @override
@@ -53,8 +51,12 @@ class _SellerInterfaceState extends State<SellerInterface> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Profile(
+                              person: seller,
+                            )));
               }),
         ],
       ),
@@ -88,10 +90,7 @@ class _SellerInterfaceState extends State<SellerInterface> {
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
-          for (var product in products)
-            CardProduct(
-              product: product,
-            ),
+          for (var product in products) CardProduct(product: product),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
