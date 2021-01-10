@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Pages/category.dart';
 import '../common/commonwidget.dart';
 import '../common/size_config.dart';
 import '../models/category.dart';
-import 'package:provider/provider.dart';
-import '../Pages/category.dart';
 import '../services/storage.dart';
 
 // ignore: must_be_immutable
@@ -20,14 +21,15 @@ class _HorizontalListState extends State<HorizontalList> {
     List<CategoryData> Categories = context.watch<List<CategoryData>>();
 
     return Container(
-        height: SizeConfig.screenHeight * 0.22,
+        height: SizeConfig.screenHeight * 0.18,
         child: Categories != null
             ? ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: Categories.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FutureBuilder(
-                    future: getImage(context, '${Categories[index].pic}'),
+                    future: getScaledImage(
+                        context, '${Categories[index].pic}', 0.122),
                     builder: (context, snapshot) {
                       return InkWell(
                         onTap: () {
@@ -64,6 +66,6 @@ class _HorizontalListState extends State<HorizontalList> {
                     },
                   );
                 })
-            : Container());
+            : Loading());
   }
 }

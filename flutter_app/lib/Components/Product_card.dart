@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/editproduct/editproduct.dart';
 import 'package:flutter_app/common/size_config.dart';
 import 'package:flutter_app/services/database.dart';
-
-import '../common/commonwidget.dart';
-import '../services/storage.dart';
-import '../models/product.dart';
-import 'package:flutter/material.dart';
-import '../Pages/productview/product_view.dart';
 import 'package:provider/provider.dart';
+
+import '../Pages/productview/product_view.dart';
+import '../common/commonwidget.dart';
+import '../models/product.dart';
 import '../models/user.dart';
+import '../services/storage.dart';
 
 class CardProduct extends StatefulWidget {
   CardProduct({Key key, this.product}) : super(key: key);
@@ -22,7 +22,7 @@ class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
     UserData customer = context.watch<UserData>();
-    var hieght = SizeConfig.screenHeight * 0.18;
+    var hieght = SizeConfig.screenHeight * 0.16;
     var rad = SizeConfig.screenHeight * 0.02;
     return FutureBuilder(
         future: getImage(
@@ -57,7 +57,7 @@ class _CardProductState extends State<CardProduct> {
                           boxShadow: ShadowList,
                         ),
                         child:
-                            snapshot.data != null ? snapshot.data : Container(),
+                            snapshot.data != null ? snapshot.data : Loading(),
                       ),
                       Container(
                         height: hieght,

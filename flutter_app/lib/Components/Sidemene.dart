@@ -10,6 +10,7 @@ import '../Pages/profile.dart';
 import '../Pages/settings.dart';
 import '../Pages/test.dart';
 import '../models/user.dart';
+import '../services/storage.dart';
 
 // ignore: must_be_immutable
 class SideList extends StatefulWidget {
@@ -27,250 +28,250 @@ class _SideListState extends State<SideList> {
     UserData customer = context.watch<UserData>();
 
     return Drawer(
-      child: new ListView(
-        children: <Widget>[
-          //            header
-          UserAccountsDrawerHeader(
-            accountName: Text('${customer.name}'),
-            accountEmail: Text('${customer.email}'),
-            currentAccountPicture: GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
-              },
-              child: new CircleAvatar(
-                backgroundImage: AssetImage('images/${customer.photo}'),
-                /*backgroundColor: Colors.black,
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),*/
-              ),
-            ),
-            decoration: new BoxDecoration(
-              color: Colors.grey,
-            ),
-          ),
+      child: FutureBuilder(
+          future: getProfileImage(
+              context, 'Users/${customer.uid}/${customer.photo}'),
+          builder: (context, snapshot) {
+            return ListView(
+              children: <Widget>[
+                //            header
+                UserAccountsDrawerHeader(
+                  accountName: Text('${customer.name}'),
+                  accountEmail: Text('${customer.email}'),
+                  currentAccountPicture: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Profile()));
+                    },
+                    child: snapshot.data,
+                  ),
+                  decoration: new BoxDecoration(
+                    color: Colors.grey,
+                  ),
+                ),
 
 //              Body
-          Divider(
-            thickness: 5,
-            color: Colors.black,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SellerInterface()));
-            },
-            title: Text('Test Seller interface'),
-            leading: Icon(Icons.person),
-          ),
+                Divider(
+                  thickness: 5,
+                  color: Colors.black,
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SellerInterface()));
+                  },
+                  title: Text('Test Seller interface'),
+                  leading: Icon(Icons.person),
+                ),
 
-          Divider(
-            height: 20,
-            thickness: 5,
-            color: Colors.black,
-          ),
+                Divider(
+                  height: 20,
+                  thickness: 5,
+                  color: Colors.black,
+                ),
 
-          if (customer.vip == false)
-            ListTile(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Vip(user: customer)));
-              },
-              title: Row(
-                children: [
-                  Text(
-                    'Update to vip account',
-                    style: TextStyle(
+                if (customer.vip == false)
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Vip(user: customer)));
+                    },
+                    title: Row(
+                      children: [
+                        Text(
+                          'Update to vip account',
+                          style: TextStyle(
+                            color: Colors.amber,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    ),
+                    leading: Icon(
+                      Icons.person,
                       color: Colors.amber,
                     ),
                   ),
-                  SizedBox(
-                    width: 5,
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Profile()));
+                  },
+                  title: customer.vip
+                      ? Text(
+                          'My Account',
+                          style: TextStyle(
+                            color: Colors.amberAccent,
+                          ),
+                        )
+                      : Text('My Account'),
+                  leading: customer.vip
+                      ? Icon(
+                          Icons.person,
+                          color: Colors.amberAccent,
+                        )
+                      : Icon(Icons.person),
+                ),
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Screen2()));
+                  },
+                  title: Text('My Orders'),
+                  leading: Icon(Icons.shopping_basket),
+                ),
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Screen2()));
+                  },
+                  title: Text('Favourite'),
+                  leading: Icon(Icons.favorite),
+                ),
+
+                Divider(),
+
+                new Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  // title for the categoties part
+                  child: new Text('Categories'),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'Shirt',
+                                )));
+                  },
+                  title: Text('Shirt'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'accessories',
+                                )));
+                  },
+                  title: Text('Accessories'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'dress',
+                                )));
+                  },
+                  title: Text('Dress'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'formal',
+                                )));
+                  },
+                  title: Text('Formal'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'informal',
+                                )));
+                  },
+                  title: Text('Informal'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'jeans',
+                                )));
+                  },
+                  title: Text('Jeans'),
+                  leading: Icon(Icons.dashboard),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryView(
+                                  category: 'shoes',
+                                )));
+                  },
+                  title: Text('Shoes'),
+                  leading: Icon(Icons.dashboard),
+                ),
+
+                Divider(),
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Settings()));
+                  },
+                  title: Text('Settings'),
+                  leading: Icon(
+                    Icons.settings,
+                    color: Colors.red,
                   ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
+                ),
+
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => About()));
+                  },
+                  title: Text('About'),
+                  leading: Icon(
+                    Icons.help,
+                    color: Colors.red,
                   ),
-                ],
-              ),
-              leading: Icon(
-                Icons.person,
-                color: Colors.amber,
-              ),
-            ),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
-            },
-            title: customer.vip
-                ? Text(
-                    'My Account',
-                    style: TextStyle(
-                      color: Colors.amberAccent,
-                    ),
-                  )
-                : Text('My Account'),
-            leading: customer.vip
-                ? Icon(
-                    Icons.person,
-                    color: Colors.amberAccent,
-                  )
-                : Icon(Icons.person),
-          ),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Screen2()));
-            },
-            title: Text('My Orders'),
-            leading: Icon(Icons.shopping_basket),
-          ),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Screen2()));
-            },
-            title: Text('Favourite'),
-            leading: Icon(Icons.favorite),
-          ),
-
-          Divider(),
-
-          new Padding(
-            padding: const EdgeInsets.all(4.0),
-            // title for the categoties part
-            child: new Text('Categories'),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'Shirt',
-                          )));
-            },
-            title: Text('Shirt'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'accessories',
-                          )));
-            },
-            title: Text('Accessories'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'dress',
-                          )));
-            },
-            title: Text('Dress'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'formal',
-                          )));
-            },
-            title: Text('Formal'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'informal',
-                          )));
-            },
-            title: Text('Informal'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'jeans',
-                          )));
-            },
-            title: Text('Jeans'),
-            leading: Icon(Icons.dashboard),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CategoryView(
-                            category: 'shoes',
-                          )));
-            },
-            title: Text('Shoes'),
-            leading: Icon(Icons.dashboard),
-          ),
-
-          Divider(),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Settings()));
-            },
-            title: Text('Settings'),
-            leading: Icon(
-              Icons.settings,
-              color: Colors.red,
-            ),
-          ),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => About()));
-            },
-            title: Text('About'),
-            leading: Icon(
-              Icons.help,
-              color: Colors.red,
-            ),
-          ),
-          ListTile(
-            onTap: () async {
-              //await widget.auth.signOut();
-            },
-            title: Text('Sign out'),
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-          ),
-        ],
-      ),
+                ),
+                ListTile(
+                  onTap: () async {
+                    //await widget.auth.signOut();
+                  },
+                  title: Text('Sign out'),
+                  leading: Icon(
+                    Icons.exit_to_app,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            );
+          }),
     );
   }
 }

@@ -35,11 +35,14 @@ class DatabaseService {
       String name,
       String phone,
       String email,
-      UserData customer}) async {
+      UserData customer,
+      File imageFile}) async {
     return await userCollection.doc(id).update({
       'name': name,
       'phone': phone,
       'email': email,
+    }).then((value) {
+      FireStorageService.changeUserImage(image: imageFile, user: customer);
     });
   }
 

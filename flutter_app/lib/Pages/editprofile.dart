@@ -10,6 +10,7 @@ import '../common/size_config.dart';
 import '../components/form_error.dart';
 import '../models/user.dart';
 import '../services/database.dart';
+import '../services/storage.dart';
 
 class EditProfile extends StatefulWidget {
   static String routeName = "/editprofile";
@@ -30,19 +31,105 @@ class _EditProfileState extends State<EditProfile> {
 
   bool _showPassword = false;
   bool _showConfirmPassword = false;
-  PickedFile _imageFile;
-  TextEditingController _name = TextEditingController();
+  File _imageFile;
   final ImagePicker _picker = ImagePicker();
 
-  Widget imageProfile(String photo) {
+  @override
+  Widget build(BuildContext context) {
+    UserData customer = context.watch<UserData>();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.grey[400],
+        iconTheme: new IconThemeData(color: Colors.black),
+        centerTitle: true,
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: FutureBuilder(
+          future: getProfileImage(
+              context, 'Users/${customer.uid}/${customer.photo}'),
+          builder: (context, snapshot) {
+            return ListView(
+              padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+              //padding: EdgeInsets.only(top: 15, bottom: 15),
+              children: [
+                imageProfile(snapshot),
+                SizedBox(
+                  height: 40,
+                ),
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        //USERNAME TEXT FIELD
+                        buildNameFormField(),
+                        SizedBox(height: SizeConfig.screenHeight * 0.02),
+                        /*  Email field  */
+                        buildEmailFormField(),
+                        SizedBox(height: SizeConfig.screenHeight * 0.02),
+                        /*  password field  */
+                        //buildPasswordFormField(),
+                        /*  confirm field  */
+                        //buildConfirmPasswordFormField(),
+                        /*   Phone   */
+                        buildPhoneFormField(),
+                        SizedBox(height: SizeConfig.screenHeight * 0.05),
+                        FormError(errors: errors),
+                        SizedBox(height: SizeConfig.screenHeight * 0.02),
+                        Container(
+                          margin:
+                              EdgeInsets.only(left: 65, right: 65, bottom: 10),
+                          height: 55,
+                          //width: double.infinity,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                _formKey.currentState.save();
+                                DatabaseService().updateUserData(
+                                    id: customer.uid,
+                                    email: email,
+                                    name: name,
+                                    phone: phone,
+                                    customer: customer,
+                                    imageFile: _imageFile);
+
+                                setState(() {
+                                  DoneEdit(context);
+                                });
+                              }
+                            },
+                            color: Colors.black,
+                            child: Center(
+                              child: Text(
+                                "Update",
+                                style: TextStyle(
+                                    fontSize: 23, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ],
+            );
+          }),
+    );
+  }
+
+  Widget imageProfile(snapshot) {
     return Center(
       child: Stack(children: <Widget>[
-        CircleAvatar(
-          radius: 80.0,
-          backgroundImage: _imageFile == null
-              ? AssetImage("images/${photo}")
-              : FileImage(File(_imageFile.path)),
-        ),
+        _imageFile == null
+            ? snapshot.data
+            : CircleAvatar(
+                radius: 80.0,
+                backgroundImage: FileImage(File(_imageFile.path)),
+              ),
         Positioned(
           bottom: 0.0,
           right: 0.0,
@@ -118,7 +205,7 @@ class _EditProfileState extends State<EditProfile> {
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile;
+      _imageFile = File(pickedFile.path);
     });
   }
 
@@ -389,84 +476,6 @@ class _EditProfileState extends State<EditProfile> {
         floatingLabelBehavior: FloatingLabelBehavior.never,
       ),
       style: TextStyle(fontSize: getProportionateScreenWidth(30)),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    UserData customer = context.watch<UserData>();
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey[400],
-        iconTheme: new IconThemeData(color: Colors.black),
-        centerTitle: true,
-        title: Text(
-          'Edit Profile',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: ListView(
-        padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
-        //padding: EdgeInsets.only(top: 15, bottom: 15),
-        children: [
-          imageProfile(customer.photo),
-          SizedBox(
-            height: 40,
-          ),
-          Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  //USERNAME TEXT FIELD
-                  buildNameFormField(),
-                  SizedBox(height: SizeConfig.screenHeight * 0.02),
-                  /*  Email field  */
-                  buildEmailFormField(),
-                  SizedBox(height: SizeConfig.screenHeight * 0.02),
-                  /*  password field  */
-                  //buildPasswordFormField(),
-                  /*  confirm field  */
-                  //buildConfirmPasswordFormField(),
-                  /*   Phone   */
-                  buildPhoneFormField(),
-                  SizedBox(height: SizeConfig.screenHeight * 0.05),
-                  FormError(errors: errors),
-                  SizedBox(height: SizeConfig.screenHeight * 0.02),
-                  Container(
-                    margin: EdgeInsets.only(left: 65, right: 65, bottom: 10),
-                    height: 55,
-                    //width: double.infinity,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          DatabaseService().updateUserData(
-                            id: customer.uid,
-                            email: email,
-                            name: name,
-                            phone: phone,
-                          );
-                          setState(() {
-                            DoneEdit(context);
-                          });
-                        }
-                      },
-                      color: Colors.black,
-                      child: Center(
-                        child: Text(
-                          "Update",
-                          style: TextStyle(fontSize: 23, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-        ],
-      ),
     );
   }
 

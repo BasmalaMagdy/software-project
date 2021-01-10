@@ -3,6 +3,7 @@ import 'package:flutter_app/models/user.dart';
 import 'package:flutter_app/services/database.dart';
 import 'package:provider/provider.dart';
 
+import '../common/size_config.dart';
 import '../models/product.dart';
 
 class Settings extends StatelessWidget {
@@ -29,7 +30,7 @@ class Settings extends StatelessWidget {
                   'Remove my history',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenWidth * 0.05,
                   ),
                 ),
                 FlatButton(
@@ -46,7 +47,8 @@ class Settings extends StatelessWidget {
                       Icon(Icons.clear),
                       Text(
                         'Clear',
-                        style: TextStyle(fontSize: 20),
+                        style:
+                            TextStyle(fontSize: SizeConfig.screenWidth * 0.05),
                       ),
                     ],
                   ),
@@ -54,7 +56,7 @@ class Settings extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 40,
+              height: SizeConfig.screenHeight * 0.02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +65,7 @@ class Settings extends StatelessWidget {
                   'Remove Vip badge',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: SizeConfig.screenWidth * 0.05,
                   ),
                 ),
                 FlatButton(
@@ -81,7 +83,8 @@ class Settings extends StatelessWidget {
                       Icon(Icons.clear),
                       Text(
                         'Remove',
-                        style: TextStyle(fontSize: 20),
+                        style:
+                            TextStyle(fontSize: SizeConfig.screenWidth * 0.05),
                       ),
                     ],
                   ),

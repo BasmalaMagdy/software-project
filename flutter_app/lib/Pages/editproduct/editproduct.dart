@@ -1,11 +1,10 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_app/common/size_config.dart';
 import 'package:flutter_app/models/product.dart';
 
 import 'dataform.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
 
 class EditProduct extends StatefulWidget {
   static String routeName = "/EditProduct";
@@ -45,35 +44,6 @@ class _EditProductState extends State<EditProduct> {
           ),
         ),
       ]),
-    );
-  }
-
-  DoneUpload(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Product Created'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Press ok'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve'),
-              onPressed: () {
-                int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 2);
-                //Navigator.of(context).popUntil((route) => );
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

@@ -11,6 +11,7 @@ import '../Components/carousel.dart';
 import '../Components/tabs.dart';
 import '../models/product.dart';
 import '../models/user.dart';
+import '../services/storage.dart';
 
 class MyHomePage extends StatefulWidget {
   static String routeName = "/homepage";
@@ -40,143 +41,150 @@ class _MyHomePageState extends State<MyHomePage> {
     final List<SearchProductData> history =
         context.watch<List<SearchProductData>>();
 
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: new IconThemeData(color: Colors.black),
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: SizeConfig.screenWidth * 0.07,
-              ),
-            ),
-            /*Image.asset(
+    return customer == null || products.isEmpty
+        ? Loading()
+        : Scaffold(
+            backgroundColor: Colors.grey[300],
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              iconTheme: new IconThemeData(color: Colors.black),
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeConfig.screenWidth * 0.07,
+                    ),
+                  ),
+                  /*Image.asset(
               'assets/icons/logo.png',
               height: 40,
               width: 40,
             ),
             Icon(Icons.location_on),*/
-          ],
-        ),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
+                ],
               ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => tabAppBar()));
-                /*Navigator.pushNamed(
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => tabAppBar()));
+                      /*Navigator.pushNamed(
                   context,
                   '/test',
                 );*/
-              }),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        height: 10,
-                        width: 45,
-                        color: Colors.grey[400],
+                    }),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 5),
+                            child: Container(
+                              height: SizeConfig.screenHeight * 0.015,
+                              width: SizeConfig.screenWidth * 0.15,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                'images/coin.png',
+                                width: 30,
+                                height: 30,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '${customer.points.toString()}',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'images/coin.png',
-                          width: 30,
-                          height: 30,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          '${customer.points}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                )
               ],
             ),
-          )
-        ],
-      ),
-      drawer: SideList(),
-      /************************* */
-      body: ListView(
-        padding: EdgeInsets.only(bottom: 10),
-        children: [
-          SearchField(),
-          //image carousel begin here
-          //ImageCarousel,
-          CarouselImg(),
-          // padding widget
-          new Padding(
-            padding: const EdgeInsets.all(6.0),
-            // title for the categoties part
-            child: new Text(
-              'Categories',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: SizeConfig.screenHeight * 0.04,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-          //   horizontal list of the categories
-          HorizontalList(),
+            drawer: SideList(),
+            /************************* */
+            body: ListView(
+              padding: EdgeInsets.only(bottom: 10),
+              children: [
+                SearchField(),
+                //image carousel begin here
+                //ImageCarousel,
+                CarouselImg(),
+                // padding widget
+                new Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  // title for the categoties part
+                  child: new Text(
+                    'Categories',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: SizeConfig.screenHeight * 0.04,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                //   horizontal list of the categories
+                HorizontalList(),
 
-          //        RECOMMENDED WIDGET
-          if (history != null && history.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              // title for the categoties part
-              child: new Text(
-                'Recommended',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: SizeConfig.screenHeight * 0.04,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          if (history != null && history.isNotEmpty) Recommend(),
+                //        RECOMMENDED WIDGET
+                if (history != null && history.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    // title for the categoties part
+                    child: new Text(
+                      'Recommended',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: SizeConfig.screenHeight * 0.04,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                if (history != null && history.isNotEmpty) Recommend(),
 
-          // Grid View of Products
-          new Padding(
-            padding: const EdgeInsets.all(12.0),
-            // title for the categoties part
-            child: new Text(
-              'Recent products',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: SizeConfig.screenHeight * 0.04,
-                  fontWeight: FontWeight.w600),
+                // Grid View of Products
+                new Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  // title for the categoties part
+                  child: new Text(
+                    'Recent products',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: SizeConfig.screenHeight * 0.04,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                if (products != null && products.isNotEmpty)
+                  for (var product in products)
+                    CardProduct(
+                      product: product,
+                    ),
+              ],
             ),
-          ),
-          if (products != null && products.isNotEmpty)
-            for (var product in products)
-              CardProduct(
-                product: product,
-              ),
-        ],
-      ),
-    );
+          );
   }
 }
