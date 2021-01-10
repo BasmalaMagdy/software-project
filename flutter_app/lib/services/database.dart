@@ -79,7 +79,6 @@ class DatabaseService {
 
   /**                                       USER SEARCH HISTORY DATABASE PART                                     **/
   Future<void> addToUserHistory({String uid, ProductData product}) async {
-    //print
     return await userCollection
         .doc(uid)
         .collection("searchHistory")
@@ -96,6 +95,16 @@ class DatabaseService {
       'size': product.size,
       'color': product.color,
       //'product': product
+    });
+  }
+
+  Future<void> DeleteHistoryData({String uid}) {
+    userCollection.doc(uid).collection('searchHistory').get().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.docs) {
+        ds.reference.delete();
+      }
+    }).catchError((error) {
+      print("Error removing document: $error");
     });
   }
 

@@ -79,6 +79,44 @@ class _MyHomePageState extends State<MyHomePage> {
                   '/test',
                 );*/
               }),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Container(
+                        height: 10,
+                        width: 45,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'images/coin.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '${customer.points}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
       drawer: SideList(),
