@@ -10,6 +10,21 @@ class ProductData {
   final String size;
   final String color;
 
+  Map<String, dynamic> tojason() {
+    return {
+      'color': color,
+      'pid': pid,
+      'name': name,
+      'category': category,
+      'description': description,
+      'photo': photo,
+      'price': price,
+      'quantity': quantity,
+      'sid': sid,
+      'size': size,
+    };
+  }
+
   ProductData({
     this.pid,
     this.name,
@@ -62,5 +77,20 @@ class SearchProductData {
       sid: sid,
       size: size,
     );
+  }
+
+  Map<String, dynamic> tojason() {
+    return {
+      'color': color,
+      'pid': pid,
+      'name': name,
+      'category': category,
+      'description': description,
+      'photo': photo,
+      'price': price,
+      'quantity': quantity,
+      'sid': sid,
+      'size': size,
+    };
   }
 }
