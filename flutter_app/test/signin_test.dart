@@ -6,32 +6,32 @@ import 'package:flutter_app/screens/sign_in/components/sign_form.dart';
 
 void main() {
   test('Test sign in email', () {
-    var result = EmailFieldValidator.validator('ahmed@gmail.com');
+    var result = Validate.emailvalidate('ahmed@gmail.com');
     expect(result, null);
   });
 
   test('Test sign in password', () {
-    var result = PasswordFieldValidator.validator('123456aaa');
+    var result = Validate.passwordvalidate('123456aaa');
     expect(result, null);
   });
 
   test('Test sign in email empty', () {
-    var result = EmailFieldValidator.validator("");
+    var result = Validate.emailvalidate("");
     expect(result, kEmailNullError);
   });
 
   test('Test sign in password empty', () {
-    var result = PasswordFieldValidator.validator("");
+    var result = Validate.passwordvalidate("");
     expect(result, kPasswordNullError);
   });
 
   test('Test sign in email  InValid', () {
-    var result = EmailFieldValidator.validator("samy");
+    var result = Validate.emailvalidate("samy");
     expect(result, kInvalidEmailError);
   });
 
   test('Test sign in password short', () {
-    var result = PasswordFieldValidator.validator("4578");
+    var result = Validate.passwordvalidate("4578");
     expect(result, kPasswordShortError);
   });
 }

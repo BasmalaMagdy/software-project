@@ -90,16 +90,9 @@ class _EditProfileState extends State<EditProfile> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                DatabaseService().updateUserData(
-                                    id: customer.uid,
-                                    email: email,
-                                    name: name,
-                                    phone: phone,
-                                    customer: customer,
-                                    imageFile: _imageFile);
 
                                 setState(() {
-                                  DoneEdit(context);
+                                  DoneEdit(context, customer);
                                 });
                               }
                             },
@@ -318,21 +311,7 @@ class _EditProfileState extends State<EditProfile> {
       keyboardType: TextInputType.number,
       onSaved: (newValue) => phone = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPhoneNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kPhoneNullError);
-          if (value.length < 11 || value.length > 11) {
-            addError(error: kPhoneInvalidError);
-            return "";
-          } else if (value.length == 11) {
-            removeError(error: kPhoneInvalidError);
-          }
-        }
-        return null;
-      },
+      validator: Validate.phonevalidator,
     );
   }
 
@@ -348,15 +327,7 @@ class _EditProfileState extends State<EditProfile> {
       keyboardType: TextInputType.name,
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kNameNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kNameNullError);
-        }
-        return null;
-      },
+      validator: Validate.namevalidator,
     );
   }
 
@@ -460,16 +431,7 @@ class _EditProfileState extends State<EditProfile> {
         }
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
+      validator: Validate.emailvalidator,
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email.",
@@ -479,7 +441,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  DoneEdit(BuildContext context) {
+  DoneEdit(BuildContext context, customer) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -497,6 +459,13 @@ class _EditProfileState extends State<EditProfile> {
             TextButton(
               child: Text('Approve'),
               onPressed: () {
+                DatabaseService().updateUserData(
+                    id: customer.uid,
+                    email: email,
+                    name: name,
+                    phone: phone,
+                    customer: customer,
+                    imageFile: _imageFile);
                 int count = 0;
                 Navigator.of(context).popUntil((_) => count++ >= 2);
                 //Navigator.of(context).popUntil((route) => );
@@ -506,5 +475,46 @@ class _EditProfileState extends State<EditProfile> {
         );
       },
     );
+  }
+}
+
+class Validate {
+  static String namevalidator(value) {
+    if (value.isEmpty) {
+      //addError(error: kNameNullError);
+      return kNameNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          removeError(error: kNameNullError);
+        }*/
+    return null;
+  }
+
+  static String emailvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kEmailNullError);
+      return kEmailNullError;
+    } else if (!emailValidatorRegExp.hasMatch(value)) {
+      // addError(error: kInvalidEmailError);
+      return kInvalidEmailError;
+    }
+    return null;
+  }
+
+  static String phonevalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kPhoneNullError);
+      return kPhoneNullError;
+    } else if (value.isNotEmpty) {
+      //removeError(error: kPhoneNullError);
+      if (value.length < 11 || value.length > 11) {
+        //addError(error: kPhoneInvalidError);
+        return kPhoneInvalidError;
+      }
+      /*else if (value.length == 11) {
+            removeError(error: kPhoneInvalidError);
+          }*/
+    }
+    return null;
   }
 }

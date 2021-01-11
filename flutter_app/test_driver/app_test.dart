@@ -4,7 +4,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Fetch ap', () {
+  group('Fetch app test', () {
     final button = find.byType('DefaultButton');
     FlutterDriver driver;
 
@@ -54,21 +54,21 @@ void main() {
       final text = find.text('product1');
       expect(await driver.getText(text), 'product1');
     });
-    test('back ', () async {
+    test('back product view', () async {
       final button = find.pageBack();
       await driver.tap(button);
       final text = find.text('product1');
       expect(await driver.getText(text), 'product1');
     });
 
-    test('back ', () async {
+    test('back to category', () async {
       final button = find.pageBack();
       await driver.tap(button);
       final text = find.text('dress');
       expect(await driver.getText(text), 'dress');
     });
 
-    test('back ', () async {
+    test('back to home', () async {
       final button = find.pageBack();
       await driver.tap(button);
       final text = find.text('Fetch');
