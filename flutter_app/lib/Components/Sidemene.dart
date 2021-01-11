@@ -1,23 +1,21 @@
-import 'package:flutter_app/Pages/wishlist.dart';
-
-import '../models/product.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/vip.dart';
+import 'package:provider/provider.dart';
+
 import '../Pages/Seller.dart';
 import '../Pages/about.dart';
 import '../Pages/category.dart';
 import '../Pages/profile.dart';
+import '../Pages/settings.dart';
 import '../Pages/test.dart';
-import 'package:flutter_app/Pages/wishlist.dart';
+import '../models/user.dart';
 
 // ignore: must_be_immutable
 class SideList extends StatefulWidget {
   const SideList({
     Key key,
-    this.user,
-    /* this.auth*/
   }) : super(key: key);
-  final Map user;
 
   @override
   _SideListState createState() => _SideListState();
@@ -26,24 +24,22 @@ class SideList extends StatefulWidget {
 class _SideListState extends State<SideList> {
   @override
   Widget build(BuildContext context) {
+    UserData customer = context.watch<UserData>();
+
     return Drawer(
       child: new ListView(
         children: <Widget>[
           //            header
           UserAccountsDrawerHeader(
-            accountName: Text('${widget.user['name']}'),
-            accountEmail: Text('${widget.user['account']}'),
+            accountName: Text('${customer.name}'),
+            accountEmail: Text('${customer.email}'),
             currentAccountPicture: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Profile(
-                              person: widget.user,
-                            )));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
               },
               child: new CircleAvatar(
-                backgroundImage: AssetImage('images/${widget.user['photo']}'),
+                backgroundImage: AssetImage('images/${customer.photo}'),
                 /*backgroundColor: Colors.black,
                 child: Icon(
                   Icons.person,
@@ -61,15 +57,13 @@ class _SideListState extends State<SideList> {
             thickness: 5,
             color: Colors.black,
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SellerInterface()));
             },
-            child: ListTile(
-              title: Text('Test Seller interface'),
-              leading: Icon(Icons.person),
-            ),
+            title: Text('Test Seller interface'),
+            leading: Icon(Icons.person),
           ),
 
           Divider(
@@ -78,41 +72,74 @@ class _SideListState extends State<SideList> {
             color: Colors.black,
           ),
 
-          InkWell(
+          if (customer.vip == false)
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Vip(user: customer)));
+              },
+              title: Row(
+                children: [
+                  Text(
+                    'Update to vip account',
+                    style: TextStyle(
+                      color: Colors.amber,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                ],
+              ),
+              leading: Icon(
+                Icons.person,
+                color: Colors.amber,
+              ),
+            ),
+
+          ListTile(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Profile(
-                            person: widget.user,
-                          )));
+                  context, MaterialPageRoute(builder: (context) => Profile()));
             },
-            child: ListTile(
-              title: Text('My Account'),
-              leading: Icon(Icons.person),
-            ),
+            title: customer.vip
+                ? Text(
+                    'My Account',
+                    style: TextStyle(
+                      color: Colors.amberAccent,
+                    ),
+                  )
+                : Text('My Account'),
+            leading: customer.vip
+                ? Icon(
+                    Icons.person,
+                    color: Colors.amberAccent,
+                  )
+                : Icon(Icons.person),
           ),
 
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Screen2()));
             },
-            child: ListTile(
-              title: Text('My Orders'),
-              leading: Icon(Icons.shopping_basket),
-            ),
+            title: Text('My Orders'),
+            leading: Icon(Icons.shopping_basket),
           ),
 
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Fav()));
+                  context, MaterialPageRoute(builder: (context) => Screen2()));
             },
-            child: ListTile(
-              title: Text('Favourite'),
-              leading: Icon(Icons.favorite),
-            ),
+            title: Text('Favourite'),
+            leading: Icon(Icons.favorite),
           ),
 
           Divider(),
@@ -122,7 +149,7 @@ class _SideListState extends State<SideList> {
             // title for the categoties part
             child: new Text('Categories'),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -131,12 +158,10 @@ class _SideListState extends State<SideList> {
                             category: 'Shirt',
                           )));
             },
-            child: ListTile(
-              title: Text('Shirt'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Shirt'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -145,12 +170,10 @@ class _SideListState extends State<SideList> {
                             category: 'accessories',
                           )));
             },
-            child: ListTile(
-              title: Text('Accessories'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Accessories'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -159,12 +182,10 @@ class _SideListState extends State<SideList> {
                             category: 'dress',
                           )));
             },
-            child: ListTile(
-              title: Text('Dress'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Dress'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -173,12 +194,10 @@ class _SideListState extends State<SideList> {
                             category: 'formal',
                           )));
             },
-            child: ListTile(
-              title: Text('Formal'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Formal'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -187,12 +206,10 @@ class _SideListState extends State<SideList> {
                             category: 'informal',
                           )));
             },
-            child: ListTile(
-              title: Text('Informal'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Informal'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -201,12 +218,10 @@ class _SideListState extends State<SideList> {
                             category: 'jeans',
                           )));
             },
-            child: ListTile(
-              title: Text('Jeans'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Jeans'),
+            leading: Icon(Icons.dashboard),
           ),
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context,
@@ -215,51 +230,43 @@ class _SideListState extends State<SideList> {
                             category: 'shoes',
                           )));
             },
-            child: ListTile(
-              title: Text('Shoes'),
-              leading: Icon(Icons.dashboard),
-            ),
+            title: Text('Shoes'),
+            leading: Icon(Icons.dashboard),
           ),
 
           Divider(),
 
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Screen2()));
+                  context, MaterialPageRoute(builder: (context) => Settings()));
             },
-            child: ListTile(
-              title: Text('Settings'),
-              leading: Icon(
-                Icons.settings,
-                color: Colors.red,
-              ),
+            title: Text('Settings'),
+            leading: Icon(
+              Icons.settings,
+              color: Colors.red,
             ),
           ),
 
-          InkWell(
+          ListTile(
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => About()));
             },
-            child: ListTile(
-              title: Text('About'),
-              leading: Icon(
-                Icons.help,
-                color: Colors.red,
-              ),
+            title: Text('About'),
+            leading: Icon(
+              Icons.help,
+              color: Colors.red,
             ),
           ),
-          InkWell(
+          ListTile(
             onTap: () async {
               //await widget.auth.signOut();
             },
-            child: ListTile(
-              title: Text('Sign out'),
-              leading: Icon(
-                Icons.exit_to_app,
-                color: Colors.red,
-              ),
+            title: Text('Sign out'),
+            leading: Icon(
+              Icons.exit_to_app,
+              color: Colors.red,
             ),
           ),
         ],

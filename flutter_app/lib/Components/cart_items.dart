@@ -1,7 +1,6 @@
 // this is the card for each choosen item by the user
 // this is linked to cart.dart
 // add comments
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../bloc/cart_items_bloc.dart';
 import '../services/storage.dart';
@@ -26,18 +25,16 @@ class ShopItemsWidget extends StatelessWidget {
       itemBuilder: (BuildContext context, i) {
         final cartList = snapshot.data["cart items"];
         return FutureBuilder(
-            future: getImage(context, 'Products/${cartList[i].name}/${cartList[i].photo}'),
+            future: getImage(
+                context, 'Products/${cartList[i].name}/${cartList[i].photo}'),
             builder: (context, snapshott) {
               return Card(
                 child: ListTile(
-                  leading: Container(
-                    child: snapshott.data,
-                    width: 80.0,
-                    height: 80.0,
-                  ),
+                  leading: snapshott.data,
                   /*new Image.asset(
                     'images/cats/${cartList[i].photo}', //================================photo====================================================
-
+                    width: 80.0,
+                    height: 80.0,
                   ),*/
                   title: new Text(cartList[i]
                       .name), //==========================================name====================================================

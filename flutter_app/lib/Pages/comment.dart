@@ -24,11 +24,11 @@ class _CommentCardState extends State<CommentCard> {
             ),
             title: Container(
               margin: EdgeInsets.only(top: 10),
-              child: Text("Name ${widget.comment.cid}"),
+              child: Text("Name"),
             ),
             //trailing: Icon(Icon.filter_list),
             isThreeLine: true,
-            subtitle: Text("vhdgfnhvhgffgddfdfj hjhgfhdfd"),
+            subtitle: Text("${widget.comment.comment}"),
           ),
           Divider(
             color: Colors.grey.withOpacity(0.5),
