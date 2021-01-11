@@ -1,137 +1,61 @@
 import 'package:flutter/material.dart';
-
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_app/Components/Horizontal_listview.dart';
-import 'package:flutter_app/Components/Product_card.dart';
-import 'package:flutter_app/Components/Search.dart';
-import 'package:flutter_app/Components/Sidemene.dart';
-import 'package:flutter_app/Pages/profile1.dart';
-import 'package:flutter_app/Pages/test.dart';
-import 'package:flutter_app/Pages/profile.dart';
-
+import 'package:flutter_app/common/size_config.dart';
+import 'package:provider/provider.dart';
+import '../models/product.dart';
+import '../Components/Horizontal_listview.dart';
+import '../Components/Product_card.dart';
+import '../Components/Search.dart';
+import '../Components/Sidemene.dart';
 import 'package:flutter_app/Pages/cart.dart';
-
-// ignore: non_constant_identifier_names
-List<BoxShadow> ShadowList = [
-  BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
-];
+import '../Components/carousel.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  static String routeName = "/homepage";
+  MyHomePage({
+    Key key,
+  }) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String title = "Fetch";
   Map person = {
     'account': 'ahmed@gmail.com',
     'name': 'ahmed',
     'phone': '+201141111111',
     'photo': 'profile.JPG',
   };
-  List<Map> products = [
-    {
-      'name': 'product0',
-      'discription': 'this is a discription for the product 0',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'accessories.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      'name': 'product1',
-      'discription': 'this is a discription for the product 1',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'dress.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      'name': 'product2',
-      'discription': 'this is a discription for the product 2',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'formal.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      'name': 'product0',
-      'discription': 'this is a discription for the product 0',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'accessories.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      'name': 'product1',
-      'discription': 'this is a discription for the product 1',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'dress.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-    {
-      'name': 'product2',
-      'discription': 'this is a discription for the product 2',
-      'price': '200',
-      'oldprice': '150',
-      'photo': 'formal.png',
-      "size": "M",
-      "color": "Red",
-      "quantity": 1,
-    },
-  ];
+
   @override
   Widget build(BuildContext context) {
-    // ignore: non_constant_identifier_names
-    Widget ImageCarousel = new Container(
-      height: 200.0,
-      child: Carousel(
-        boxFit: BoxFit.contain,
-        images: [
-          AssetImage('images/s0.jpg'),
-          AssetImage('images/s1.jpg'),
-          AssetImage('images/s2.jpg'),
-          AssetImage('images/s3.jpg'),
-        ],
-        autoplay: true,
-        animationCurve: Curves.fastOutSlowIn,
-        animationDuration: Duration(milliseconds: 1000),
-        dotSize: 4.0,
-        indicatorBgPadding: 2.0,
-        dotBgColor: Colors.transparent,
-      ),
-    );
+    final List<ProductData> pproducts = context.watch<List<ProductData>>();
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: new IconThemeData(color: Colors.black),
-        title: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(color: Colors.black),
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeConfig.screenWidth * 0.07,
               ),
-              Icon(Icons.location_on),
-            ],
-          ),
+            ),
+            /*Image.asset(
+              'assets/icons/logo.png',
+              height: 40,
+              width: 40,
+            ),
+            Icon(Icons.location_on),*/
+          ],
         ),
         actions: <Widget>[
           IconButton(
@@ -140,50 +64,37 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));//link the cart
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Cart()));
+                /*Navigator.pushNamed(
+                  context,
+                  '/test',
+                );*/
               }),
         ],
       ),
       drawer: SideList(
-        person: person,
+        user: person,
       ),
+      /************************* */
       body: ListView(
+        padding: EdgeInsets.only(bottom: 10),
         children: [
-          Container(
-            height: 40,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    showSearch(context: context, delegate: DataSearch());
-                  },
-                ),
-                GestureDetector(
-                    onTap: () {
-                      showSearch(context: context, delegate: DataSearch());
-                    },
-                    child: Container(
-                      child: Text("Search Products"),
-                    )),
-                Icon(Icons.filter_list),
-              ],
-            ),
-          ),
-          // image carousel begin here
-          ImageCarousel,
+          SearchField(),
+          //image carousel begin here
+          //ImageCarousel,
+          CarouselImg(),
           // padding widget
           new Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(6.0),
             // title for the categoties part
-            child: new Text('Categories'),
+            child: new Text(
+              'Categories',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenHeight * 0.04,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
           //   horizontal list of the categories
           HorizontalList(),
@@ -192,9 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
           new Padding(
             padding: const EdgeInsets.all(12.0),
             // title for the categoties part
-            child: new Text('Recent products'),
+            child: new Text(
+              'Recent products',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: SizeConfig.screenHeight * 0.04,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-          for (var product in products) CardProduct(product: product),
+          for (var product in pproducts) CardProduct(product: product),
         ],
       ),
     );

@@ -1,5 +1,93 @@
-/* import 'package:flutter/material.dart';
-import 'package:flutter_app/Components/comment_card.dart';
+import '../models/comment.dart';
+import 'package:flutter/material.dart';
+
+class CommentCard extends StatefulWidget {
+  CommentCard({Key key, this.comment}) : super(key: key);
+  final CommentData comment;
+
+  @override
+  _CommentCardState createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  @override
+  Widget build(BuildContext context) {
+    //final List<CommentData> comments = context.watch<List<CommentData>>();
+    //print(comments);
+    return Card(
+      margin: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            leading: CircleAvatar(
+              child: Icon(Icons.person),
+            ),
+            title: Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text("Name ${widget.comment.cid}"),
+            ),
+            //trailing: Icon(Icon.filter_list),
+            isThreeLine: true,
+            subtitle: Text("vhdgfnhvhgffgddfdfj hjhgfhdfd"),
+          ),
+          Divider(
+            color: Colors.grey.withOpacity(0.5),
+          ),
+          //=================like and comment======================
+          new Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.thumb_up,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        "Like",
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.comment,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        "comment",
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
+                ),
+              ),
+            ],
+          ),
+          //============================================
+        ],
+      ),
+    );
+  }
+}
+
+/*import 'package:flutter_app/Components/comment_card.dart';
 
 class Comment extends StatefulWidget {
        Comment({Key key, this.comment}) : super(key: key);

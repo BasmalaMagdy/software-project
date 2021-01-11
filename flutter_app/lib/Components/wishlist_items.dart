@@ -1,7 +1,6 @@
 // this is the card for each choosen item by the user
 // this is linked to cart.dart
 // add comments
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../bloc/cart_items_bloc.dart';
 import '../services/storage.dart';
@@ -13,20 +12,20 @@ class ShopItemsWidget extends StatelessWidget {
       initialData: bloc.allItems,
       stream: bloc.getStream,
       builder: (context, snapshot) {
-        return snapshot.data["cart items"].length > 0
-            ? shopItemsListBuilder(snapshot)
-            : Center(child: Text("You haven't taken any item yet"));
+        return snapshot.data["fav items"].length > 0
+            ? shopItemsListBuilder(snapshot) : Center(child: Text("You haven't added any item yet"));
       },
     );
   }
 
   Widget shopItemsListBuilder(snapshot) {
     return ListView.builder(
-      itemCount: snapshot.data["cart items"].length,
-      itemBuilder: (BuildContext context, i) {
-        final cartList = snapshot.data["cart items"];
-        return FutureBuilder(
-            future: getImage(context, 'Products/${cartList[i].name}/${cartList[i].photo}'),
+        itemCount: snapshot.data["fav items"].length,
+        itemBuilder: (BuildContext context, i) {
+          final favList = snapshot.data["fav items"];
+          return FutureBuilder(
+            future: getImage(
+                context, 'Products/${favList[i].name}/${favList[i].photo}'),
             builder: (context, snapshott) {
               return Card(
                 child: ListTile(
@@ -34,12 +33,14 @@ class ShopItemsWidget extends StatelessWidget {
                     child: snapshott.data,
                     width: 80.0,
                     height: 80.0,
+
                   ),
                   /*new Image.asset(
-                    'images/cats/${cartList[i].photo}', //================================photo====================================================
-
+                    'images/cats/${favList[i].photo}', //================================photo====================================================
+                    width: 80.0,
+                    height: 80.0,
                   ),*/
-                  title: new Text(cartList[i]
+                  title: new Text(favList[i]
                       .name), //==========================================name====================================================
                   subtitle: new Column(
                     children: <Widget>[
@@ -52,7 +53,7 @@ class ShopItemsWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: new Text(
-                              cartList[i]
+                              favList[i]
                                   .size, //================================================size=====================================================
                               style: TextStyle(color: Colors.red),
                             ),
@@ -65,7 +66,7 @@ class ShopItemsWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: new Text(
-                              cartList[i]
+                              favList[i]
                                   .color, //========================================================color=============================================
                               style: TextStyle(color: Colors.red),
                             ),
@@ -75,7 +76,7 @@ class ShopItemsWidget extends StatelessWidget {
                       new Container(
                         alignment: Alignment.topLeft,
                         child: new Text(
-                          "\$${cartList[i].price.toString()}", //======================================================price====================================================
+                          "\$${favList[i].price.toString()}", //======================================================price====================================================
                           style: TextStyle(
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold,
@@ -83,30 +84,30 @@ class ShopItemsWidget extends StatelessWidget {
                         ),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          new IconButton(
-                              icon: Icon(
-                                Icons.delete,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            new IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () => bloc.removeFromFav(favList[i])//product data stream
+
+                            ),
+
+                            new IconButton(
+                                icon: Icon(Icons.add_shopping_cart),
                                 color: Colors.red,
-                              ),
-                              onPressed: () => bloc.removeFromCart(cartList[i])//product data stream
-
-                          ),
-
-                          new IconButton(
-                              icon: Icon(Icons.favorite_border),
-                              color: Colors.red,
-                              onPressed: () => bloc.addToFav(cartList[i]) //product data stream
-                          ),
-                        ]
+                                onPressed: () => bloc.addToCart(favList[i]) //product data stream
+                            ),
+                          ]
                       ),
                     ],
                   ),
                 ),
               );
-            });
-      },
-    );
+            },
+          );
+        });
   }
 }

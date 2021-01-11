@@ -63,3 +63,39 @@ class DataSearch extends SearchDelegate<String> {
     );
   }
 }
+
+class SearchField extends StatelessWidget {
+  const SearchField({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            },
+          ),
+          GestureDetector(
+              onTap: () {
+                showSearch(context: context, delegate: DataSearch());
+              },
+              child: Container(
+                child: Text("Search Products"),
+              )),
+          Icon(Icons.filter_list),
+        ],
+      ),
+    );
+  }
+}
