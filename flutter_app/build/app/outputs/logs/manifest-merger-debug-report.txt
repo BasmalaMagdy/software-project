@@ -8,10 +8,12 @@ MERGED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_
 MERGED from [:firebase_auth] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-22:12
 MERGED from [:flutter_plugin_android_lifecycle] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_storage] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:17:1-83:12
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:15:1-38:12
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:15:1-39:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\bd0c2ccc0ec0abfef6d017fb9eed4a86\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:2:1-7:12
@@ -79,6 +81,8 @@ MERGED from [:firebase_auth] F:\study\3rd computer\SoftWare\Last chance\software
 MERGED from [:firebase_auth] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
 MERGED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_storage] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
@@ -87,6 +91,8 @@ MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software
 MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:26:5-81:19
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:29:5-37:19
@@ -189,6 +195,8 @@ MERGED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-
 MERGED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_storage] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -197,6 +205,8 @@ MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software
 MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:21:5-44
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:20:5-22:41
@@ -297,6 +307,8 @@ uses-permission#android.permission.INTERNET
 ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\debug\AndroidManifest.xml:6:5-66
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:26:5-67
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:26:5-67
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:14:5-67
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:14:5-67
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:27:5-67
@@ -315,6 +327,8 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:18.0.0] C:
 		ADDED from F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\android\app\src\debug\AndroidManifest.xml:6:22-64
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [:firebase_auth] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 MERGED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 MERGED from [:firebase_storage] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
@@ -323,6 +337,8 @@ MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software
 MERGED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:74:9-80:19
 MERGED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:74:9-80:19
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:29:9-35:19
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:17:9-23:19
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:17:9-23:19
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:30:9-36:19
@@ -371,6 +387,12 @@ ADDED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-p
 		ADDED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 	android:name
 		ADDED from [:image_picker] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_database] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-127
 meta-data#com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar
 ADDED from [:cloud_firestore] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 	android:value
@@ -391,6 +413,8 @@ ADDED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-
 		ADDED from [:firebase_core] F:\study\3rd computer\SoftWare\Last chance\software-project\flutter_app\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:25:5-79
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:13:5-79
 MERGED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:13:5-79
 MERGED from [com.google.firebase:firebase-storage:19.2.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\429234b479f8cd8a531255a8ce013924\firebase-storage-19.2.1\AndroidManifest.xml:26:5-79
@@ -477,6 +501,12 @@ ADDED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\cac
 		ADDED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:79:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:20.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\1187e9c3c1c4906d1b6948d906c141b2\jetified-firebase-auth-20.0.1\AndroidManifest.xml:78:17-109
+meta-data#com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar
+ADDED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database:19.6.0] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\dd42ac80076d244ef20f2ee9e8df4429\firebase-database-19.6.0\AndroidManifest.xml:33:17-109
 meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
 ADDED from [com.google.firebase:firebase-firestore:22.0.1] C:\Users\ah132\.gradle\caches\transforms-2\files-2.1\fae590b328889b499b6ba736940c529e\jetified-firebase-firestore-22.0.1\AndroidManifest.xml:20:13-22:85
 	android:value

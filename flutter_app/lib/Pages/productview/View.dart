@@ -57,6 +57,7 @@ class _ViewBodyState extends State<ViewBody> {
               ),
               onPressed: () {}),
           new IconButton(
+              key: Key('go_to_cart'),
               icon: Icon(
                 Icons.shopping_cart,
                 color: Colors.black,
@@ -241,6 +242,7 @@ class _ViewBodyState extends State<ViewBody> {
                     child: new Text("Buy now")),
               ),
               new IconButton(
+                  key: Key('addtocart'),
                   icon: Icon(
                     Icons.add_shopping_cart,
                     color: Colors.red,
