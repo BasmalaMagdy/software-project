@@ -89,25 +89,7 @@ class _GetDataFormState extends State<GetDataForm> {
 
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                DatabaseService().CreateProductData(
-                    name: name,
-                    category: selectedUser.name,
-                    description: 'description',
-                    photo: widget.imgnames[0],
-                    sid: 'sid',
-                    price: price,
-                    quantity: quantity,
-                    color: color,
-                    size: sizes,
-                    pimglist: widget.pimglist,
-                    imgnames: widget.imgnames);
-                //print("**************Current Id******************");
-                //print(DatabaseService.currentid);
 
-                /*for (int i = 0; i < widget.pimglist.length; i++) {
-                  await FireStorageService.uploadImage(
-                      widget.pimglist[i], name, widget.imgnames[i]);
-                }*/
                 setState(() {
                   DoneUpload(context);
                 });
@@ -131,15 +113,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.name,
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductNameNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductNameNullError);
-        }
-        return null;
-      },
+      validator: Validate.productnamevlaidator,
     );
   }
 
@@ -155,15 +129,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.number,
       onSaved: (newValue) => price = int.parse(newValue),
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductPriceNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductPriceNullError);
-        }
-        return null;
-      },
+      validator: Validate.productpricevalidator,
     );
   }
 
@@ -179,15 +145,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.name,
       onSaved: (newValue) => brand = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductBrandNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductBrandNullError);
-        }
-        return null;
-      },
+      validator: Validate.productbrandvalidator,
     );
   }
 
@@ -203,15 +161,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.name,
       onSaved: (newValue) => sizes = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductSizeNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductSizeNullError);
-        }
-        return null;
-      },
+      validator: Validate.productsizevalidator,
     );
   }
 
@@ -227,15 +177,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.number,
       onSaved: (newValue) => quantity = int.parse(newValue),
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductQuantityNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductQuantityNullError);
-        }
-        return null;
-      },
+      validator: Validate.productquantityvalidator,
     );
   }
 
@@ -251,15 +193,7 @@ class _GetDataFormState extends State<GetDataForm> {
       keyboardType: TextInputType.name,
       onSaved: (newValue) => color = newValue,
       onChanged: (value) {},
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kProductColorNullError);
-          return "";
-        } else if (value.isNotEmpty) {
-          removeError(error: kProductColorNullError);
-        }
-        return null;
-      },
+      validator: Validate.productcolorvalidator,
     );
   }
 
@@ -268,16 +202,12 @@ class _GetDataFormState extends State<GetDataForm> {
       hint: Text("Select Category"),
       value: selectedUser,
       onSaved: (newValue) => selectedUser = newValue,
-      onChanged: sset,
-      validator: (value) {
-        if (value.name == 'Default') {
-          addError(error: kProductCategoryNullError);
-          return "";
-        } else {
-          removeError(error: kProductCategoryNullError);
-        }
-        return null;
+      onChanged: (value) {
+        setState(() {
+          selectedUser = value;
+        });
       },
+      validator: Validate.productcategoryvalidator,
       items: users.map((Item user) {
         return DropdownMenuItem<Item>(
           value: user,
@@ -307,7 +237,7 @@ class _GetDataFormState extends State<GetDataForm> {
             child: ListBody(
               children: <Widget>[
                 Text('Press ok'),
-                Text('Would you like to approve of this message?'),
+                Text('Would you like to approve of this product?'),
               ],
             ),
           ),
@@ -315,6 +245,18 @@ class _GetDataFormState extends State<GetDataForm> {
             TextButton(
               child: Text('Approve'),
               onPressed: () {
+                DatabaseService().CreateProductData(
+                    name: name,
+                    category: selectedUser.name,
+                    description: 'description',
+                    photo: widget.imgnames[0],
+                    sid: 'sid',
+                    price: price,
+                    quantity: quantity,
+                    color: color,
+                    size: sizes,
+                    pimglist: widget.pimglist,
+                    imgnames: widget.imgnames);
                 int count = 0;
                 Navigator.of(context).popUntil((_) => count++ >= 2);
                 //Navigator.of(context).popUntil((route) => );
@@ -325,10 +267,83 @@ class _GetDataFormState extends State<GetDataForm> {
       },
     );
   }
+}
 
-  void sset(var value) {
-    setState(() {
-      selectedUser = value;
-    });
+class Validate {
+  static String productnamevlaidator(value) {
+    if (value.isEmpty) {
+      //addError(error: kProductNameNullError);
+      return kProductNameNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductNameNullError);
+        }*/
+    return null;
+  }
+
+  static String productpricevalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductPriceNullError);
+      return kProductPriceNullError;
+    }
+    /* else if (value.isNotEmpty) {
+         // removeError(error: kProductPriceNullError);
+        }*/
+    return null;
+  }
+
+  static String productbrandvalidator(value) {
+    if (value.isEmpty) {
+      //addError(error: kProductBrandNullError);
+      return kProductBrandNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductBrandNullError);
+        }*/
+    return null;
+  }
+
+  static String productsizevalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductSizeNullError);
+      return kProductSizeNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductSizeNullError);
+        }*/
+    return null;
+  }
+
+  static String productquantityvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductQuantityNullError);
+      return kProductQuantityNullError;
+    }
+    /* else if (value.isNotEmpty) {
+          removeError(error: kProductQuantityNullError);
+        }*/
+    return null;
+  }
+
+  static String productcolorvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductColorNullError);
+      return kProductColorNullError;
+    }
+    /* else if (value.isNotEmpty) {
+          removeError(error: kProductColorNullError);
+        }*/
+    return null;
+  }
+
+  static String productcategoryvalidator(value) {
+    if (value.name == 'Default') {
+      //addError(error: kProductCategoryNullError);
+      return kProductCategoryNullError;
+    }
+    /*else {
+          removeError(error: kProductCategoryNullError);
+        }*/
+    return null;
   }
 }

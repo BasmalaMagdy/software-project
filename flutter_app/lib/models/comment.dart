@@ -1,12 +1,15 @@
-class CommentDoc{
+class CommentDoc {
   final String cid;
   CommentDoc({this.cid});
 }
 
-class CommentData{
+class CommentData {
   final String cid;
   final String pid;
   final String uid;
   final String comment;
-  CommentData({this.pid, this.cid, this.uid, this.comment});
+  final String uname;
+  final double rate;
+  CommentData(
+      {this.pid, this.cid, this.uid, this.comment, this.uname, this.rate});
 }

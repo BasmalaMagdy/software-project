@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Components/form_error.dart';
+import 'package:flutter_app/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:flutter_app/bloc/cart_items_bloc.dart';
@@ -43,6 +44,7 @@ class _ViewBodyState extends State<ViewBody> {
   @override
   Widget build(BuildContext context) {
     final List<CommentData> comments = context.watch<List<CommentData>>();
+    final UserData user = context.watch<UserData>();
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.white12,
@@ -238,9 +240,9 @@ class _ViewBodyState extends State<ViewBody> {
                     color: Colors.red,
                     textColor: Colors.white,
                     elevation: 0.2,
-                    child: new Text("Buy now")),
+                    child: new Text("Add to cart")),
               ),
-              new IconButton(
+              /*new IconButton(
                   icon: Icon(
                     Icons.add_shopping_cart,
                     color: Colors.red,
@@ -248,7 +250,7 @@ class _ViewBodyState extends State<ViewBody> {
                   onPressed: () =>
                       bloc.addToCart(widget.product) //product data stream
 
-                  ),
+                  ),*/
 
               new IconButton(
                   icon: Icon(Icons.favorite_border),
@@ -386,8 +388,9 @@ class _ViewBodyState extends State<ViewBody> {
                               _key.currentState.save();
                               DatabaseService().CreateProductComment(
                                   pid: widget.product.pid,
-                                  uid: 'uid',
-                                  comment: comment);
+                                  user: user,
+                                  comment: comment,
+                                  rate: rating);
                             }
                           },
                           // ============= button  ===============

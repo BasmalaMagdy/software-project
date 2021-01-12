@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final List<SearchProductData> history =
         context.watch<List<SearchProductData>>();
 
-    return customer == null || products.isEmpty
+    return customer == null || products == null
         ? Loading()
         : Scaffold(
             backgroundColor: Colors.grey[300],

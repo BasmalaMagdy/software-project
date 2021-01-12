@@ -34,7 +34,7 @@ class _RecommendState extends State<Recommend> {
                     future: getScaledImage(
                         context,
                         'Products/${history[index].pid}/${history[index].photo}',
-                        0.17),
+                        0.15),
                     builder: (context, snapshot) {
                       return InkWell(
                         onTap: () {

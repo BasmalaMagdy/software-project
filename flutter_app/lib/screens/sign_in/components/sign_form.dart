@@ -100,16 +100,7 @@ class _SignFormState extends State<SignForm> {
 
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPasswordNullError);
-          return "";
-        } else if (value.length < 8) {
-          addError(error: kPasswordShortError);
-          return "";
-        }
-        return null;
-      },
+      validator: Validate.passwordvalidate,
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password.",
@@ -139,16 +130,7 @@ class _SignFormState extends State<SignForm> {
         }
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
+      validator: Validate.emailvalidate,
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email.",
@@ -156,5 +138,29 @@ class _SignFormState extends State<SignForm> {
       ),
       style: TextStyle(fontSize: getProportionateScreenWidth(30)),
     );
+  }
+}
+
+class Validate {
+  static String emailvalidate(value) {
+    if (value.isEmpty) {
+      //addError(error: kEmailNullError);
+      return kEmailNullError;
+    } else if (!emailValidatorRegExp.hasMatch(value)) {
+      //addError(error: kInvalidEmailError);
+      return kInvalidEmailError;
+    }
+    return null;
+  }
+
+  static String passwordvalidate(value) {
+    if (value.isEmpty) {
+      //addError(error: kPasswordNullError);
+      return kPasswordNullError;
+    } else if (value.length < 8) {
+      //addError(error: kPasswordShortError);
+      return kPasswordShortError;
+    }
+    return null;
   }
 }
