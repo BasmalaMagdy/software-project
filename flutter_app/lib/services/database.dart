@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,12 @@ import '../models/comment.dart';
 import '../models/product.dart';
 import '../models/user.dart';
 import '../services/storage.dart';
+
+/*class updateUserEmail {
+  static String validate(String email) {
+    return email.isEmpty ? 'Id can\'t be empty' : null;
+  }
+}*/
 
 class DatabaseService {
   final String uid;
@@ -255,24 +262,40 @@ class DatabaseService {
   /**                                       COMMENT DATABASE PART                                                **/
 
   Future<void> CreateProductComment(
-      {String pid, String uid, String comment}) async {
+      {String pid, UserData user, String comment, double rate}) async {
     return await productsCollection.doc(pid).collection("comments").add({
-      'product': pid,
-      'user': uid,
+      'pid': pid,
+      'uid': user.uid,
       'comment': comment,
+      'uname': user.name,
+      'rate': rate
     });
   }
 
   List<CommentData> _userCommentFromSnapshot(QuerySnapshot snapshots) {
     return snapshots.docs.map((snapshot) {
       return CommentData(
-        cid: snapshot.id,
-        pid: snapshot.data()['pid'] ?? '',
-        uid: snapshot.data()['uid'] ?? '',
-        comment: snapshot.data()['comment'] ?? '',
-      );
+          cid: snapshot.id,
+          pid: snapshot.data()['pid'] ?? '',
+          uid: snapshot.data()['uid'] ?? '',
+          comment: snapshot.data()['comment'] ?? '',
+          rate: snapshot.data()['rate'] == null ? 0 : snapshot.data()['rate'],
+          uname: snapshot.data()['uname'] ?? '');
     }).toList();
     //return CommentData(cid: snapshot.id);
+  }
+
+  Future<void> DeleteCommentData({CommentData comment}) {
+    productsCollection
+        .doc(comment.pid)
+        .collection("comments")
+        .doc(comment.cid)
+        .delete()
+        .then((value) {
+      print("Document successfully deleted!");
+    }).catchError((error) {
+      print("Error removing document: $error");
+    });
   }
 
   Stream<List<CommentData>> comments({String pid}) {
