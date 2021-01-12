@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 import '../Pages/editprofile.dart';
@@ -13,6 +14,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     UserData customer = context.watch<UserData>();
@@ -29,7 +31,7 @@ class _ProfileState extends State<Profile> {
         children: [
           Center(
             child: CircleAvatar(
-              backgroundImage: AssetImage('images/${customer.photo}'),
+              //backgroundImage: AssetImage('images/${customer.photo}'),
               radius: 90.0,
             ),
           ),

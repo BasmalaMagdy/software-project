@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/user.dart';
+import 'package:flutter_app/screens/wrapper.dart';
+import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 import 'common/routs.dart';
@@ -36,41 +39,19 @@ class _MyAppState extends State<MyApp> {
   }*/
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          Provider<DatabaseService>(
-            create: (_) => DatabaseService(uid: 'paAxQm9OScVWUpdENVV76ZE2gDM2'),
-          ),
-          StreamProvider(
-            create: (context) => context.read<DatabaseService>().Products,
-          ),
-          StreamProvider(
-            create: (context) => context.read<DatabaseService>().Categories,
-          ),
-          StreamProvider(
-            create: (context) => context.read<DatabaseService>().Users,
-          ),
-          StreamProvider(
-            create: (context) => context
-                .read<DatabaseService>()
-                .history(uid: 'paAxQm9OScVWUpdENVV76ZE2gDM2'),
-          ),
+    return StreamProvider<UserData>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
 
-          /*StreamProvider(
-            create: (context) => context
-                .read<DatabaseService>()
-                .comments(pid: 'IpR9YumwKVfaauuDKmPb'),
-          ),*/
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-
-          title: 'Flutter Demo',
-          theme: theme(),
-          // home: SplashScreen(),
-          initialRoute: SplashScreen.routeName,
-          routes: routes,
-          //home: MyHomePage(title: 'Drop'),
-        ));
+        title: 'Flutter Demo',
+        theme: theme(),
+        // home: SplashScreen(),
+        initialRoute: SplashScreen.routeName,
+        routes: routes,
+        //home: MyHomePage(title: 'Drop'),
+        //home: Wrapper(),
+      ),
+    );
   }
 }

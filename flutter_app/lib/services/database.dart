@@ -70,6 +70,29 @@ class DatabaseService {
     );
   }
 
+  Future<void> createUserData(
+      {String id,
+      String name,
+      String phone,
+      String email,
+      String type,
+      String password,
+      UserData customer,
+      bool guest,
+      File imageFile}) async {
+    return await userCollection.doc(id).set({
+      'name': name ?? "",
+      'phone': phone ?? "",
+      'email': email ?? "",
+      'type': type ?? "",
+      'password': password ?? "",
+      'guest': guest ?? false,
+    }).then((value) {
+      // if (imageFile != null)
+      //   FireStorageService.changeUserImage(image: imageFile, user: customer);
+    });
+  }
+
   Stream<UserData> get Users {
     if (userCollection.doc(uid) != null)
       return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);

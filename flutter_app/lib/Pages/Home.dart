@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Components/recommended.dart';
 import 'package:flutter_app/common/size_config.dart';
+import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 import '../Components/Horizontal_listview.dart';
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     'type': 'buyer',
     'sid': 'sid'
   };
-
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
@@ -103,13 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          '${customer.points}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        ////////////  NO SUCH THING AS (customer.points)
+                        // Text(
+                        //   '${customer.points}',
+                        //   style: TextStyle(
+                        //       color: Colors.black,
+                        //       fontSize: 22,
+                        //       fontWeight: FontWeight.bold),
+                        // ),
                       ],
                     ),
                   ],

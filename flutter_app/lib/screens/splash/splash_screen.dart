@@ -4,7 +4,7 @@ import '../../screens/splash/components/body.dart';
 import '../../models/product.dart';
 
 class SplashScreen extends StatelessWidget {
-  static String routeName = "/spllash";
+  static String routeName = "/splash";
   @override
   Widget build(BuildContext context) {
     //final brews = Provider.of<List<ProductData>>(context) ?? [];

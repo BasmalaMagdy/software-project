@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/Home.dart';
+import 'package:flutter_app/models/user.dart';
+import 'package:flutter_app/screens/sign_in/user_provider.dart';
+import 'package:flutter_app/services/auth.dart';
 
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
@@ -45,12 +49,17 @@ class BuySignUpForm extends StatefulWidget {
 }
 
 class _BuySignUpFormState extends State<BuySignUpForm> {
+  final AuthService _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
-  String name;
-  String email;
-  String password;
-  String confirmpassword;
-  String phone;
+  String name = '';
+  String email = '';
+  String password = '';
+  String confirmpassword = '';
+  String phone = '';
+  String someerror = '';
+  String brand = '';
+  String type = '';
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -84,7 +93,9 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
             cursorColor: Colors.black,
             keyboardType: TextInputType.name,
             onSaved: (newValue) => name = newValue,
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() => name = value);
+            },
             validator: (value) {
               if (value.isEmpty) {
                 addError(error: kNameNullError);
@@ -112,8 +123,10 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
             style: TextStyle(fontSize: getProportionateScreenWidth(30)),
             cursorColor: Colors.black,
             keyboardType: TextInputType.number,
-            onSaved: (newValue) => name = newValue,
-            onChanged: (value) {},
+            onSaved: (newValue) => phone = newValue,
+            onChanged: (value) {
+              setState(() => phone = value);
+            },
             validator: (value) {
               if (value.isEmpty) {
                 addError(error: kPhoneNullError);
@@ -130,17 +143,41 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
               return null;
             },
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.05),
+          SizedBox(height: SizeConfig.screenHeight * 0.01),
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
 
           DefaultButton(
               text: "Create",
-              press: () {
+              press: () async {
                 //GO TO HOME PAGE WITH NEW PROFILE INFO
 
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
+                  // print(name);
+                  // print(email);
+                  // print(password);
+                  // print(phone);
+
+                  type = 'buyer';
+
+                  dynamic result = await _auth.signUp(
+                      name, email, password, phone, brand, type);
+
+                  brand = null;
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserProvider(
+                                user: result,
+                              )));
+
+                  // if (result == null) {
+                  //   setState(() => someerror = 'please enter valid email');
+                  // }
+                  print(UserData().name = name);
+                  print(UserData().email = email);
                 }
               })
         ],
@@ -169,8 +206,8 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
             removeError(error: kMatchPassError);
           } else if (value != password) {
             addError(error: kMatchPassError);
+            return "";
           }
-          return "";
         }
         return null;
       },
@@ -193,11 +230,14 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPasswordNullError);
-        } else if (value.length >= 8) {
-          removeError(error: kPasswordShortError);
+          if (value.length >= 8) {
+            removeError(error: kPasswordShortError);
+          }
         }
-        password = value;
-        return null;
+
+        ///DO NOT FORGET TO STORE VALUE ONLY AFTER FORMERROR = 0!!!!!
+        setState(() => password = value);
+        // return null;
       },
       validator: (value) {
         if (value.isEmpty) {
@@ -229,6 +269,7 @@ class _BuySignUpFormState extends State<BuySignUpForm> {
             removeError(error: kInvalidEmailError);
           }
         }
+        setState(() => email = value);
         return null;
       },
       validator: (value) {

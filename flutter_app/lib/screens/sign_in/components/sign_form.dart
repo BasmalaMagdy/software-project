@@ -1,3 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/Pages/Home.dart';
+import 'package:flutter_app/Pages/Seller.dart';
+import 'package:flutter_app/models/user.dart';
+import 'package:flutter_app/screens/sign_in/user_provider.dart';
+import 'package:flutter_app/services/auth.dart';
+
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../screens/forgot_password/forgot_password_screen.dart';
@@ -12,9 +19,15 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
+  final AuthService _auth = AuthService();
+  ////////////////LATEST
+
+  ////////////////LATEST
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+
+  // textfield state
+  String email = '';
+  String password = '';
   bool remember = false;
   final List<String> errors = [];
 
@@ -46,6 +59,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           Row(
             children: [
+              SizedBox(width: getProportionateScreenWidth(50)),
               Checkbox(
                 value: remember,
                 activeColor: Colors.orange[900],
@@ -68,13 +82,24 @@ class _SignFormState extends State<SignForm> {
               ),
             ],
           ),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: getProportionateScreenHeight(10)),
           FormError(errors: errors),
+          SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+
+                UserData result = await _auth.signIn(email, password);
+                print(email);
+                print(password);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProvider(user: result)));
+                //print(UserData().type);
+                print(result.uid);
               }
             },
           )
@@ -97,6 +122,8 @@ class _SignFormState extends State<SignForm> {
             removeError(error: kPasswordShortError);
           }
         }
+
+        setState(() => password = value);
 
         return null;
       },
@@ -137,6 +164,9 @@ class _SignFormState extends State<SignForm> {
           addError(error: kInvalidEmailError);
           return "";
         }
+
+        setState(() => email = value);
+
         return null;
       },
       validator: (value) {

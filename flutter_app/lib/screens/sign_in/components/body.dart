@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/HomeGuest.dart';
+import 'package:flutter_app/models/user.dart';
+import 'package:flutter_app/screens/sign_in/sign_in_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/guest_demo.dart';
 import '../../../components/no_account_text.dart';
@@ -8,6 +12,14 @@ import '../../../common/size_config.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //////////LATEST
+    // final user = Provider.of<UserData>(context);
+    // if (user == null) {
+    //   return SignInScreen();
+    // } else {
+    //   return GuestHomePage();
+    // }
+    //////////LATEST
     return SafeArea(
         child: SizedBox(
       width: double.infinity,
@@ -44,9 +56,9 @@ class Body extends StatelessWidget {
                 //Spacer(),
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 SignForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.02),
+                SizedBox(height: SizeConfig.screenHeight * 0.03),
                 NoAccountText(),
-                SizedBox(height: SizeConfig.screenHeight * 0.02),
+                SizedBox(height: SizeConfig.screenHeight * 0.01),
                 GuestDemo()
 
                 //Spacer(flex: 5),

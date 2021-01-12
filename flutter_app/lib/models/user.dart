@@ -1,12 +1,15 @@
 class UserData {
   final String uid;
-  final String name;
-  final String email;
-  final String phone;
-  final int points;
-  final String type;
-  final String photo;
-  final bool vip;
+  String name = '';
+  String email = '';
+  String phone = '';
+  int points;
+  String type;
+  String photo;
+  bool vip;
+  String brand = '';
+  bool guest = false;
+
   UserData(
       {this.uid,
       this.email,
@@ -15,5 +18,7 @@ class UserData {
       this.photo,
       this.points,
       this.type,
-      this.vip});
+      this.vip,
+      this.brand,
+      this.guest});
 }

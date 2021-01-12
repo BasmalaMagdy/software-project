@@ -2,6 +2,8 @@
 
 //import 'package:js/js.dart';
 
+import 'package:flutter_app/Pages/HomeGuest.dart';
+
 import '../Pages/Home.dart';
 import '../Pages/Seller.dart';
 import '../Pages/about.dart';
@@ -32,14 +34,15 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routName: (context) => SignUpScreen(),
   SellerSignUpScreen.routName: (context) => SellerSignUpScreen(),
   BuyerSignUpScreen.routName: (context) => BuyerSignUpScreen(),
-  MyHomePage.routeName:(context)=> MyHomePage(),
-  Profile.routeName:(context) => Profile(),
-  EditProfile.routeName:(context) => EditProfile(),
-  Cart.routeName:(context) => Cart(),
-  Fav.routeName:(context) => Fav(),
-  CategoryView.routeName:(context) => CategoryView(),
-  Product.routeName:(context) => Product(),
-  SellerInterface.routeName:(context) => SellerInterface(),
-  CreateProduct.routeName:(context) => CreateProduct(),
-  About.routeName:(context) => About(),
+  MyHomePage.routeName: (context) => MyHomePage(),
+  GuestHomePage.routeName: (context) => GuestHomePage(),
+  Profile.routeName: (context) => Profile(),
+  EditProfile.routeName: (context) => EditProfile(),
+  Cart.routeName: (context) => Cart(),
+  Fav.routeName: (context) => Fav(),
+  CategoryView.routeName: (context) => CategoryView(),
+  Product.routeName: (context) => Product(),
+  SellerInterface.routeName: (context) => SellerInterface(),
+  CreateProduct.routeName: (context) => CreateProduct(),
+  About.routeName: (context) => About(),
 };
