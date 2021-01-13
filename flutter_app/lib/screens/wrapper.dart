@@ -42,6 +42,14 @@ class Wraper extends StatelessWidget {
                 context.read<DatabaseService>().history(uid: user.uid),
           ),
           StreamProvider(
+            create: (context) =>
+                context.read<DatabaseService>().cart(uid: user.uid),
+          ),
+          StreamProvider(
+            create: (context) =>
+                context.read<DatabaseService>().orders(uid: user.uid),
+          ),
+          StreamProvider(
             create: (context) => context.read<DatabaseService>().Products,
           ),
           StreamProvider(

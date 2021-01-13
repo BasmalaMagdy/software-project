@@ -35,23 +35,28 @@ class _CategoryViewState extends State<CategoryView> {
         centerTitle: true,
         title: Text(widget.category, style: TextStyle(color: Colors.black)),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Screen2()));
-              }),
+          if (widget.user.type == ' buyer' && widget.user.guest == false)
+            IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Screen2()));
+                }),
         ],
       ),
       body: ListView(
         children: [
-          for (var product in widget.products)
-            product.category == widget.category
-                ? CardProduct(product: product, customer: widget.user)
-                : Container(),
+          if (widget.user.type == 'seller')
+            for (var product in widget.products)
+              if (product.sid == widget.user.uid &&
+                  product.category == widget.category)
+                CardProduct(product: product, customer: widget.user),
+          if (widget.user.type == 'buyer')
+            for (var product in widget.products)
+              CardProduct(product: product, customer: widget.user),
         ],
       ),
     );

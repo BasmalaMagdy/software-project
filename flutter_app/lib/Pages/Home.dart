@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Components/recommended.dart';
+import 'package:flutter_app/Pages/cart.dart';
 import 'package:flutter_app/common/size_config.dart';
+import 'package:flutter_app/models/cart_database.dart';
+import 'package:flutter_app/models/order.dart';
 import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -40,9 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final List<ProductData> products = context.watch<List<ProductData>>();
-    UserData customer = context.watch<UserData>();
+    final UserData customer = context.watch<UserData>();
     final List<SearchProductData> history =
         context.watch<List<SearchProductData>>();
+    final List<userCartData> cart = context.watch<List<userCartData>>();
+    final List<OrderData> orders = context.watch<List<OrderData>>();
+
     if (customer != null) print(customer.uid);
     if (products != null) print(products[0].name);
     if (history != null) print(history);
@@ -74,8 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => tabAppBar()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Cart(cart: cart)));
                   }),
             if (customer.guest == false && customer.type == 'buyer')
               Padding(
@@ -178,7 +186,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontWeight: FontWeight.w600),
               ),
             ),
-            if (products != null && products.isNotEmpty)
+            if (products != null &&
+                products.isNotEmpty &&
+                customer.type == 'seller')
+              for (var product in products)
+                if (product.sid == customer.uid)
+                  CardProduct(
+                    customer: customer,
+                    product: product,
+                  ),
+            if (products != null &&
+                products.isNotEmpty &&
+                customer.type == 'buyer')
               for (var product in products)
                 CardProduct(
                   customer: customer,

@@ -2,6 +2,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/bloc/cart_items_bloc.dart';
+import 'package:flutter_app/models/cart_database.dart';
+import 'package:flutter_app/models/order.dart';
 import 'package:flutter_app/services/storage.dart';
 
 import '../models/category.dart';
@@ -34,6 +37,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('categories');
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
+  final CollectionReference orderCollection =
+      FirebaseFirestore.instance.collection('orders');
 
   /**                                       User DATABASE PART                                                **/
 
@@ -329,6 +334,116 @@ class DatabaseService {
           .collection("comments")
           .snapshots()
           .map(_userCommentFromSnapshot);
+    } else
+      return null;
+  }
+  /**                                       COMMENT DATABASE PART                                                **/
+
+  Future<void> CreateUserCart(
+      {String uid,
+      String pid,
+      String name,
+      String color,
+      String size,
+      String photo,
+      String sid,
+      int price,
+      int pquantity}) async {
+    return await userCollection.doc(uid).collection("cart").doc(pid).set({
+      'color': color,
+      'pid': pid,
+      'sid': sid,
+      'uid': uid,
+      'name': name,
+      'photo': photo,
+      'price': price,
+      'pquantity': pquantity,
+      'size': size,
+    });
+  }
+
+  List<userCartData> _userCartFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return userCartData(
+        cartid: snapshot.id,
+        pid: snapshot.data()['pid'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        uid: snapshot.data()['uid'] ?? '',
+        name: snapshot.data()['name'] ?? '',
+        color: snapshot.data()['color'] ?? '',
+        size: snapshot.data()['size'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        price: snapshot.data()['price'] ?? 0,
+        pquantity: snapshot.data()['pquantity'] ?? 0,
+      );
+    }).toList();
+  }
+
+  Stream<List<userCartData>> cart({String uid}) {
+    if (userCollection.doc(uid).collection("cart") != null) {
+      return userCollection
+          .doc(uid)
+          .collection("cart")
+          .snapshots()
+          .map(_userCartFromSnapshot);
+    } else
+      return null;
+  }
+
+  Future<void> DeletecartData({userCartData cart}) {
+    userCollection
+        .doc(cart.uid)
+        .collection("cart")
+        .doc(cart.cartid)
+        .delete()
+        .then((value) {
+      print("Document successfully deleted!");
+    }).catchError((error) {
+      print("Error removing document: $error");
+    });
+  }
+
+  /**                                       orders DATABASE PART                                                **/
+  Future<void> AddOrder(
+      {String address,
+      String phone,
+      String paymentmethod,
+      String currency,
+      List<userCartData> cart,
+      String uid,
+      String sid}) {
+    orderCollection.add({
+      'uid': uid,
+      'sid': sid,
+      'address': address,
+      'paymentmethod': paymentmethod,
+      'phone': phone,
+      'currency': currency,
+      'total': CalculateTotal(cart),
+    });
+  }
+
+  List<OrderData> _orderDataFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return OrderData(
+        oid: snapshot.id ?? '',
+        uid: snapshot.data()['uid'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        address: snapshot.data()['address'] ?? '',
+        currency: snapshot.data()['currency'] ?? '',
+        phone: snapshot.data()['phone'] ?? '',
+        paymentmethod: snapshot.data()['paymentmethod'] ?? '',
+        total: snapshot.data()['total'] ?? 0,
+      );
+    }).toList();
+  }
+
+  Stream<List<OrderData>> orders({String uid}) {
+    if (orderCollection != null) {
+      return orderCollection
+          .where('uid', isEqualTo: uid)
+          .snapshots()
+          .map(_orderDataFromSnapshot);
     } else
       return null;
   }

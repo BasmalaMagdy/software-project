@@ -1,6 +1,22 @@
 /// The [dart:async] is neccessary for using streams
 import 'dart:async';
 
+double CalculateTotal(cart) {
+  double sum = 0;
+  for (var product in cart) {
+    sum += product.price;
+  }
+  return sum;
+}
+
+double Calculate(cart) {
+  double sum = 0;
+  for (var product in cart) {
+    sum += product.pquantity;
+  }
+  return sum;
+}
+
 class ItemsBloc {
   /// The [cartStreamController] is an object of the StreamController class
   /// .broadcast enables the stream to be read in multiple screens of our app

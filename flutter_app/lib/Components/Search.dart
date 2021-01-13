@@ -84,79 +84,13 @@ class DataSearch extends SearchDelegate<String> {
     }
     if (query.isNotEmpty) {
       for (var product in products)
-        if (product.name.startsWith(query)) suggest.add(product);
+        if (product.sid == user.uid && product.name.startsWith(query))
+          suggest.add(product);
 
       return ListView(
         children: [
           if (suggest != null)
             for (var product in suggest) Suggest(context, product, user),
-
-          /*ListView.builder(
-              itemCount: suggest.length,
-              itemBuilder: (context, index) {
-                return;
-              }),*/
-          //********************For Filter (Not working yet)****************** */
-          /*
-
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Align(
-            alignment: Alignment.center,
-            child: DropdownButton(
-              hint: Text("Select Category"),
-              onChanged: (value) => selectedUser = value,
-              value: selectedUser,
-              style: TextStyle(
-                  color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),
-
-              items: users.map((user) {
-                return DropdownMenuItem<Item>(
-                  value: user,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        user.name,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-              //onSaved: (newValue) => selectedUser = newValue,
-              //onChanged: sset,
-              /*validator: (value) {
-                if (value.name == 'Default') {
-                  addError(error: kProductCategoryNullError);
-                  return "";
-                } else {
-                  removeError(error: kProductCategoryNullError);
-                }
-                return null;
-              },*/
-              /* items: users.map((Item user) {
-                return DropdownMenuItem<Item>(
-                  value: user,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        user.name,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),*/
-            ),
-          ),
-        ),
-        */
         ],
       );
     }
