@@ -139,7 +139,7 @@ class _SideListState extends State<SideList> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => wishlist(
-                                    w: wish,
+                                    user: customer,
                                   )));
                     },
                     title: Text('Favourite'),
@@ -305,10 +305,11 @@ class _SideListState extends State<SideList> {
               accountEmail: Text('${customer.email}'),
               currentAccountPicture: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Profile(user: customer)));
+                  if (customer.guest == false)
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Profile(user: customer)));
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.black,
@@ -396,11 +397,23 @@ class _SideListState extends State<SideList> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => wishlist(
-                                w: wish,
+                                user: customer,
                               )));
                 },
                 title: Text('Favourite'),
                 leading: Icon(Icons.favorite),
+              ),
+            if (customer.guest == true)
+              ListTile(
+                onTap: () async {
+                  //await widget.auth.signOut();
+                  await context.read<AuthService>().signOut();
+                },
+                title: Text('Sign in'),
+                leading: Icon(
+                  Icons.account_box_rounded,
+                  color: Colors.red,
+                ),
               ),
 
             Divider(),
@@ -537,18 +550,18 @@ class _SideListState extends State<SideList> {
                 color: Colors.red,
               ),
             ),
-            //if (customer.guest == false)
-            ListTile(
-              onTap: () async {
-                //await widget.auth.signOut();
-                await context.read<AuthService>().signOut();
-              },
-              title: Text('Sign out'),
-              leading: Icon(
-                Icons.exit_to_app,
-                color: Colors.red,
+            if (customer.guest == false)
+              ListTile(
+                onTap: () async {
+                  //await widget.auth.signOut();
+                  await context.read<AuthService>().signOut();
+                },
+                title: Text('Sign out'),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
               ),
-            ),
           ],
         ),
       );

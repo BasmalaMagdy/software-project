@@ -9,13 +9,15 @@ class Done extends StatelessWidget {
       this.currency,
       this.paymentmethod,
       this.phone,
-      this.user});
+      this.user,
+      this.total});
   final cart;
   final paymentmethod;
   final phone;
   final currency;
   final address;
   final user;
+  final total;
   @override
   Widget build(BuildContext context) {
     print('********************I AM IN Done FILE **************');
@@ -56,7 +58,8 @@ class Done extends StatelessWidget {
                       paymentmethod: paymentmethod,
                       phone: phone,
                       uid: user.uid,
-                      sid: cart[0].sid);
+                      sid: cart[0].sid,
+                      total: total);
                   int count = 0;
                   Navigator.of(context).popUntil((_) => count++ >= 4);
                 },

@@ -56,20 +56,6 @@ class _SignFormState extends State<SignForm> {
           Row(
             children: [
               SizedBox(width: getProportionateScreenWidth(50)),
-              Checkbox(
-                value: remember,
-                activeColor: Colors.orange[900],
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              Text(
-                "Remember me",
-                style: TextStyle(fontSize: 10),
-              ),
-              SizedBox(width: getProportionateScreenWidth(50)),
               //Spacer(),
               GestureDetector(
                 onTap: () {
@@ -82,7 +68,7 @@ class _SignFormState extends State<SignForm> {
                 },
                 child: Text(
                   "Forgot Password?",
-                  style: TextStyle(color: Colors.orange[900], fontSize: 10),
+                  style: TextStyle(color: Colors.orange[900], fontSize: 15),
                 ),
               ),
             ],
@@ -133,16 +119,7 @@ class _SignFormState extends State<SignForm> {
 
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kPasswordNullError);
-          return "";
-        } else if (value.length < 8) {
-          addError(error: kPasswordShortError);
-          return "";
-        }
-        return null;
-      },
+      validator: Validate.passwordvalidate,
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password.",
@@ -175,16 +152,7 @@ class _SignFormState extends State<SignForm> {
 
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
+      validator: Validate.emailvalidate,
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email.",
@@ -192,5 +160,29 @@ class _SignFormState extends State<SignForm> {
       ),
       style: TextStyle(fontSize: getProportionateScreenWidth(30)),
     );
+  }
+}
+
+class Validate {
+  static String passwordvalidate(value) {
+    if (value.isEmpty) {
+      //addError(error: kPasswordNullError);
+      return kPasswordNullError;
+    } else if (value.length < 8) {
+      //addError(error: kPasswordShortError);
+      return kPasswordShortError;
+    }
+    return null;
+  }
+
+  static String emailvalidate(value) {
+    if (value.isEmpty) {
+      //addError(error: kEmailNullError);
+      return kEmailNullError;
+    } else if (!emailValidatorRegExp.hasMatch(value)) {
+      //addError(error: kInvalidEmailError);
+      return kInvalidEmailError;
+    }
+    return null;
   }
 }

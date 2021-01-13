@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/credit_card.dart';
 import 'package:flutter_app/Pages/end.dart';
+import 'package:flutter_app/bloc/cart_items_bloc.dart';
 import 'package:flutter_app/common/size_config.dart';
 
 class PaymentForm extends StatefulWidget {
@@ -23,8 +24,10 @@ class _PaymentFormState extends State<PaymentForm> {
   String expireddate;
   String cvv;
   String cardholder;
+  num dis = 0;
   @override
   Widget build(BuildContext context) {
+    num total = CalculateTotal(widget.cart);
     print('********************I AM IN PAYMENT FILE **************');
     print(widget.cart[0]);
     print(widget.user.uid);
@@ -71,19 +74,62 @@ class _PaymentFormState extends State<PaymentForm> {
                 },
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: new Icon(
-                    Icons.monetization_on_outlined,
-                    color: Colors.amber,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(child: Text("total: ${total}")),
+                  if (widget.user.vip)
+                    Center(
+                      child: Text(
+                          "tota after vip discount: ${total * widget.user.getvipdiscount()}"),
+                    ),
+                  if (dis == 0 && widget.user.points > 1)
+                    Center(
+                      child: MaterialButton(
+                        color: Colors.red,
+                        onPressed: () {
+                          setState(() {
+                            dis = total * widget.user.getpointdiscount();
+                          });
+                        },
+                        child: Text('use points discount'),
+                      ),
+                    ),
+                  if (dis > 0)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('Total : $dis'),
+                        IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              setState(() {
+                                dis = 0;
+                              });
+                            })
+                      ],
+                    )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: new Icon(
+                      Icons.monetization_on_outlined,
+                      color: Colors.amber,
+                    ),
                   ),
-                ),
-                Expanded(
-                    flex: 4, child: new Text("Choose the Payment currency")),
-              ],
+                  Expanded(
+                      flex: 4, child: new Text("Choose the Payment currency")),
+                ],
+              ),
             ),
             if (currency == null)
               Row(
@@ -124,11 +170,15 @@ class _PaymentFormState extends State<PaymentForm> {
                       })
                 ],
               ),
-            Row(
-              children: <Widget>[
-                Expanded(flex: 2, child: new Icon(Icons.local_atm)),
-                Expanded(flex: 4, child: new Text("Choose the Payment method")),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(flex: 1, child: new Icon(Icons.local_atm)),
+                  Expanded(
+                      flex: 4, child: new Text("Choose the Payment method")),
+                ],
+              ),
             ),
             if (_paymentmethod == null)
               Row(
@@ -249,7 +299,8 @@ class _PaymentFormState extends State<PaymentForm> {
                                       address: address,
                                       phone: phone,
                                       paymentmethod: _paymentmethod,
-                                      currency: currency)));
+                                      currency: currency,
+                                      total: dis == 0 ? total : dis)));
                         }
                       }, // a page need to be added
                       child: new Text(

@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final List<userCartData> cart = context.watch<List<userCartData>>();
     final List<OrderData> orders = context.watch<List<OrderData>>();
 
-    if (customer != null) print(customer.uid);
+    if (customer != null) print(customer.points);
     if (products != null) print(products[0].name);
     if (history != null) print(history);
     if ((customer != null) && (products != null) && (history != null))
@@ -218,8 +218,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 backgroundColor: Colors.black,
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CreateProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateProduct(
+                                user: customer,
+                              )));
                 },
               )
             : Container(),

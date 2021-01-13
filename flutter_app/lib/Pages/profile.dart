@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
                   style: TextStyle(
                     color: Colors.black,
                     letterSpacing: 2.0,
-                    fontSize: SizeConfig.screenWidth * 0.05,
+                    fontSize: SizeConfig.screenWidth * 0.04,
                   ),
                 ),
                 SizedBox(
@@ -82,7 +82,7 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 2.0,
-                        fontSize: SizeConfig.screenWidth * 0.05,
+                        fontSize: SizeConfig.screenWidth * 0.04,
                       ),
                     ),
                   ],
@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                   style: TextStyle(
                     color: Colors.red,
                     letterSpacing: 2.0,
-                    fontSize: SizeConfig.screenWidth * 0.05,
+                    fontSize: SizeConfig.screenWidth * 0.04,
                   ),
                 ),
                 SizedBox(

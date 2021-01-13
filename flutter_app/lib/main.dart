@@ -56,7 +56,8 @@ class _MyAppState extends State<MyApp> {
         //initialRoute: Wraper.routeName,
         //routes: routes,
         //home: MyHomePage(title: 'Drop'),
-        home: Wraper(),
+        // home: Wraper(),
+        home: SplashScreen(),
       ),
     );
 

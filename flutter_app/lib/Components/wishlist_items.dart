@@ -99,15 +99,15 @@ class _ShopItemsWidgetState extends State<ShopItemsWidget> {
                             color: Colors.red,
                             onPressed: () {
                               DatabaseService().CreateUserCart(
-                                color: widget.w.color,
-                                name: widget.w.name,
-                                photo: widget.w.photo,
-                                pid: widget.w.pid,
+                                color: widget.w[index].color,
+                                name: widget.w[index].name,
+                                photo: widget.w[index].photo,
+                                pid: widget.w[index].pid,
                                 pquantity: 1,
-                                price: widget.w.price,
-                                sid: widget.w.sid,
-                                size: widget.w.size,
-                                uid: widget.w.uid,
+                                price: widget.w[index].price,
+                                sid: widget.w[index].sid,
+                                size: widget.w[index].size,
+                                uid: widget.w[index].uid,
                               );
                             },
                             //onPressed: () => bloc.addToFav(cartData)

@@ -55,7 +55,8 @@ class DatabaseService {
       'phone': phone,
       'email': email,
     }).then((value) {
-      FireStorageService.changeUserImage(image: imageFile, user: customer);
+      if (imageFile != null)
+        FireStorageService.changeUserImage(image: imageFile, user: customer);
     });
   }
 
@@ -68,6 +69,12 @@ class DatabaseService {
       'type': customer.type,*/
       'vip': vip,
       //'points': customer.points,
+    });
+  }
+
+  Future<void> addUserpoints({String uid, num points}) async {
+    return await userCollection.doc(uid).update({
+      'points': points,
     });
   }
 
@@ -413,8 +420,12 @@ class DatabaseService {
       List<userCartData> cart,
       String uid,
       String sid,
-      UserData user}) async {
-    await userCollection.doc(uid).update({'order': user.order + 1});
+      UserData user,
+      num total}) async {
+    await userCollection
+        .doc(uid)
+        .update({'order': user.order + 1, 'points': user.points + total / 50});
+
     await userCollection
         .doc(uid)
         .collection('orders')
@@ -426,7 +437,7 @@ class DatabaseService {
       'paymentmethod': paymentmethod ?? '',
       'phone': phone ?? '',
       'currency': currency ?? '',
-      'total': CalculateTotal(cart) ?? 0,
+      'total': total ?? 0,
     });
     await userCollection.doc(uid).collection('cart').get().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.docs) {

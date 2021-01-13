@@ -65,7 +65,7 @@ class _EditProfileState extends State<EditProfile> {
                         buildNameFormField(),
                         SizedBox(height: SizeConfig.screenHeight * 0.02),
                         /*  Email field  */
-                        buildEmailFormField(),
+                        //buildEmailFormField(),
                         SizedBox(height: SizeConfig.screenHeight * 0.02),
                         /*  password field  */
                         //buildPasswordFormField(),
@@ -132,8 +132,8 @@ class _EditProfileState extends State<EditProfile> {
                             buildNameFormField(),
                             SizedBox(height: SizeConfig.screenHeight * 0.02),
                             /*  Email field  */
-                            buildEmailFormField(),
-                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            //buildEmailFormField(),
+                            //SizedBox(height: SizeConfig.screenHeight * 0.02),
                             /*  password field  */
                             //buildPasswordFormField(),
                             /*  confirm field  */
@@ -567,13 +567,12 @@ class _EditProfileState extends State<EditProfile> {
               onPressed: () {
                 DatabaseService().updateUserData(
                     id: widget.user.uid,
-                    email: email,
                     name: name,
                     phone: phone,
                     customer: user,
                     imageFile: _imageFile);
                 int count = 0;
-                Navigator.of(context).popUntil((_) => count++ >= 2);
+                Navigator.of(context).popUntil((_) => count++ >= 3);
                 //Navigator.of(context).popUntil((route) => );
               },
             ),
