@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/orders.dart';
 import 'package:flutter_app/Pages/vip.dart';
+import 'package:flutter_app/Pages/wishlist.dart';
+import 'package:flutter_app/models/order.dart';
 import 'package:flutter_app/models/product.dart';
+import 'package:flutter_app/models/wishlist_database.dart';
 import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +34,8 @@ class _SideListState extends State<SideList> {
     UserData customer = context.watch<UserData>();
     List<ProductData> products = context.watch<List<ProductData>>();
     List<SearchProductData> history = context.watch<List<SearchProductData>>();
+    List<OrderData> orders = Provider.of<List<OrderData>>(context);
+    List<userWishlistData> wish = Provider.of<List<userWishlistData>>(context);
     print(customer.guest);
     print(customer.type);
     print(customer.vip);
@@ -121,7 +127,7 @@ class _SideListState extends State<SideList> {
                   ListTile(
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Screen2()));
+                          MaterialPageRoute(builder: (context) => Orders()));
                     },
                     title: Text('My Orders'),
                     leading: Icon(Icons.shopping_basket),
@@ -129,8 +135,12 @@ class _SideListState extends State<SideList> {
 
                   ListTile(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Screen2()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => wishlist(
+                                    w: wish,
+                                  )));
                     },
                     title: Text('Favourite'),
                     leading: Icon(Icons.favorite),
@@ -365,6 +375,32 @@ class _SideListState extends State<SideList> {
                         color: Colors.amberAccent,
                       )
                     : Icon(Icons.person),
+              ),
+            if (customer.guest == false && customer.type == 'buyer')
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Orders(
+                                orders: orders,
+                              )));
+                },
+                title: Text('My Orders'),
+                leading: Icon(Icons.shopping_basket),
+              ),
+            if (customer.guest == false && customer.type == 'buyer')
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => wishlist(
+                                w: wish,
+                              )));
+                },
+                title: Text('Favourite'),
+                leading: Icon(Icons.favorite),
               ),
 
             Divider(),

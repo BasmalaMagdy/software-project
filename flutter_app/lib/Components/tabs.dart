@@ -34,9 +34,9 @@ class _tabAppBarState extends State<tabAppBar> {
               ],
             ),
           ),
-          body: TabBarView(
-            children: [Cart(), Fav()],
-          ),
+          /*body: TabBarView(
+              // children: [Cart(), Fav()],
+              ),*/
         ),
       ),
     );

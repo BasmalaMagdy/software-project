@@ -8,8 +8,9 @@ import '../bloc/cart_items_bloc.dart';
 
 class Cart extends StatefulWidget {
   static String routeName = "/cart";
-  Cart({this.cart});
+  Cart({this.cart, this.user});
   final cart;
+  final user;
   @override
   _CartState createState() => _CartState();
 }
@@ -17,6 +18,10 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
+    print('********************I AM IN CART FILE **************');
+    //print(widget.cart[0]);
+    print(widget.user.uid);
+
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
@@ -37,8 +42,8 @@ class _CartState extends State<Cart> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    Address(cart: widget.cart)));
+                                builder: (context) => Address(
+                                    cart: widget.cart, user: widget.user)));
                       },
                 child: new Text(
                   "BUY ${Calculate(widget.cart)} ITEMS FOR EGP ${CalculateTotal(widget.cart)}",

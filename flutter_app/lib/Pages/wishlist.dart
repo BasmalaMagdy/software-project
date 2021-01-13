@@ -4,17 +4,25 @@
 import 'package:flutter/material.dart';
 import '../Components/wishlist_items.dart';
 
-class Fav extends StatefulWidget {
+class wishlist extends StatefulWidget {
   static String routeName = "/wishlist";
+  wishlist({this.w});
+  final w;
   @override
-  _FavState createState() => _FavState();
+  _wishlistState createState() => _wishlistState();
 }
 
-class _FavState extends State<Fav> {
+class _wishlistState extends State<wishlist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new ShopItemsWidget(),
+      appBar: new AppBar(
+        elevation: 0.1,
+        backgroundColor: Colors.red,
+        centerTitle: true,
+        title: Text('Wishlist'),
+      ),
+      body: new ShopItemsWidget(w: widget.w),
     );
   }
 }

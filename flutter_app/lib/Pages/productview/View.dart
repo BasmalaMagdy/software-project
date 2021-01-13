@@ -42,12 +42,13 @@ class _ViewBodyState extends State<ViewBody> {
 
   String CommentErrorNull = 'Error: Comment is empty';
   String comment;
+  String size = '';
+  String color = '';
+  int pquantity = 0;
   @override
   Widget build(BuildContext context) {
     final List<CommentData> comments = context.watch<List<CommentData>>();
-    String color = 'black';
-    int pquantity = 5;
-    String size = 'small';
+
     //final UserData user = context.watch<UserData>();
     return Scaffold(
       appBar: new AppBar(
@@ -55,24 +56,6 @@ class _ViewBodyState extends State<ViewBody> {
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
         title: Text('Fetch'), //app name
-        actions: <Widget>[
-          /* new IconButton(
-              icon: Icon(
-                Icons.share,
-                color: Colors.black,
-              ),
-              onPressed: () {}),*/
-          if (widget.user.type == 'buyer')
-            new IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => tabAppBar()));
-                })
-        ],
       ),
       //dropdown list
 
@@ -127,6 +110,7 @@ class _ViewBodyState extends State<ViewBody> {
               children: <Widget>[
                 //=========the size button------
                 Expanded(
+                  flex: 3,
                   child: MaterialButton(
                     onPressed: () {
                       //saying to show that dialog in the context of the widget
@@ -134,16 +118,14 @@ class _ViewBodyState extends State<ViewBody> {
                           context: context,
                           builder: (context) {
                             return new AlertDialog(
-                              title: new Text("Size"),
-                              content: new Text("choose the size"),
-                              actions: <Widget>[
-                                new MaterialButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(context);
-                                  },
-                                  child: new Text("close"),
-                                )
-                              ],
+                              title: Text("choose the size"),
+                              content: MaterialButton(
+                                onPressed: () {
+                                  size = widget.product.size;
+                                  Navigator.of(context).pop(context);
+                                },
+                                child: new Text("size ${widget.product.size}"),
+                              ),
                             );
                           });
                     },
@@ -161,6 +143,7 @@ class _ViewBodyState extends State<ViewBody> {
 
                 //=========the color button------
                 Expanded(
+                  flex: 3,
                   child: MaterialButton(
                     onPressed: () {
                       //saying to show that dialog in the context of the widget
@@ -168,16 +151,15 @@ class _ViewBodyState extends State<ViewBody> {
                           context: context,
                           builder: (context) {
                             return new AlertDialog(
-                              title: new Text("Colors"),
-                              content: new Text("choose a color"),
-                              actions: <Widget>[
-                                new MaterialButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(context);
-                                  },
-                                  child: new Text("close"),
-                                )
-                              ],
+                              title: new Text("choose a color"),
+                              content: MaterialButton(
+                                onPressed: () {
+                                  color = widget.product.color;
+                                  Navigator.of(context).pop(context);
+                                },
+                                child:
+                                    new Text("Color: ${widget.product.color}"),
+                              ),
                             );
                           });
                     },
@@ -185,8 +167,9 @@ class _ViewBodyState extends State<ViewBody> {
                     elevation: 0.2,
                     child: Row(
                       children: <Widget>[
-                        Expanded(child: new Text("Color")),
-                        Expanded(child: new Icon(Icons.arrow_drop_down)),
+                        Expanded(flex: 2, child: new Text("Color")),
+                        Expanded(
+                            flex: 1, child: new Icon(Icons.arrow_drop_down)),
                       ],
                     ),
                   ),
@@ -194,6 +177,7 @@ class _ViewBodyState extends State<ViewBody> {
 
                 //=========the Quantity button------
                 Expanded(
+                  flex: 4,
                   child: MaterialButton(
                     onPressed: () {
                       //saying to show that dialog in the context of the widget
@@ -202,15 +186,19 @@ class _ViewBodyState extends State<ViewBody> {
                           builder: (context) {
                             return new AlertDialog(
                               title: new Text("Quantity"),
-                              content: new Text("choose the quantity"),
-                              actions: <Widget>[
-                                new MaterialButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(context);
-                                  },
-                                  child: new Text("close"),
-                                )
-                              ],
+                              content: ListView(
+                                children: [
+                                  for (var q = 0;
+                                      q < widget.product.quantity;
+                                      q++)
+                                    MaterialButton(
+                                        child: Text('${q.toString()}'),
+                                        onPressed: () {
+                                          pquantity = q;
+                                          Navigator.of(context).pop(context);
+                                        }),
+                                ],
+                              ),
                             );
                           });
                     },
@@ -218,8 +206,9 @@ class _ViewBodyState extends State<ViewBody> {
                     elevation: 0.2,
                     child: Row(
                       children: <Widget>[
-                        Expanded(child: new Text("Quantity")),
-                        Expanded(child: new Icon(Icons.arrow_drop_down)),
+                        Expanded(flex: 2, child: new Text("quantity")),
+                        Expanded(
+                            flex: 1, child: new Icon(Icons.arrow_drop_down)),
                       ],
                     ),
                   ),
@@ -262,9 +251,14 @@ class _ViewBodyState extends State<ViewBody> {
                   ),*/
 
                 new IconButton(
-                    icon: Icon(Icons.favorite_border),
-                    color: Colors.red,
-                    onPressed: () => bloc.addToFav(widget.product)),
+                  icon: Icon(Icons.favorite_border),
+                  color: Colors.red,
+                  onPressed: () {
+                    DatabaseService().CreateWishlist(
+                        product: widget.product, uid: widget.user.uid);
+                  },
+                ),
+                //onPressed: () => bloc.addToFav(widget.product)),
               ],
             ),
 
@@ -355,89 +349,90 @@ class _ViewBodyState extends State<ViewBody> {
             title: new Text("Reviews"),
           ),
           //  ============ write your revirw=============
-          Card(
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-                  title: Form(
-                    key: _key,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          onSaved: (newValue) => comment = newValue,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              addError(error: CommentErrorNull);
-                              return "";
-                            }
-                            if (value.isNotEmpty) {
-                              removeError(error: CommentErrorNull);
-                            }
-                            return null;
-                          },
-                          maxLength: 255,
-                          maxLines: 10,
-                          minLines: 1,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10),
-                            hintText: "write your review",
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(20),
+          if (widget.user.type == 'buyer' && widget.user.guest == false)
+            Card(
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(Icons.person),
+                    ),
+                    title: Form(
+                      key: _key,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            onSaved: (newValue) => comment = newValue,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                addError(error: CommentErrorNull);
+                                return "";
+                              }
+                              if (value.isNotEmpty) {
+                                removeError(error: CommentErrorNull);
+                              }
+                              return null;
+                            },
+                            maxLength: 255,
+                            maxLines: 10,
+                            minLines: 1,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(10),
+                              hintText: "write your review",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
                           ),
-                        ),
-                        FormError(errors: errors),
-                        InkWell(
-                          onTap: () {
-                            if (_key.currentState.validate()) {
-                              _key.currentState.save();
-                              DatabaseService().CreateProductComment(
-                                  pid: widget.product.pid,
-                                  user: widget.user,
-                                  comment: comment,
-                                  rate: rating);
-                            }
-                          },
-                          // ============= button  ===============
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    top: BorderSide(
-                              color: Colors.blueGrey.withOpacity(0.2),
-                            ))),
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .center, // make button in center
-                              children: <Widget>[
-                                Text(
-                                  "Add",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.grey[600], fontSize: 17),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                ),
-                                Icon(
-                                  Icons.add_box,
-                                  color: Colors.grey,
-                                )
-                              ],
+                          FormError(errors: errors),
+                          InkWell(
+                            onTap: () {
+                              if (_key.currentState.validate()) {
+                                _key.currentState.save();
+                                DatabaseService().CreateProductComment(
+                                    pid: widget.product.pid,
+                                    user: widget.user,
+                                    comment: comment,
+                                    rate: rating);
+                              }
+                            },
+                            // ============= button  ===============
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: BorderSide(
+                                color: Colors.blueGrey.withOpacity(0.2),
+                              ))),
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .center, // make button in center
+                                children: <Widget>[
+                                  Text(
+                                    "Add",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.grey[600], fontSize: 17),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Icon(
+                                    Icons.add_box,
+                                    color: Colors.grey,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           if (comments != null)
             for (var comment in comments) CommentCard(comment: comment),
 

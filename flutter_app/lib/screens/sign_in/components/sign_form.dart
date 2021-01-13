@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/Pages/user_provider.dart';
-import 'package:flutter_app/models/user.dart';
 import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import '../../../components/default_button.dart';
@@ -75,8 +73,12 @@ class _SignFormState extends State<SignForm> {
               //Spacer(),
               GestureDetector(
                 onTap: () {
-                  Navigator.popAndPushNamed(
-                      context, ForgotPasswordScreen.routName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen()));
+                  /*Navigator.popAndPushNamed(
+                      context, ForgotPasswordScreen.routName);*/
                 },
                 child: Text(
                   "Forgot Password?",

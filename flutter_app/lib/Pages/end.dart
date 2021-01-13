@@ -4,14 +4,27 @@ import 'package:flutter_app/services/database.dart';
 
 class Done extends StatelessWidget {
   Done(
-      {this.cart, this.address, this.currency, this.paymentmethod, this.phone});
+      {this.cart,
+      this.address,
+      this.currency,
+      this.paymentmethod,
+      this.phone,
+      this.user});
   final cart;
   final paymentmethod;
   final phone;
   final currency;
   final address;
+  final user;
   @override
   Widget build(BuildContext context) {
+    print('********************I AM IN Done FILE **************');
+    print(cart[0]);
+    print(user.uid);
+    print(address);
+    print(currency);
+    print(phone);
+    print(paymentmethod);
     return Scaffold(
       body: Center(
         child: Column(
@@ -36,12 +49,13 @@ class Done extends StatelessWidget {
                 color: Colors.green,
                 onPressed: () {
                   DatabaseService().AddOrder(
+                      user: user,
                       address: address,
                       cart: cart,
                       currency: currency,
                       paymentmethod: paymentmethod,
                       phone: phone,
-                      uid: cart[0].uid,
+                      uid: user.uid,
                       sid: cart[0].sid);
                   int count = 0;
                   Navigator.of(context).popUntil((_) => count++ >= 4);

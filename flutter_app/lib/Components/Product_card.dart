@@ -119,18 +119,33 @@ class _CardProductState extends State<CardProduct> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if (widget.customer.type == 'buyer')
+                        if (widget.customer.type == 'buyer' &&
+                            widget.customer.guest == false)
                           IconButton(
                             icon: Icon(Icons.favorite_border),
                             onPressed: () {
-                              // TO DO : if in the favourite change the favourite icon
+                              DatabaseService().CreateWishlist(
+                                  product: widget.product,
+                                  uid: widget.customer.uid);
                             },
                           ),
-                        if (widget.customer.type == 'buyer')
+                        if (widget.customer.type == 'buyer' &&
+                            widget.customer.guest == false)
                           IconButton(
                             icon: Icon(Icons.add_shopping_cart),
                             onPressed: () {
                               // TO DO : if in the cart change the cart icon
+                              DatabaseService().CreateUserCart(
+                                color: widget.product.color,
+                                name: widget.product.name,
+                                photo: widget.product.photo,
+                                pid: widget.product.pid,
+                                pquantity: 1,
+                                price: widget.product.price,
+                                sid: widget.product.sid,
+                                size: widget.product.size,
+                                uid: widget.customer.uid,
+                              );
                             },
                           ),
                         if (widget.customer.type == 'seller')

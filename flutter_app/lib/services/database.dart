@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/bloc/cart_items_bloc.dart';
 import 'package:flutter_app/models/cart_database.dart';
 import 'package:flutter_app/models/order.dart';
+import 'package:flutter_app/models/wishlist_database.dart';
 import 'package:flutter_app/services/storage.dart';
 
 import '../models/category.dart';
@@ -60,12 +61,11 @@ class DatabaseService {
 
   Future<void> upgradeUserToVip({bool vip, UserData customer}) async {
     return await userCollection.doc(customer.uid).update({
-      'name': customer.name,
+      /*'name': customer.name,
       'phone': customer.phone,
       'photo': customer.photo,
       'email': customer.email,
-
-      'type': customer.type,
+      'type': customer.type,*/
       'vip': vip,
       //'points': customer.points,
     });
@@ -80,6 +80,7 @@ class DatabaseService {
       phone: snapshot.data()['phone'] ?? '',
       photo: snapshot.data()['photo'] ?? '',
       points: snapshot.data()['points'] ?? 0,
+      order: snapshot.data()['order'] ?? 0,
       type: snapshot.data()['type'] ?? '',
       vip: snapshot.data()['vip'] ?? false,
       guest: snapshot.data()['guest'] ?? false,
@@ -111,8 +112,8 @@ class DatabaseService {
       'password': password ?? "",
       'guest': guest ?? false,
     }).then((value) {
-      // if (imageFile != null)
-      //   FireStorageService.changeUserImage(image: imageFile, user: customer);
+      if (imageFile != null)
+        FireStorageService.changeUserImage(image: imageFile, user: customer);
     });
   }
 
@@ -411,15 +412,26 @@ class DatabaseService {
       String currency,
       List<userCartData> cart,
       String uid,
-      String sid}) {
-    orderCollection.add({
+      String sid,
+      UserData user}) async {
+    await userCollection.doc(uid).update({'order': user.order + 1});
+    await userCollection
+        .doc(uid)
+        .collection('orders')
+        .doc(user.order.toString())
+        .set({
       'uid': uid,
       'sid': sid,
-      'address': address,
-      'paymentmethod': paymentmethod,
-      'phone': phone,
-      'currency': currency,
-      'total': CalculateTotal(cart),
+      'address': address ?? '',
+      'paymentmethod': paymentmethod ?? '',
+      'phone': phone ?? '',
+      'currency': currency ?? '',
+      'total': CalculateTotal(cart) ?? 0,
+    });
+    await userCollection.doc(uid).collection('cart').get().then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.docs) {
+        ds.reference.delete();
+      }
     });
   }
 
@@ -440,11 +452,72 @@ class DatabaseService {
 
   Stream<List<OrderData>> orders({String uid}) {
     if (orderCollection != null) {
-      return orderCollection
-          .where('uid', isEqualTo: uid)
+      return userCollection
+          .doc(uid)
+          .collection('orders')
           .snapshots()
           .map(_orderDataFromSnapshot);
     } else
       return null;
+  }
+/*                                        WISH LIST                                        */
+
+  Future<void> CreateWishlist({String uid, ProductData product}) async {
+    return await userCollection
+        .doc(uid)
+        .collection("wishlist")
+        .doc(product.pid)
+        .set({
+      'color': product.color,
+      'pid': product.pid,
+      'sid': product.sid,
+      'uid': uid,
+      'name': product.name,
+      'photo': product.photo,
+      'price': product.price,
+      'pquantity': product.quantity,
+      'size': product.size,
+    });
+  }
+
+  List<userWishlistData> _userWishlistFromSnapshot(QuerySnapshot snapshots) {
+    return snapshots.docs.map((snapshot) {
+      return userWishlistData(
+        wid: snapshot.id,
+        pid: snapshot.data()['pid'] ?? '',
+        sid: snapshot.data()['sid'] ?? '',
+        uid: snapshot.data()['uid'] ?? '',
+        name: snapshot.data()['name'] ?? '',
+        color: snapshot.data()['color'] ?? '',
+        size: snapshot.data()['size'] ?? '',
+        photo: snapshot.data()['photo'] ?? '',
+        price: snapshot.data()['price'] ?? 0,
+        pquantity: snapshot.data()['pquantity'] ?? 0,
+      );
+    }).toList();
+  }
+
+  Stream<List<userWishlistData>> wishlist({String uid}) {
+    if (userCollection.doc(uid).collection("wishlist") != null) {
+      return userCollection
+          .doc(uid)
+          .collection("wishlist")
+          .snapshots()
+          .map(_userWishlistFromSnapshot);
+    } else
+      return null;
+  }
+
+  Future<void> DeleteWishlistData({userWishlistData wishlist}) {
+    userCollection
+        .doc(wishlist.uid)
+        .collection("wishlist")
+        .doc(wishlist.wid)
+        .delete()
+        .then((value) {
+      print("Document successfully deleted!");
+    }).catchError((error) {
+      print("Error removing document: $error");
+    });
   }
 }
