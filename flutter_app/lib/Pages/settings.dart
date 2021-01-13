@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/user.dart';
 import 'package:flutter_app/services/database.dart';
+import 'package:flutter_app/services/storage.dart';
 import 'package:provider/provider.dart';
 
 import '../common/size_config.dart';
@@ -13,9 +14,6 @@ class Settings extends StatelessWidget {
   static String routeName = "/Settings";
   @override
   Widget build(BuildContext context) {
-    //final UserData user = context.watch<UserData>();
-    //final List<SearchProductData> history =
-    //  context.watch<List<SearchProductData>>();
     return MultiProvider(
       providers: [
         Provider<DatabaseService>(
@@ -29,7 +27,26 @@ class Settings extends StatelessWidget {
           create: (context) => context.read<DatabaseService>().Users,
         ),
       ],
-      child: Scaffold(
+      child: Body(),
+    );
+  }
+}
+
+class Body extends StatefulWidget {
+  Body({Key key}) : super(key: key);
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  Widget build(BuildContext context) {
+    final UserData user = context.watch<UserData>();
+    final List<SearchProductData> history =
+        context.watch<List<SearchProductData>>();
+    if (history != null && user != null)
+      return Scaffold(
           appBar: new AppBar(
             backgroundColor: Colors.white,
             iconTheme: new IconThemeData(color: Colors.black),
@@ -109,7 +126,8 @@ class Settings extends StatelessWidget {
                   ],
                 ),
             ],
-          )),
-    );
+          ));
+    else
+      return Loading();
   }
 }

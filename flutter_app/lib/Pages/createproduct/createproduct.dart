@@ -12,7 +12,8 @@ class Item {
 
 class CreateProduct extends StatefulWidget {
   static String routeName = "/createproduct";
-  CreateProduct({Key key}) : super(key: key);
+  CreateProduct({Key key, this.user}) : super(key: key);
+  final user;
 
   @override
   _CreateProductState createState() => _CreateProductState();
@@ -135,6 +136,7 @@ class _CreateProductState extends State<CreateProduct> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: GetDataForm(
+            user: widget.user,
             pimglist: Pimglist,
             imgnames: imgnames,
           ),

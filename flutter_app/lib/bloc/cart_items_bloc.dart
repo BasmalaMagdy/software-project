@@ -4,7 +4,7 @@ import 'dart:async';
 double CalculateTotal(cart) {
   double sum = 0;
   for (var product in cart) {
-    sum += product.price;
+    sum += product.price * product.pquantity;
   }
   return sum;
 }

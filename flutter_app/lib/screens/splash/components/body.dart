@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/screens/wrapper.dart';
 import '../../../common/constants.dart';
 import '../../../screens/sign_in/sign_in_screen.dart';
 import '../../../common/size_config.dart';
-
+import 'package:provider/provider.dart';
 //this is the best practice
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
@@ -34,6 +35,8 @@ class _BodyState extends State<Body> {
   //cards text + images
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    print(user);
     SizeConfig().init(context);
     return SafeArea(
       child: SizedBox(

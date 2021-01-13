@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/orders.dart';
 import 'package:flutter_app/Pages/vip.dart';
+import 'package:flutter_app/Pages/wishlist.dart';
+import 'package:flutter_app/models/order.dart';
 import 'package:flutter_app/models/product.dart';
+import 'package:flutter_app/models/wishlist_database.dart';
 import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +34,8 @@ class _SideListState extends State<SideList> {
     UserData customer = context.watch<UserData>();
     List<ProductData> products = context.watch<List<ProductData>>();
     List<SearchProductData> history = context.watch<List<SearchProductData>>();
+    List<OrderData> orders = Provider.of<List<OrderData>>(context);
+    List<userWishlistData> wish = Provider.of<List<userWishlistData>>(context);
     print(customer.guest);
     print(customer.type);
     print(customer.vip);
@@ -121,7 +127,7 @@ class _SideListState extends State<SideList> {
                   ListTile(
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Screen2()));
+                          MaterialPageRoute(builder: (context) => Orders()));
                     },
                     title: Text('My Orders'),
                     leading: Icon(Icons.shopping_basket),
@@ -129,8 +135,12 @@ class _SideListState extends State<SideList> {
 
                   ListTile(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Screen2()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => wishlist(
+                                    user: customer,
+                                  )));
                     },
                     title: Text('Favourite'),
                     leading: Icon(Icons.favorite),
@@ -295,10 +305,11 @@ class _SideListState extends State<SideList> {
               accountEmail: Text('${customer.email}'),
               currentAccountPicture: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Profile(user: customer)));
+                  if (customer.guest == false)
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Profile(user: customer)));
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.black,
@@ -365,6 +376,44 @@ class _SideListState extends State<SideList> {
                         color: Colors.amberAccent,
                       )
                     : Icon(Icons.person),
+              ),
+            if (customer.guest == false && customer.type == 'buyer')
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Orders(
+                                orders: orders,
+                              )));
+                },
+                title: Text('My Orders'),
+                leading: Icon(Icons.shopping_basket),
+              ),
+            if (customer.guest == false && customer.type == 'buyer')
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => wishlist(
+                                user: customer,
+                              )));
+                },
+                title: Text('Favourite'),
+                leading: Icon(Icons.favorite),
+              ),
+            if (customer.guest == true)
+              ListTile(
+                onTap: () async {
+                  //await widget.auth.signOut();
+                  await context.read<AuthService>().signOut();
+                },
+                title: Text('Sign in'),
+                leading: Icon(
+                  Icons.account_box_rounded,
+                  color: Colors.red,
+                ),
               ),
 
             Divider(),
@@ -501,18 +550,18 @@ class _SideListState extends State<SideList> {
                 color: Colors.red,
               ),
             ),
-            //if (customer.guest == false)
-            ListTile(
-              onTap: () async {
-                //await widget.auth.signOut();
-                await context.read<AuthService>().signOut();
-              },
-              title: Text('Sign out'),
-              leading: Icon(
-                Icons.exit_to_app,
-                color: Colors.red,
+            if (customer.guest == false)
+              ListTile(
+                onTap: () async {
+                  //await widget.auth.signOut();
+                  await context.read<AuthService>().signOut();
+                },
+                title: Text('Sign out'),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
               ),
-            ),
           ],
         ),
       );

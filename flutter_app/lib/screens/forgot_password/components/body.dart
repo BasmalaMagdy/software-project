@@ -1,3 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/screens/sign_in/sign_in_screen.dart';
+import 'package:flutter_app/services/auth.dart';
+
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../components/no_account_text.dart';
@@ -44,9 +48,10 @@ class ForgotPassForm extends StatefulWidget {
 }
 
 class _ForgotPassFormState extends State<ForgotPassForm> {
+  final _auth = FirebaseAuth.instance;
   final _formkey = GlobalKey<FormState>();
   List<String> errors = [];
-  String email;
+  String email = '';
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -94,15 +99,16 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.05),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formkey.currentState.validate()) {
-                //Do
-
+                _formkey.currentState.save();
+                _auth.sendPasswordResetEmail(email: email);
+                Navigator.pop(context);
               }
             },
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.05),
-          NoAccountText()
+          //NoAccountText()
         ],
       ),
     );

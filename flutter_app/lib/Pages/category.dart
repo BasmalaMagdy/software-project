@@ -34,18 +34,6 @@ class _CategoryViewState extends State<CategoryView> {
         iconTheme: new IconThemeData(color: Colors.black),
         centerTitle: true,
         title: Text(widget.category, style: TextStyle(color: Colors.black)),
-        actions: <Widget>[
-          if (widget.user.type == ' buyer' && widget.user.guest == false)
-            IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Screen2()));
-                }),
-        ],
       ),
       body: ListView(
         children: [
@@ -56,7 +44,8 @@ class _CategoryViewState extends State<CategoryView> {
                 CardProduct(product: product, customer: widget.user),
           if (widget.user.type == 'buyer')
             for (var product in widget.products)
-              CardProduct(product: product, customer: widget.user),
+              if (product.category == widget.category)
+                CardProduct(product: product, customer: widget.user),
         ],
       ),
     );

@@ -82,10 +82,23 @@ class DataSearch extends SearchDelegate<String> {
           for (var product in history) Suggest(context, product.change(), user),
       ]);
     }
-    if (query.isNotEmpty) {
+
+    if (query.isNotEmpty && user.type == 'seller') {
       for (var product in products)
         if (product.sid == user.uid && product.name.startsWith(query))
           suggest.add(product);
+
+      return ListView(
+        children: [
+          if (suggest != null)
+            for (var product in suggest) Suggest(context, product, user),
+        ],
+      );
+    }
+
+    if (query.isNotEmpty && user.type == 'buyer') {
+      for (var product in products)
+        if (product.name.startsWith(query)) suggest.add(product);
 
       return ListView(
         children: [
@@ -104,7 +117,7 @@ class DataSearch extends SearchDelegate<String> {
           onTap: () {
             DatabaseService().addToUserHistory(uid: user.uid, product: product);
             //history.add(product);
-            Navigator.pushReplacement(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => Product(
@@ -112,6 +125,14 @@ class DataSearch extends SearchDelegate<String> {
                           product: product,
                           snapshot: snapshot,
                         )));
+            /*Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Product(
+                          user: user,
+                          product: product,
+                          snapshot: snapshot,
+                        )));*/
             //showResults(context);
           },
           //leading: Icon(Icons.location_city),

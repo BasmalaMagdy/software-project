@@ -3,11 +3,12 @@ class UserData {
   final String name;
   final String email;
   final String phone;
-  final int points;
+  final num points;
   final String type;
   final String photo;
   final bool vip;
   final bool guest;
+  final num order;
   UserData(
       {this.uid,
       this.email,
@@ -17,5 +18,20 @@ class UserData {
       this.points,
       this.type,
       this.vip,
-      this.guest});
+      this.guest,
+      this.order});
+
+  double getvipdiscount() {
+    if (vip)
+      return 0.2;
+    else
+      return 1;
+  }
+
+  double getpointdiscount() {
+    if (points < 2)
+      return 1;
+    else
+      return (points % 2) / 100;
+  }
 }

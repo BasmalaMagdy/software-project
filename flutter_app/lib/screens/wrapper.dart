@@ -20,15 +20,6 @@ class Wraper extends StatelessWidget {
     SizeConfig().init(context);
 
     if (user != null) {
-      /*return Scaffold(
-        body: Center(
-          child: FlatButton(
-              onPressed: () async {
-                await context.read<AuthService>().signOut();
-              },
-              child: Text('sign out')),
-        ),
-      );*/
       return MultiProvider(
         /*builder: (context, child) {
           return MyHomePage(context: context);
@@ -40,6 +31,10 @@ class Wraper extends StatelessWidget {
           StreamProvider(
             create: (context) =>
                 context.read<DatabaseService>().history(uid: user.uid),
+          ),
+          StreamProvider(
+            create: (context) =>
+                context.read<DatabaseService>().wishlist(uid: user.uid),
           ),
           StreamProvider(
             create: (context) =>

@@ -12,9 +12,10 @@ class Item {
 }
 
 class GetDataForm extends StatefulWidget {
-  GetDataForm({this.pimglist, this.imgnames});
+  GetDataForm({this.pimglist, this.imgnames, this.user});
   final List<File> pimglist;
   final List<String> imgnames;
+  final user;
 
   @override
   _GetDataFormState createState() => _GetDataFormState();
@@ -250,7 +251,7 @@ class _GetDataFormState extends State<GetDataForm> {
                     category: selectedUser.name,
                     description: 'description',
                     photo: widget.imgnames[0],
-                    sid: 'sid',
+                    sid: widget.user.uid,
                     price: price,
                     quantity: quantity,
                     color: color,

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/payment.dart';
 
 class Address extends StatelessWidget {
-  Address({this.cart});
+  Address({this.cart, this.user});
   final cart;
+  final user;
   @override
   Widget build(BuildContext context) {
+    print('********************I AM IN ADDRESS FILE **************');
+    print(cart[0]);
+    print(user.uid);
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
@@ -37,8 +41,10 @@ class Address extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      PaymentForm(cart: cart)));
+                                  builder: (context) => PaymentForm(
+                                        cart: cart,
+                                        user: user,
+                                      )));
                         },
                         color: Colors.red,
                         textColor: Colors.white,
