@@ -1,3 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/Pages/user_provider.dart';
+import 'package:flutter_app/models/user.dart';
+import 'package:flutter_app/services/auth.dart';
+import 'package:provider/provider.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../screens/forgot_password/forgot_password_screen.dart';
@@ -12,9 +17,15 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
+  //final AuthService _auth = AuthService();
+  ////////////////LATEST
+
+  ////////////////LATEST
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+
+  // textfield state
+  String email = '';
+  String password = '';
   bool remember = false;
   final List<String> errors = [];
 
@@ -46,6 +57,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           Row(
             children: [
+              SizedBox(width: getProportionateScreenWidth(50)),
               Checkbox(
                 value: remember,
                 activeColor: Colors.orange[900],
@@ -55,26 +67,43 @@ class _SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              Text("Remember me"),
+              Text(
+                "Remember me",
+                style: TextStyle(fontSize: 10),
+              ),
               SizedBox(width: getProportionateScreenWidth(50)),
               //Spacer(),
               GestureDetector(
-                onTap: () => Navigator.popAndPushNamed(
-                    context, ForgotPasswordScreen.routName),
+                onTap: () {
+                  Navigator.popAndPushNamed(
+                      context, ForgotPasswordScreen.routName);
+                },
                 child: Text(
                   "Forgot Password?",
-                  style: TextStyle(color: Colors.orange[900]),
+                  style: TextStyle(color: Colors.orange[900], fontSize: 10),
                 ),
               ),
             ],
           ),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: getProportionateScreenHeight(10)),
           FormError(errors: errors),
+          SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+
+                User result =
+                    await context.read<AuthService>().signIn(email, password);
+                print(email);
+                print(password);
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProvider(uid: result.uid)));*/
+                //print(UserData().type);
+                print(result.uid);
               }
             },
           )
@@ -98,9 +127,20 @@ class _SignFormState extends State<SignForm> {
           }
         }
 
+        setState(() => password = value);
+
         return null;
       },
-      validator: Validate.passwordvalidate,
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPasswordNullError);
+          return "";
+        } else if (value.length < 8) {
+          addError(error: kPasswordShortError);
+          return "";
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password.",
@@ -128,9 +168,21 @@ class _SignFormState extends State<SignForm> {
           addError(error: kInvalidEmailError);
           return "";
         }
+
+        setState(() => email = value);
+
         return null;
       },
-      validator: Validate.emailvalidate,
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email.",
@@ -138,29 +190,5 @@ class _SignFormState extends State<SignForm> {
       ),
       style: TextStyle(fontSize: getProportionateScreenWidth(30)),
     );
-  }
-}
-
-class Validate {
-  static String emailvalidate(value) {
-    if (value.isEmpty) {
-      //addError(error: kEmailNullError);
-      return kEmailNullError;
-    } else if (!emailValidatorRegExp.hasMatch(value)) {
-      //addError(error: kInvalidEmailError);
-      return kInvalidEmailError;
-    }
-    return null;
-  }
-
-  static String passwordvalidate(value) {
-    if (value.isEmpty) {
-      //addError(error: kPasswordNullError);
-      return kPasswordNullError;
-    } else if (value.length < 8) {
-      //addError(error: kPasswordShortError);
-      return kPasswordShortError;
-    }
-    return null;
   }
 }

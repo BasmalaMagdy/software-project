@@ -77,6 +77,7 @@ class DatabaseService {
       points: snapshot.data()['points'] ?? 0,
       type: snapshot.data()['type'] ?? '',
       vip: snapshot.data()['vip'] ?? false,
+      guest: snapshot.data()['guest'] ?? false,
     );
   }
 
@@ -85,6 +86,29 @@ class DatabaseService {
       return userCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
     else
       return null;
+  }
+
+  Future<void> createUserData(
+      {String id,
+      String name,
+      String phone,
+      String email,
+      String type,
+      String password,
+      UserData customer,
+      bool guest,
+      File imageFile}) async {
+    return await userCollection.doc(id).set({
+      'name': name ?? "",
+      'phone': phone ?? "",
+      'email': email ?? "",
+      'type': type ?? "",
+      'password': password ?? "",
+      'guest': guest ?? false,
+    }).then((value) {
+      // if (imageFile != null)
+      //   FireStorageService.changeUserImage(image: imageFile, user: customer);
+    });
   }
 
   /**                                       USER SEARCH HISTORY DATABASE PART                                     **/

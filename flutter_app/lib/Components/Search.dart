@@ -79,7 +79,7 @@ class DataSearch extends SearchDelegate<String> {
     if (query.isEmpty) {
       return ListView(children: [
         if (history != null)
-          for (var product in history) Suggest(context, product, user),
+          for (var product in history) Suggest(context, product.change(), user),
       ]);
     }
     if (query.isNotEmpty) {
@@ -174,6 +174,7 @@ class DataSearch extends SearchDelegate<String> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => Product(
+                          user: user,
                           product: product,
                           snapshot: snapshot,
                         )));
@@ -201,30 +202,33 @@ class SearchField extends StatelessWidget {
 
     final UserData user = context.watch<UserData>();
 
-    return GestureDetector(
-      onTap: () {
-        showSearch(
-            context: context,
-            delegate:
-                DataSearch(products: products, history: history, user: user));
-      },
-      child: Container(
-        height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.search),
-            Container(
-              child: Text("Search Products"),
-            ),
-            Icon(Icons.filter_list),
-          ],
+    return StreamProvider(
+      create: (context) => context.read<DatabaseService>().Products,
+      child: GestureDetector(
+        onTap: () {
+          showSearch(
+              context: context,
+              delegate:
+                  DataSearch(products: products, history: history, user: user));
+        },
+        child: Container(
+          height: 50,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.search),
+              Container(
+                child: Text("Search Products"),
+              ),
+              Icon(Icons.filter_list),
+            ],
+          ),
         ),
       ),
     );

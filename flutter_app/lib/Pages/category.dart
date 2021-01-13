@@ -1,3 +1,5 @@
+import 'package:flutter_app/models/user.dart';
+
 import '../models/product.dart';
 import 'package:flutter/material.dart';
 import '../Components/Product_card.dart';
@@ -7,8 +9,11 @@ import 'package:provider/provider.dart';
 
 class CategoryView extends StatefulWidget {
   static String routeName = "/category";
-  CategoryView({Key key, this.category}) : super(key: key);
+  CategoryView({Key key, this.category, this.products, this.user})
+      : super(key: key);
   final String category;
+  final List<ProductData> products;
+  final UserData user;
   @override
   _CategoryViewState createState() => _CategoryViewState();
 }
@@ -17,7 +22,8 @@ class _CategoryViewState extends State<CategoryView> {
   Icon cusIcon = Icon(Icons.search, color: Colors.white);
   @override
   Widget build(BuildContext context) {
-    final List<ProductData> products = context.watch<List<ProductData>>();
+    //final List<ProductData> products = context.watch<List<ProductData>>();
+    //final UserData user = context.watch<UserData>();
 
     //print(widget.products[0]['category']);
     //print(widget.category);
@@ -42,10 +48,9 @@ class _CategoryViewState extends State<CategoryView> {
       ),
       body: ListView(
         children: [
-          SearchField(),
-          for (var product in products)
+          for (var product in widget.products)
             product.category == widget.category
-                ? CardProduct(product: product)
+                ? CardProduct(product: product, customer: widget.user)
                 : Container(),
         ],
       ),

@@ -11,8 +11,9 @@ import '../models/user.dart';
 import '../services/storage.dart';
 
 class CardProduct extends StatefulWidget {
-  CardProduct({Key key, this.product}) : super(key: key);
+  CardProduct({Key key, this.product, this.customer}) : super(key: key);
   final ProductData product;
+  final UserData customer;
 
   @override
   _CardProductState createState() => _CardProductState();
@@ -21,7 +22,7 @@ class CardProduct extends StatefulWidget {
 class _CardProductState extends State<CardProduct> {
   @override
   Widget build(BuildContext context) {
-    UserData customer = context.watch<UserData>();
+    //UserData customer = context.watch<UserData>();
     var hieght = SizeConfig.screenHeight * 0.16;
     var rad = SizeConfig.screenHeight * 0.02;
     return FutureBuilder(
@@ -39,7 +40,10 @@ class _CardProductState extends State<CardProduct> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Product(
-                                product: widget.product, snapshot: snapshot)));
+                                  product: widget.product,
+                                  snapshot: snapshot,
+                                  user: widget.customer,
+                                )));
                   },
                   child: Row(
                     children: [
@@ -115,21 +119,21 @@ class _CardProductState extends State<CardProduct> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if (customer.type == 'buyer')
+                        if (widget.customer.type == 'buyer')
                           IconButton(
                             icon: Icon(Icons.favorite_border),
                             onPressed: () {
                               // TO DO : if in the favourite change the favourite icon
                             },
                           ),
-                        if (customer.type == 'buyer')
+                        if (widget.customer.type == 'buyer')
                           IconButton(
                             icon: Icon(Icons.add_shopping_cart),
                             onPressed: () {
                               // TO DO : if in the cart change the cart icon
                             },
                           ),
-                        if (customer.type == 'seller')
+                        if (widget.customer.type == 'seller')
                           IconButton(
                             icon: Icon(
                               Icons.remove,
@@ -143,7 +147,7 @@ class _CardProductState extends State<CardProduct> {
                               });
                             },
                           ),
-                        if (customer.type == 'seller')
+                        if (widget.customer.type == 'seller')
                           IconButton(
                             icon: Icon(
                               Icons.edit,

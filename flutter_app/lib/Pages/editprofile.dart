@@ -14,8 +14,8 @@ import '../services/storage.dart';
 
 class EditProfile extends StatefulWidget {
   static String routeName = "/editprofile";
-  EditProfile({Key key}) : super(key: key);
-
+  EditProfile({Key key, this.user}) : super(key: key);
+  final UserData user;
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -36,7 +36,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    UserData customer = context.watch<UserData>();
+    //UserData customer = context.watch<UserData>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -48,15 +48,12 @@ class _EditProfileState extends State<EditProfile> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: FutureBuilder(
-          future: getProfileImage(
-              context, 'Users/${customer.uid}/${customer.photo}'),
-          builder: (context, snapshot) {
-            return ListView(
+      body: widget.user.photo == ''
+          ? ListView(
               padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
               //padding: EdgeInsets.only(top: 15, bottom: 15),
               children: [
-                imageProfile(snapshot),
+                imageProfile0(),
                 SizedBox(
                   height: 40,
                 ),
@@ -92,7 +89,7 @@ class _EditProfileState extends State<EditProfile> {
                                 _formKey.currentState.save();
 
                                 setState(() {
-                                  DoneEdit(context, customer);
+                                  DoneEdit(context, widget.user);
                                 });
                               }
                             },
@@ -109,8 +106,117 @@ class _EditProfileState extends State<EditProfile> {
                       ],
                     )),
               ],
-            );
-          }),
+            )
+          : FutureBuilder(
+              future: getProfileImage(
+                  context, 'Users/${widget.user.uid}/${widget.user.photo}'),
+              builder: (context, snapshot) {
+                return ListView(
+                  padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 10.0),
+                  //padding: EdgeInsets.only(top: 15, bottom: 15),
+                  children: [
+                    snapshot.data != null
+                        ? imageProfile(snapshot)
+                        : CircleAvatar(
+                            radius: 80.0,
+                            backgroundColor: Colors.black,
+                          ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            //USERNAME TEXT FIELD
+                            buildNameFormField(),
+                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            /*  Email field  */
+                            buildEmailFormField(),
+                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            /*  password field  */
+                            //buildPasswordFormField(),
+                            /*  confirm field  */
+                            //buildConfirmPasswordFormField(),
+                            /*   Phone   */
+                            buildPhoneFormField(),
+                            SizedBox(height: SizeConfig.screenHeight * 0.05),
+                            FormError(errors: errors),
+                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 65, right: 65, bottom: 10),
+                              height: 55,
+                              //width: double.infinity,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                onPressed: () {
+                                  if (_formKey.currentState.validate()) {
+                                    _formKey.currentState.save();
+
+                                    setState(() {
+                                      DoneEdit(context, widget.user);
+                                    });
+                                  }
+                                },
+                                color: Colors.black,
+                                child: Center(
+                                  child: Text(
+                                    "Update",
+                                    style: TextStyle(
+                                        fontSize: 23, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ],
+                );
+              }),
+    );
+  }
+
+  Widget imageProfile0() {
+    return Center(
+      child: Stack(children: <Widget>[
+        _imageFile == null
+            ? CircleAvatar(
+                radius: 80.0,
+                backgroundColor: Colors.black,
+              )
+            : CircleAvatar(
+                radius: 80.0,
+                backgroundImage: FileImage(File(_imageFile.path)),
+              ),
+        Positioned(
+          bottom: 0.0,
+          right: 0.0,
+          child: Icon(
+            Icons.circle,
+            color: Colors.white,
+            size: 40.0,
+          ),
+        ),
+        Positioned(
+          bottom: 3.0,
+          right: 0.0,
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: ((builder) => bottomSheet()),
+              );
+            },
+            child: Icon(
+              Icons.edit,
+              color: Colors.black,
+              size: 35.0,
+            ),
+          ),
+        ),
+      ]),
     );
   }
 
@@ -441,7 +547,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  DoneEdit(BuildContext context, customer) {
+  DoneEdit(BuildContext context, user) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -460,11 +566,11 @@ class _EditProfileState extends State<EditProfile> {
               child: Text('Approve'),
               onPressed: () {
                 DatabaseService().updateUserData(
-                    id: customer.uid,
+                    id: widget.user.uid,
                     email: email,
                     name: name,
                     phone: phone,
-                    customer: customer,
+                    customer: user,
                     imageFile: _imageFile);
                 int count = 0;
                 Navigator.of(context).popUntil((_) => count++ >= 2);

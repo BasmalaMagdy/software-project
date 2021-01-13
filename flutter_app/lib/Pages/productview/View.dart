@@ -12,8 +12,9 @@ import '../../models/product.dart';
 import '../../services/database.dart';
 
 class ViewBody extends StatefulWidget {
-  ViewBody({Key key, this.product, this.snapshot}) : super(key: key);
+  ViewBody({Key key, this.product, this.snapshot, this.user}) : super(key: key);
   final ProductData product;
+  final UserData user;
   var snapshot;
 
   @override
@@ -44,7 +45,7 @@ class _ViewBodyState extends State<ViewBody> {
   @override
   Widget build(BuildContext context) {
     final List<CommentData> comments = context.watch<List<CommentData>>();
-    final UserData user = context.watch<UserData>();
+    //final UserData user = context.watch<UserData>();
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.white12,
@@ -388,7 +389,7 @@ class _ViewBodyState extends State<ViewBody> {
                               _key.currentState.save();
                               DatabaseService().CreateProductComment(
                                   pid: widget.product.pid,
-                                  user: user,
+                                  user: widget.user,
                                   comment: comment,
                                   rate: rating);
                             }

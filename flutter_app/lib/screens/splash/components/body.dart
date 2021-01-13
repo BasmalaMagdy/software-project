@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/screens/wrapper.dart';
 import '../../../common/constants.dart';
 import '../../../screens/sign_in/sign_in_screen.dart';
 import '../../../common/size_config.dart';
@@ -21,14 +22,6 @@ class _BodyState extends State<Body> {
       "text": "Buy or Sell swiftly on fetch.",
       "image": "assets/images/girl.png",
     },
-    /*{
-      "text": "Speedy delivery is top-priority.",
-      "image": "assets/images/fast.png",
-    },
-    {
-      "text": "Our couriers are reliable and trustworthy.",
-      "image": "assets/images/delivery-man.png",
-    },*/
     {
       "text": "Sales are endless, keep an eye out!.",
       "image": "assets/images/tag.png",
@@ -99,7 +92,11 @@ class _BodyState extends State<Body> {
                       DefaultButton(
                         text: "Continue",
                         press: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wraper()));
+                          //Navigator.pushNamed(context, SignInScreen.routeName);
                         },
                       ),
                       Spacer(),

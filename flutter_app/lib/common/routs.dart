@@ -2,6 +2,8 @@
 
 //import 'package:js/js.dart';
 
+import 'package:flutter_app/screens/wrapper.dart';
+
 import '../Pages/Home.dart';
 import '../Pages/Seller.dart';
 import '../Pages/about.dart';
@@ -25,6 +27,7 @@ import '../screens/sell_signUp/sell_signUp_screen.dart';
 // We use name route
 // All our routs will be availabe here
 final Map<String, WidgetBuilder> routes = {
+  Wraper.routeName: (context) => Wraper(),
   SplashScreen.routeName: (context) => SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routName: (context) => ForgotPasswordScreen(),
@@ -32,14 +35,14 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routName: (context) => SignUpScreen(),
   SellerSignUpScreen.routName: (context) => SellerSignUpScreen(),
   BuyerSignUpScreen.routName: (context) => BuyerSignUpScreen(),
-  MyHomePage.routeName:(context)=> MyHomePage(),
-  Profile.routeName:(context) => Profile(),
-  EditProfile.routeName:(context) => EditProfile(),
-  Cart.routeName:(context) => Cart(),
-  Fav.routeName:(context) => Fav(),
-  CategoryView.routeName:(context) => CategoryView(),
-  Product.routeName:(context) => Product(),
-  SellerInterface.routeName:(context) => SellerInterface(),
-  CreateProduct.routeName:(context) => CreateProduct(),
-  About.routeName:(context) => About(),
+  MyHomePage.routeName: (context) => MyHomePage(),
+  Profile.routeName: (context) => Profile(),
+  EditProfile.routeName: (context) => EditProfile(),
+  Cart.routeName: (context) => Cart(),
+  Fav.routeName: (context) => Fav(),
+  CategoryView.routeName: (context) => CategoryView(),
+  Product.routeName: (context) => Product(),
+  SellerInterface.routeName: (context) => SellerInterface(),
+  CreateProduct.routeName: (context) => CreateProduct(),
+  About.routeName: (context) => About(),
 };
