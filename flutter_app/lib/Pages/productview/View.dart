@@ -12,8 +12,9 @@ import '../../models/product.dart';
 import '../../services/database.dart';
 
 class ViewBody extends StatefulWidget {
-  ViewBody({Key key, this.product, this.snapshot}) : super(key: key);
+  ViewBody({Key key, this.product, this.snapshot, this.user}) : super(key: key);
   final ProductData product;
+  final UserData user;
   var snapshot;
 
   @override
@@ -44,7 +45,10 @@ class _ViewBodyState extends State<ViewBody> {
   @override
   Widget build(BuildContext context) {
     final List<CommentData> comments = context.watch<List<CommentData>>();
-    final UserData user = context.watch<UserData>();
+    String color = 'black';
+    int pquantity = 5;
+    String size = 'small';
+    //final UserData user = context.watch<UserData>();
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.white12,
@@ -52,32 +56,26 @@ class _ViewBodyState extends State<ViewBody> {
         centerTitle: true,
         title: Text('Fetch'), //app name
         actions: <Widget>[
-          new IconButton(
+          /* new IconButton(
               icon: Icon(
                 Icons.share,
                 color: Colors.black,
               ),
-              onPressed: () {}),
-          new IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => tabAppBar()));
-              })
+              onPressed: () {}),*/
+          if (widget.user.type == 'buyer')
+            new IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => tabAppBar()));
+                })
         ],
       ),
       //dropdown list
-      /* drawer: new Drawer(
-         child: new ListView( //child has many widget of children
-           children: <Widget>[
 
-           ],
-         ),
-        ),
-  */
       //listview to scroll
       body: new ListView(
         children: <Widget>[
@@ -124,125 +122,136 @@ class _ViewBodyState extends State<ViewBody> {
           ),
 
           //===================the first buttons=============
-
-          Row(
-            children: <Widget>[
-              //=========the size button------
-              Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    //saying to show that dialog in the context of the widget
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Size"),
-                            content: new Text("choose the size"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text("close"),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.white,
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Size")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+          if (widget.user.type == 'buyer' && widget.user.guest == false)
+            Row(
+              children: <Widget>[
+                //=========the size button------
+                Expanded(
+                  child: MaterialButton(
+                    onPressed: () {
+                      //saying to show that dialog in the context of the widget
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return new AlertDialog(
+                              title: new Text("Size"),
+                              content: new Text("choose the size"),
+                              actions: <Widget>[
+                                new MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(context);
+                                  },
+                                  child: new Text("close"),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    color: Colors.white,
+                    textColor: Colors.grey,
+                    elevation: 0.2,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: new Text("Size")),
+                        Expanded(child: new Icon(Icons.arrow_drop_down)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-              //=========the color button------
-              Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    //saying to show that dialog in the context of the widget
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Colors"),
-                            content: new Text("choose a color"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text("close"),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Color")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+                //=========the color button------
+                Expanded(
+                  child: MaterialButton(
+                    onPressed: () {
+                      //saying to show that dialog in the context of the widget
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return new AlertDialog(
+                              title: new Text("Colors"),
+                              content: new Text("choose a color"),
+                              actions: <Widget>[
+                                new MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(context);
+                                  },
+                                  child: new Text("close"),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    textColor: Colors.grey,
+                    elevation: 0.2,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: new Text("Color")),
+                        Expanded(child: new Icon(Icons.arrow_drop_down)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-              //=========the Quantity button------
-              Expanded(
-                child: MaterialButton(
-                  onPressed: () {
-                    //saying to show that dialog in the context of the widget
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return new AlertDialog(
-                            title: new Text("Quantity"),
-                            content: new Text("choose the quantity"),
-                            actions: <Widget>[
-                              new MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(context);
-                                },
-                                child: new Text("close"),
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  textColor: Colors.grey,
-                  elevation: 0.2,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: new Text("Quantity")),
-                      Expanded(child: new Icon(Icons.arrow_drop_down)),
-                    ],
+                //=========the Quantity button------
+                Expanded(
+                  child: MaterialButton(
+                    onPressed: () {
+                      //saying to show that dialog in the context of the widget
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return new AlertDialog(
+                              title: new Text("Quantity"),
+                              content: new Text("choose the quantity"),
+                              actions: <Widget>[
+                                new MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(context);
+                                  },
+                                  child: new Text("close"),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    textColor: Colors.grey,
+                    elevation: 0.2,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: new Text("Quantity")),
+                        Expanded(child: new Icon(Icons.arrow_drop_down)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
           //===================the second buttons=============
-
-          Row(
-            children: <Widget>[
-              //=========the size button------
-              Expanded(
-                child: MaterialButton(
-                    onPressed: () {},
-                    color: Colors.red,
-                    textColor: Colors.white,
-                    elevation: 0.2,
-                    child: new Text("Add to cart")),
-              ),
-              /*new IconButton(
+          if (widget.user.type == 'buyer' && widget.user.guest == false)
+            Row(
+              children: <Widget>[
+                //=========the size button------
+                Expanded(
+                  child: MaterialButton(
+                      onPressed: () {
+                        DatabaseService().CreateUserCart(
+                            name: widget.product.name,
+                            color: color,
+                            sid: widget.product.sid,
+                            photo: widget.product.photo,
+                            pid: widget.product.pid,
+                            pquantity: pquantity,
+                            price: widget.product.price,
+                            size: size,
+                            uid: widget.user.uid);
+                      },
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      elevation: 0.2,
+                      child: new Text("Add to cart")),
+                ),
+                /*new IconButton(
                   icon: Icon(
                     Icons.add_shopping_cart,
                     color: Colors.red,
@@ -252,12 +261,12 @@ class _ViewBodyState extends State<ViewBody> {
 
                   ),*/
 
-              new IconButton(
-                  icon: Icon(Icons.favorite_border),
-                  color: Colors.red,
-                  onPressed: () => bloc.addToFav(widget.product)),
-            ],
-          ),
+                new IconButton(
+                    icon: Icon(Icons.favorite_border),
+                    color: Colors.red,
+                    onPressed: () => bloc.addToFav(widget.product)),
+              ],
+            ),
 
           //===================================
           Divider(),
@@ -388,7 +397,7 @@ class _ViewBodyState extends State<ViewBody> {
                               _key.currentState.save();
                               DatabaseService().CreateProductComment(
                                   pid: widget.product.pid,
-                                  user: user,
+                                  user: widget.user,
                                   comment: comment,
                                   rate: rating);
                             }

@@ -1,7 +1,10 @@
+import 'package:flutter_app/Pages/Seller.dart';
+import 'package:flutter_app/services/auth.dart';
+
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../common/constants.dart';
 import '../../../common/size_config.dart';
 
@@ -45,13 +48,16 @@ class SellSignUpForm extends StatefulWidget {
 }
 
 class _SellSignUpFormState extends State<SellSignUpForm> {
+  //final AuthService _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
-  String name;
-  String email;
-  String password;
-  String confirmpassword;
-  String phone;
-  String brand;
+  String name = '';
+  String email = '';
+  String password = '';
+  String confirmpassword = '';
+  String phone = '';
+  String brand = '';
+  String type = '';
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -85,7 +91,9 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
             cursorColor: Colors.black,
             keyboardType: TextInputType.name,
             onSaved: (newValue) => name = newValue,
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() => name = value);
+            },
             validator: (value) {
               if (value.isEmpty) {
                 addError(error: kNameNullError);
@@ -112,8 +120,10 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
             style: TextStyle(fontSize: getProportionateScreenWidth(30)),
             cursorColor: Colors.black,
             keyboardType: TextInputType.number,
-            onSaved: (newValue) => name = newValue,
-            onChanged: (value) {},
+            onSaved: (newValue) => phone = newValue,
+            onChanged: (value) {
+              setState(() => phone = value);
+            },
             validator: (value) {
               if (value.isEmpty) {
                 addError(error: kPhoneNullError);
@@ -141,8 +151,10 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
             style: TextStyle(fontSize: getProportionateScreenWidth(30)),
             cursorColor: Colors.black,
             keyboardType: TextInputType.name,
-            onSaved: (newValue) => name = newValue,
-            onChanged: (value) {},
+            onSaved: (newValue) => brand = newValue,
+            onChanged: (value) {
+              setState(() => brand = value);
+            },
             validator: (value) {
               if (value.isEmpty) {
                 addError(error: kBrandNameNullError);
@@ -153,17 +165,31 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
               return null;
             },
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.05),
+          SizedBox(height: SizeConfig.screenHeight * 0.01),
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
 
           DefaultButton(
             text: "Create",
-            press: () {
+            press: () async {
               //GO TO HOME PAGE WITH NEW PROFILE INFO
 
               if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+                //_formKey.currentState.save();
+                // print(name);
+                // print(email);
+                // print(password);
+                // print(phone);
+                // print(brand);
+                type = 'seller';
+                dynamic result = await await context
+                    .read<AuthService>()
+                    .signUp(name, email, password, phone, brand, type);
+                Navigator.pop(context);
+                /*Navigator.popAndPushNamed(
+                  context,
+                  SellerInterface.routeName,
+                );*/
               }
             },
           )
@@ -193,8 +219,8 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
             removeError(error: kMatchPassError);
           } else if (value != password) {
             addError(error: kMatchPassError);
+            return "";
           }
-          return "";
         }
         return null;
       },
@@ -217,10 +243,11 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPasswordNullError);
-        } else if (value.length >= 8) {
-          removeError(error: kPasswordShortError);
+          if (value.length >= 8) {
+            removeError(error: kPasswordShortError);
+          }
         }
-        password = value;
+        setState(() => password = value);
         return null;
       },
       validator: (value) {
@@ -253,6 +280,7 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
             removeError(error: kInvalidEmailError);
           }
         }
+        setState(() => email = value);
         return null;
       },
       validator: (value) {

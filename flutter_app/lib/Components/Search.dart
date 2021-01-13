@@ -79,84 +79,18 @@ class DataSearch extends SearchDelegate<String> {
     if (query.isEmpty) {
       return ListView(children: [
         if (history != null)
-          for (var product in history) Suggest(context, product, user),
+          for (var product in history) Suggest(context, product.change(), user),
       ]);
     }
     if (query.isNotEmpty) {
       for (var product in products)
-        if (product.name.startsWith(query)) suggest.add(product);
+        if (product.sid == user.uid && product.name.startsWith(query))
+          suggest.add(product);
 
       return ListView(
         children: [
           if (suggest != null)
             for (var product in suggest) Suggest(context, product, user),
-
-          /*ListView.builder(
-              itemCount: suggest.length,
-              itemBuilder: (context, index) {
-                return;
-              }),*/
-          //********************For Filter (Not working yet)****************** */
-          /*
-
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Align(
-            alignment: Alignment.center,
-            child: DropdownButton(
-              hint: Text("Select Category"),
-              onChanged: (value) => selectedUser = value,
-              value: selectedUser,
-              style: TextStyle(
-                  color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),
-
-              items: users.map((user) {
-                return DropdownMenuItem<Item>(
-                  value: user,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        user.name,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-              //onSaved: (newValue) => selectedUser = newValue,
-              //onChanged: sset,
-              /*validator: (value) {
-                if (value.name == 'Default') {
-                  addError(error: kProductCategoryNullError);
-                  return "";
-                } else {
-                  removeError(error: kProductCategoryNullError);
-                }
-                return null;
-              },*/
-              /* items: users.map((Item user) {
-                return DropdownMenuItem<Item>(
-                  value: user,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        user.name,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),*/
-            ),
-          ),
-        ),
-        */
         ],
       );
     }
@@ -174,6 +108,7 @@ class DataSearch extends SearchDelegate<String> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => Product(
+                          user: user,
                           product: product,
                           snapshot: snapshot,
                         )));
@@ -201,30 +136,33 @@ class SearchField extends StatelessWidget {
 
     final UserData user = context.watch<UserData>();
 
-    return GestureDetector(
-      onTap: () {
-        showSearch(
-            context: context,
-            delegate:
-                DataSearch(products: products, history: history, user: user));
-      },
-      child: Container(
-        height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(Icons.search),
-            Container(
-              child: Text("Search Products"),
-            ),
-            Icon(Icons.filter_list),
-          ],
+    return StreamProvider(
+      create: (context) => context.read<DatabaseService>().Products,
+      child: GestureDetector(
+        onTap: () {
+          showSearch(
+              context: context,
+              delegate:
+                  DataSearch(products: products, history: history, user: user));
+        },
+        child: Container(
+          height: 50,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.search),
+              Container(
+                child: Text("Search Products"),
+              ),
+              Icon(Icons.filter_list),
+            ],
+          ),
         ),
       ),
     );

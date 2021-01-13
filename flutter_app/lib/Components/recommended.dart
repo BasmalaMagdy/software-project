@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Pages/productview/product_view.dart';
 import 'package:flutter_app/models/product.dart';
+import 'package:flutter_app/models/user.dart';
 import 'package:provider/provider.dart';
 
 import '../common/commonwidget.dart';
@@ -10,7 +11,8 @@ import '../services/storage.dart';
 
 // ignore: must_be_immutable
 class Recommend extends StatefulWidget {
-  const Recommend({Key key}) : super(key: key);
+  const Recommend({Key key, this.user}) : super(key: key);
+  final UserData user;
   // ignore: non_constant_identifier_names
   @override
   _RecommendState createState() => _RecommendState();
@@ -19,7 +21,7 @@ class Recommend extends StatefulWidget {
 class _RecommendState extends State<Recommend> {
   @override
   Widget build(BuildContext context) {
-    List<CategoryData> Categories = context.watch<List<CategoryData>>();
+    //List<CategoryData> categories = context.watch<List<CategoryData>>();
     final List<SearchProductData> history =
         context.watch<List<SearchProductData>>();
 
@@ -42,6 +44,7 @@ class _RecommendState extends State<Recommend> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Product(
+                                      user: widget.user,
                                       snapshot: snapshot,
                                       product: history[index].change())));
                         },

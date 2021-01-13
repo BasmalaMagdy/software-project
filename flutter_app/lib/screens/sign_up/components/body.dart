@@ -31,14 +31,24 @@ class Body extends StatelessWidget {
             DefaultButton(
               text: "BUY",
               press: () {
-                Navigator.pushNamed(context, BuyerSignUpScreen.routName);
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BuyerSignUpScreen()));
+                //Navigator.pushNamed(context, BuyerSignUpScreen.routName);
               },
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.08),
             DefaultButton(
               text: "SELL",
               press: () {
-                Navigator.pushNamed(context, SellerSignUpScreen.routName);
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SellerSignUpScreen()));
+                // Navigator.pushNamed(context, SellerSignUpScreen.routName);
               },
             )
           ],
