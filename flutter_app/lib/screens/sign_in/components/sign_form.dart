@@ -102,6 +102,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      key: Key('pass'),
       keyboardType: TextInputType.visiblePassword,
       maxLength: 20,
       cursorColor: Colors.black,
@@ -131,6 +132,7 @@ class _SignFormState extends State<SignForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      key: Key('email'),
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

@@ -24,9 +24,17 @@ void main() {
       expect(await driver.getText(text), 'Sign In');
     });
 
-    test('continue as gest', () async {
-      final button = find.byType('GuestDemo');
-      await driver.tap(button);
+    test('Home page', () async {
+      final text0 = find.byValueKey('email');
+      final text1 = find.byValueKey('pass');
+      await driver.tap(text0);
+      await driver.enterText('buyer@gmail.com');
+
+      await driver.tap(text1);
+      await driver.enterText('1234567890');
+      final text2 = find.text('Continue');
+      await driver.tap(text2);
+
       final text = find.text('Fetch');
       expect(await driver.getText(text), 'Fetch');
     });
@@ -42,31 +50,34 @@ void main() {
     test('Product view', () async {
       final button = find.text('product1');
       await driver.tap(button);
-      final text = find.text('Size');
-      expect(await driver.getText(text), 'Size');
+      final text = find.text('product1');
+      expect(await driver.getText(text), 'product1');
     });
 
     test('add to cart the go to cart', () async {
       final button = find.byValueKey('addtocart');
       await driver.tap(button);
-      final button0 = find.byValueKey('go_to_cart');
+      final button0 = find.pageBack();
       await driver.tap(button0);
-      final text = find.text('product1');
-      expect(await driver.getText(text), 'product1');
+      /* final button0 = find.byValueKey('go_to_cart');
+      await driver.tap(button0);
+      final text = find.text('product1');*/
+      final text = find.text('dress');
+      expect(await driver.getText(text), 'dress');
     });
-    test('back product view', () async {
+    /*test('back product view', () async {
       final button = find.pageBack();
       await driver.tap(button);
       final text = find.text('product1');
       expect(await driver.getText(text), 'product1');
-    });
+    });*/
 
-    test('back to category', () async {
+    /* test('back to category', () async {
       final button = find.pageBack();
       await driver.tap(button);
       final text = find.text('dress');
       expect(await driver.getText(text), 'dress');
-    });
+    });*/
 
     test('back to home', () async {
       final button = find.pageBack();
@@ -74,5 +85,45 @@ void main() {
       final text = find.text('Fetch');
       expect(await driver.getText(text), 'Fetch');
     });
+    test('open cart', () async {
+      final button0 = find.byValueKey('go_to_cart');
+      await driver.tap(button0);
+      final text = find.text('product1');
+      expect(await driver.getText(text), 'product1');
+    });
+    test('back to home', () async {
+      final button = find.pageBack();
+      await driver.tap(button);
+      final text = find.text('Fetch');
+      expect(await driver.getText(text), 'Fetch');
+    });
+
+    test('Sign out', () async {
+      final SerializableFinder drawerOpenButton =
+          find.byTooltip('Open navigation menu');
+      await driver.tap(drawerOpenButton);
+      // await driver.scroll(finder, dx, dy, duration)
+      //await driver.scr
+      await driver.scroll(find.byValueKey('here'), 100, 100.0,
+          const Duration(milliseconds: 500));
+      /*await driver.scrollUntilVisible(
+        find.byValueKey('here'),
+        find.byValueKey('out'),
+        dxScroll: 20,
+        timeout: Duration(milliseconds: 500),
+      );*/
+      final but = find.byValueKey("out");
+      await driver.tap(but);
+      // await driver.scroll(finder, dx, dy,
+      final text = find.text('Sign In');
+      expect(await driver.getText(text), 'Sign In');
+    });
+
+    /*test('open side', () async {
+      final button = find.pageBack();
+      await driver.tap(button);
+      final text = find.text('My');
+      expect(await driver.getText(text), 'My');
+    });*/
   });
 }

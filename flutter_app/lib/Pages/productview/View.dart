@@ -223,6 +223,7 @@ class _ViewBodyState extends State<ViewBody> {
                 //=========the size button------
                 Expanded(
                   child: MaterialButton(
+                      key: Key("addtocart"),
                       onPressed: () {
                         DatabaseService().CreateUserCart(
                             name: widget.product.name,

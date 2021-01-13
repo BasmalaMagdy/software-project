@@ -44,11 +44,13 @@ class _SideListState extends State<SideList> {
         customer.type == 'buyer' &&
         customer.photo != '')
       return Drawer(
+        key: Key('drawer'),
         child: FutureBuilder(
             future: getProfileImage(
                 context, 'Users/${customer.uid}/${customer.photo}'),
             builder: (context, snapshot) {
               return ListView(
+                key: Key('view'),
                 children: <Widget>[
                   //            header
                   UserAccountsDrawerHeader(
@@ -298,6 +300,7 @@ class _SideListState extends State<SideList> {
     else
       return Drawer(
         child: ListView(
+          key: Key('here'),
           children: <Widget>[
             //            header
             UserAccountsDrawerHeader(
@@ -552,6 +555,7 @@ class _SideListState extends State<SideList> {
             ),
             if (customer.guest == false)
               ListTile(
+                key: Key('out'),
                 onTap: () async {
                   //await widget.auth.signOut();
                   await context.read<AuthService>().signOut();

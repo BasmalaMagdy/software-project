@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             if (customer.guest == false && customer.type == 'buyer')
               IconButton(
+                  key: Key('go_to_cart'),
                   icon: Icon(
                     Icons.shopping_cart,
                     color: Colors.black,
@@ -133,7 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
               )
           ],
         ),
-        drawer: SideList(),
+        drawer: SideList(
+          key: Key('side'),
+        ),
         /************************* */
         body: ListView(
           padding: EdgeInsets.only(bottom: 10),
