@@ -174,6 +174,7 @@ class _CardProductState extends State<CardProduct> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditProduct(
+                                            user: widget.customer,
                                             product: widget.product,
                                           )));
                             },

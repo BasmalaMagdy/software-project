@@ -217,7 +217,7 @@ class DatabaseService {
       int quantity,
       String size,
       String color}) async {
-    return await productsCollection.doc(pid).set({
+    return await productsCollection.doc(pid).update({
       'name': name,
       'category': category,
       'description': description,

@@ -279,6 +279,7 @@ class _ViewBodyState extends State<ViewBody> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditProduct(
+                                            user: widget.user,
                                             product: widget.product,
                                           )));
                             },
