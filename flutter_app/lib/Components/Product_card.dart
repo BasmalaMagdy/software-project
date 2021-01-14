@@ -151,7 +151,7 @@ class _CardProductState extends State<CardProduct> {
                         if (widget.customer.type == 'seller')
                           IconButton(
                             icon: Icon(
-                              Icons.remove,
+                              Icons.delete_forever_outlined,
                               color: Colors.red,
                             ),
                             onPressed: () {

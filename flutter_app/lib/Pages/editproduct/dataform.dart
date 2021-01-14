@@ -13,8 +13,9 @@ class Item {
 }
 
 class GetDataForm extends StatefulWidget {
-  GetDataForm({this.product});
+  GetDataForm({this.product, this.user});
   final ProductData product;
+  final user;
   @override
   _GetDataFormState createState() => _GetDataFormState();
 }
@@ -74,6 +75,8 @@ class _GetDataFormState extends State<GetDataForm> {
           SizedBox(height: 10),
           buildsizeFormField(),
           SizedBox(height: 10),
+          builddescriptionFormField(),
+          SizedBox(height: 10),
           buildquantityFormField(),
           SizedBox(height: 10),
           buildcolorFormField(),
@@ -92,8 +95,8 @@ class _GetDataFormState extends State<GetDataForm> {
                 DatabaseService().updateProductData(
                     name: name,
                     category: selectedUser.name,
-                    description: 'description',
-                    sid: 'sid',
+                    description: description,
+                    sid: widget.user.uid,
                     price: price,
                     quantity: quantity,
                     color: color,
@@ -132,6 +135,22 @@ class _GetDataFormState extends State<GetDataForm> {
         }
         return null;
       },
+    );
+  }
+
+  TextFormField builddescriptionFormField() {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: "Product description",
+        hintText: "Enter your Product description.",
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+      style: TextStyle(fontSize: 12),
+      cursorColor: Colors.black,
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => description = newValue,
+      onChanged: (value) {},
+      validator: Validate.productdescriptionvalidator,
     );
   }
 
@@ -298,8 +317,8 @@ class _GetDataFormState extends State<GetDataForm> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Press ok'),
-                Text('Would you like to approve of this message?'),
+                Text('Press Approve'),
+                // Text('Would you like to approve of this message?'),
               ],
             ),
           ),
@@ -322,5 +341,95 @@ class _GetDataFormState extends State<GetDataForm> {
     setState(() {
       selectedUser = value;
     });
+  }
+}
+
+class Validate {
+  static String productnamevlaidator(value) {
+    if (value.isEmpty) {
+      //addError(error: kProductNameNullError);
+      return kProductNameNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductNameNullError);
+        }*/
+    return null;
+  }
+
+  static String productpricevalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductPriceNullError);
+      return kProductPriceNullError;
+    }
+    /* else if (value.isNotEmpty) {
+         // removeError(error: kProductPriceNullError);
+        }*/
+    return null;
+  }
+
+  static String productdescriptionvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductPriceNullError);
+      return 'Description is Empty!!';
+    }
+    /* else if (value.isNotEmpty) {
+         // removeError(error: kProductPriceNullError);
+        }*/
+    return null;
+  }
+
+  static String productbrandvalidator(value) {
+    if (value.isEmpty) {
+      //addError(error: kProductBrandNullError);
+      return kProductBrandNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductBrandNullError);
+        }*/
+    return null;
+  }
+
+  static String productsizevalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductSizeNullError);
+      return kProductSizeNullError;
+    }
+    /*else if (value.isNotEmpty) {
+          //removeError(error: kProductSizeNullError);
+        }*/
+    return null;
+  }
+
+  static String productquantityvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductQuantityNullError);
+      return kProductQuantityNullError;
+    }
+    /* else if (value.isNotEmpty) {
+          removeError(error: kProductQuantityNullError);
+        }*/
+    return null;
+  }
+
+  static String productcolorvalidator(value) {
+    if (value.isEmpty) {
+      // addError(error: kProductColorNullError);
+      return kProductColorNullError;
+    }
+    /* else if (value.isNotEmpty) {
+          removeError(error: kProductColorNullError);
+        }*/
+    return null;
+  }
+
+  static String productcategoryvalidator(value) {
+    if (value.name == 'Default') {
+      //addError(error: kProductCategoryNullError);
+      return kProductCategoryNullError;
+    }
+    /*else {
+          removeError(error: kProductCategoryNullError);
+        }*/
+    return null;
   }
 }

@@ -8,7 +8,6 @@ import '../Pages/Home.dart';
 import '../Pages/Seller.dart';
 import '../Pages/about.dart';
 import '../Pages/cart.dart';
-import '../Pages/wishlist.dart';
 import '../Pages/category.dart';
 import '../Pages/createproduct.dart';
 import '../Pages/productview/product_view.dart';

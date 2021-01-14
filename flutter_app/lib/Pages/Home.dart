@@ -139,7 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         /************************* */
         body: ListView(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: customer.type == 'buyer'
+              ? EdgeInsets.only(bottom: 10)
+              : EdgeInsets.only(bottom: 70),
           children: [
             SearchField(),
             //image carousel begin here

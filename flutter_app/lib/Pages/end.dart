@@ -20,13 +20,6 @@ class Done extends StatelessWidget {
   final total;
   @override
   Widget build(BuildContext context) {
-    print('********************I AM IN Done FILE **************');
-    print(cart[0]);
-    print(user.uid);
-    print(address);
-    print(currency);
-    print(phone);
-    print(paymentmethod);
     return Scaffold(
       body: Center(
         child: Column(
@@ -50,7 +43,7 @@ class Done extends StatelessWidget {
             FlatButton(
                 color: Colors.green,
                 onPressed: () {
-                  DatabaseService().AddOrder(
+                  /* DatabaseService().AddOrder(
                       user: user,
                       address: address,
                       cart: cart,
@@ -59,9 +52,10 @@ class Done extends StatelessWidget {
                       phone: phone,
                       uid: user.uid,
                       sid: cart[0].sid,
-                      total: total);
-                  int count = 0;
-                  Navigator.of(context).popUntil((_) => count++ >= 4);
+                      total: total);*/
+                  //int count = 0;
+                  //Navigator.of(context).popUntil((_) => count++ >= 4);
+                  Navigator.of(context).pop();
                 },
                 child: Text('Back to home')),
           ],

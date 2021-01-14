@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/user_provider.dart';
 import 'package:flutter_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import '../common/size_config.dart';
@@ -14,6 +13,23 @@ class GuestDemo extends StatelessWidget {
       //onTap: () => Navigator.popAndPushNamed(context, GuestDemoScreen.routName),
       onTap: () async {
         dynamic result = await context.read<AuthService>().guestUser();
+        if (result is String) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Error'),
+                actions: [
+                  MaterialButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text('back'),
+                  )
+                ],
+                content: Text(result),
+              );
+            },
+          );
+        }
         /*Navigator.push(
             context,
             MaterialPageRoute(

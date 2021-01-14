@@ -82,8 +82,26 @@ class _SignFormState extends State<SignForm> {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
 
-                User result =
+                dynamic result =
                     await context.read<AuthService>().signIn(email, password);
+
+                if (result is String) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        actions: [
+                          MaterialButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('back'),
+                          )
+                        ],
+                        content: Text(result),
+                      );
+                    },
+                  );
+                }
                 print(email);
                 print(password);
                 /*Navigator.push(
@@ -91,7 +109,7 @@ class _SignFormState extends State<SignForm> {
                     MaterialPageRoute(
                         builder: (context) => UserProvider(uid: result.uid)));*/
                 //print(UserData().type);
-                print(result.uid);
+                // print(result.uid);
               }
             },
           )

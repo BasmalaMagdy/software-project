@@ -53,7 +53,6 @@ class DatabaseService {
     return await userCollection.doc(id).update({
       'name': name,
       'phone': phone,
-      'email': email,
     }).then((value) {
       if (imageFile != null)
         FireStorageService.changeUserImage(image: imageFile, user: customer);
@@ -118,6 +117,7 @@ class DatabaseService {
       'type': type ?? "",
       'password': password ?? "",
       'guest': guest ?? false,
+      'points': 0,
     }).then((value) {
       if (imageFile != null)
         FireStorageService.changeUserImage(image: imageFile, user: customer);
@@ -422,9 +422,12 @@ class DatabaseService {
       String sid,
       UserData user,
       num total}) async {
-    await userCollection
-        .doc(uid)
-        .update({'order': user.order + 1, 'points': user.points + total / 50});
+    print("totaaaaaaaaal");
+    print((total / 50).toInt());
+    await userCollection.doc(uid).update({
+      'order': user.order + 1,
+      'points': user.points + (total / 50).toInt()
+    });
 
     await userCollection
         .doc(uid)

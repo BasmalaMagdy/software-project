@@ -185,7 +185,24 @@ class _SellSignUpFormState extends State<SellSignUpForm> {
                 dynamic result = await await context
                     .read<AuthService>()
                     .signUp(name, email, password, phone, brand, type);
-                Navigator.pop(context);
+                if (result is String) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        actions: [
+                          MaterialButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('back'),
+                          )
+                        ],
+                        content: Text(result),
+                      );
+                    },
+                  );
+                } else
+                  Navigator.pop(context);
                 /*Navigator.popAndPushNamed(
                   context,
                   SellerInterface.routeName,

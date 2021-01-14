@@ -5,6 +5,7 @@ import 'package:flutter_app/Pages/credit_card.dart';
 import 'package:flutter_app/Pages/end.dart';
 import 'package:flutter_app/bloc/cart_items_bloc.dart';
 import 'package:flutter_app/common/size_config.dart';
+import 'package:flutter_app/services/database.dart';
 
 class PaymentForm extends StatefulWidget {
   PaymentForm({this.cart, this.user});
@@ -25,6 +26,8 @@ class _PaymentFormState extends State<PaymentForm> {
   String cvv;
   String cardholder;
   num dis = 0;
+  bool usepoints = false;
+
   @override
   Widget build(BuildContext context) {
     num total = CalculateTotal(widget.cart);
@@ -85,19 +88,20 @@ class _PaymentFormState extends State<PaymentForm> {
                       child: Text(
                           "tota after vip discount: ${total * widget.user.getvipdiscount()}"),
                     ),
-                  if (dis == 0 && widget.user.points > 1)
+                  if (dis == 0 && widget.user.points > 40)
                     Center(
                       child: MaterialButton(
                         color: Colors.red,
                         onPressed: () {
                           setState(() {
                             dis = total * widget.user.getpointdiscount();
+                            usepoints = true;
                           });
                         },
                         child: Text('use points discount'),
                       ),
                     ),
-                  if (dis > 0)
+                  if (usepoints = true)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -107,6 +111,7 @@ class _PaymentFormState extends State<PaymentForm> {
                             onPressed: () {
                               setState(() {
                                 dis = 0;
+                                usepoints = false;
                               });
                             })
                       ],
@@ -290,17 +295,24 @@ class _PaymentFormState extends State<PaymentForm> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Done(
-                                      user: widget.user,
-                                      cart: widget.cart,
-                                      address: address,
-                                      phone: phone,
-                                      paymentmethod: _paymentmethod,
-                                      currency: currency,
-                                      total: dis == 0 ? total : dis)));
+                          if (usepoints == true)
+                            DatabaseService().addUserpoints(
+                                uid: widget.user.uid,
+                                points: widget.user.points - 40);
+                          DatabaseService().AddOrder(
+                              user: widget.user,
+                              address: address,
+                              cart: widget.cart,
+                              currency: currency,
+                              paymentmethod: _paymentmethod,
+                              phone: phone,
+                              uid: widget.user.uid,
+                              sid: widget.cart[0].sid,
+                              total: dis == 0 ? total : dis);
+                          int count = 0;
+                          Navigator.of(context).popUntil((_) => count++ >= 3);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Done()));
                         }
                       }, // a page need to be added
                       child: new Text(

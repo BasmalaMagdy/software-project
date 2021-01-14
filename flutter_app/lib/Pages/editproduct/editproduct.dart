@@ -8,8 +8,9 @@ import 'dataform.dart';
 
 class EditProduct extends StatefulWidget {
   static String routeName = "/EditProduct";
-  EditProduct({Key key, this.product}) : super(key: key);
+  EditProduct({Key key, this.product, this.user}) : super(key: key);
   final ProductData product;
+  final user;
   @override
   _EditProductState createState() => _EditProductState();
 }
@@ -40,6 +41,7 @@ class _EditProductState extends State<EditProduct> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
           child: GetDataForm(
+            user: widget.user,
             product: widget.product,
           ),
         ),

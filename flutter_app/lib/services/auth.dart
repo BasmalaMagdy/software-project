@@ -32,25 +32,27 @@ class AuthService {
         guest: true,
         type: 'buyer',
       );
-      return user;
+      //return user;
       //_userFromFireBase(user);
-    } catch (error) {
+    } on FirebaseAuthException catch (error) {
       print(error.toString());
-      return null;
+      return error.code;
     }
   }
 
   // sign in with email & pass
   Future signIn(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      /*UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password).catchError(onError);
 
       User user = result.user;
-      return user; //_userFromFireBase(user);
-    } catch (error) {
+      return user;*/ //_userFromFireBase(user);
+    } on FirebaseAuthException catch (error) {
       print(error.toString());
-      return null;
+      return error.code;
     }
   }
 
@@ -70,15 +72,23 @@ class AuthService {
           id: user.uid,
           password: password);
 
+      try {
+        await user.sendEmailVerification();
+        //return user.uid;
+      } on FirebaseAuthException catch (e) {
+        print("An error occured while trying to send email verification");
+        print(e.message);
+      }
+
       // UserData().name = name;
       // UserData().email = email;
       // UserData().phone = phone;
       // UserData().brand = brand;
       // UserData().type = type;
-      return user; // _userFromFireBase(user);
-    } catch (error) {
+      //return user; // _userFromFireBase(user);
+    } on FirebaseAuthException catch (error) {
       print(error.toString());
-      return null;
+      return error.code;
     }
   }
 
@@ -86,9 +96,9 @@ class AuthService {
   Future signOut() async {
     try {
       return await _auth.signOut();
-    } catch (error) {
+    } on FirebaseAuthException catch (error) {
       print(error.toString());
-      return null;
+      return error.code;
     }
   }
 }

@@ -29,9 +29,9 @@ class UserData {
   }
 
   double getpointdiscount() {
-    if (points < 2)
+    if (points < 40)
       return 1;
     else
-      return (points % 2) / 100;
+      return 0.8;
   }
 }
