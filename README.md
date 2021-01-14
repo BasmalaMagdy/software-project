@@ -5,11 +5,18 @@ In the first part of our complete e-commerce app, we show you how you can create
 
 ## Getting Started
 
-It consists of two interface
-
-1. Customer
-2. Seller
-
+1.Download Android studio using that link https://developer.android.com/studio
+2.Install flutter https://flutter.dev/docs/get-started/install
+    follow the configuration steps mentioned carefully 
+3.Clone the repo https://github.com/BasmalaMagdy/software-project.git
+4.Open existing project "flutter_app"
+5.Open the terminal and run the following commands:
+    flutter clean 
+    flutter pub get
+6.Then run an emulator to run the project
+7.Open the terminal and run the command:
+    flutter run
+    
 ## Screens it contains:
 
 => Login
