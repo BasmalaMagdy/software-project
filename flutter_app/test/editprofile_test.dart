@@ -17,18 +17,6 @@ void main() {
       expect(result, kNameNullError);
     });
 
-    test('Test edit profile email valid', () {
-      var result = Validate.emailvalidator('email@gmail.com');
-      expect(result, null);
-    });
-    test('Test edit profile email Invalid', () {
-      var result = Validate.emailvalidator('email');
-      expect(result, kInvalidEmailError);
-    });
-    test('Test edit profile email empty', () {
-      var result = Validate.emailvalidator('');
-      expect(result, kEmailNullError);
-    });
 
     test('Test edit profile phone', () {
       var result = Validate.phonevalidator('01117788459');

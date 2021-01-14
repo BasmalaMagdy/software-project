@@ -6,25 +6,47 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Pages/Seller.dart';
+import 'package:flutter_app/Pages/View.dart';
+import 'package:flutter_app/Pages/about.dart';
+import 'package:flutter_app/Pages/address.dart';
+import 'package:flutter_app/Pages/end.dart';
+import 'package:flutter_app/Pages/productview/product_view.dart';
+import 'package:flutter_app/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_app/screens/splash/splash_screen.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/screens/splash/components/body.dart';
+import 'package:flutter_app/screens/sign_in/sign_in_screen.dart';
+import 'package:flutter_app/Pages/Home.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('Splash screen', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: SplashScreen()));
+    expect(find.text('Continue'), findsOneWidget);
+  });
+  testWidgets('Sign In', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: SignInScreen()));
+    expect(find.text('Sign In'), findsOneWidget);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('About page', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: About()));
+    expect(find.text('About'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Address page', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Address()));
+    expect(find.text('Add a new address'), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Done page', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: Done()));
+    expect(find.text('The payment is done.'), findsOneWidget);
+  });
+
+  testWidgets('SignUpScreen page', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(home: SignUpScreen()));
+    expect(find.text('BUY'), findsOneWidget);
   });
 }
